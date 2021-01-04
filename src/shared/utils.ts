@@ -1,7 +1,8 @@
+import { FibonacciGenerator } from '../features/FibonacciGenerator';
 import { fibonacciNums } from './constants';
-import { FibonacciGenerator } from './FibonacciGenerator';
 import { Coords } from './types';
 
+// TODO: refactor this methods
 export const getAngle = (firstPoint: Coords, secondPoint: Coords) =>{
   const deltaX = secondPoint.x - firstPoint.x
   const deltaY = secondPoint.y - firstPoint.y
@@ -32,12 +33,10 @@ export const getSpiral = (
   maxRadius: number
 ) => {
   // 1 step = 1/4 turn or 90º
-
   const precision = 50; // Lines to draw in each 1/4 turn
   const stepB = 4; // Steps to get to point B
   const angleToPointB = getAngle(firstPoint, secondPoint);
   const distToPointB = getDistance(firstPoint, secondPoint);
-
   const fibonacci = new FibonacciGenerator();
 
   // Find scale so that the last point of the curve is at distance to secondPoint
@@ -48,24 +47,31 @@ export const getSpiral = (
   const angleOffset = angleToPointB - stepB * Math.PI / 2;
   const path = [];
 
-  let i, step , radius, angle, p;
-
   // Start at the center
-  i = step = radius = angle = 0;
+  let i = 0;
+  let step = 0;
+  let radius = 0
+  let angle = 0
+  let point;
+  // let scaledRadius = radius * scale 
 
   // Continue drawing until reaching maximum radius
-  while (radius * scale <= maxRadius){
-      p = {
-          x: scale * radius * Math.cos(angle + angleOffset) + firstPoint.x,
-          y: scale * radius * Math.sin(angle + angleOffset) + firstPoint.y
-      };
+  while (radius * scale <= maxRadius) {
+    const scaledRadius = scale * radius
+    const newX = scaledRadius * Math.cos(angle + angleOffset) + firstPoint.x
+    const newY = scaledRadius * Math.sin(angle + angleOffset) + firstPoint.y
 
-      path.push(p);
+    point = {
+      x: newX,
+      y: newY
+    };
 
-      i++; // Next point
-      step = i / precision; // 1/4 turns at point    
-      radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
-      angle = step * Math.PI / 2; // Radians at point
+    path.push(point);
+
+    i++; // Next point
+    step = i / precision; // 1/4 turns at point    
+    radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
+    angle = step * Math.PI / 2; // Radians at point
   }
 
   return path;

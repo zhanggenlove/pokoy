@@ -9,6 +9,12 @@ function App() {
   const [isStarted, setStartedFlag] = React.useState(false)
   const [currentTimerId, setCurrentTimerId] = React.useState<number | undefined>(undefined)
 
+  React.useEffect(() => {
+    return () => {
+      clearTimeout(currentTimerId);
+    }
+  }, [currentTimerId])
+
   const setTimer = (num: number) => {
     setProgress(num)
     
@@ -20,7 +26,7 @@ function App() {
 
     const timerId = window.setTimeout(() => {     
       setTimer(num + 1)
-    }, 10)
+    }, 100)
     
     setCurrentTimerId(timerId)
   }

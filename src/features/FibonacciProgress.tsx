@@ -1,5 +1,5 @@
 import React from 'react';
-import { drawCircle, drawStroke, getSpiral } from './utils';
+import { drawCircle, drawStroke, getSpiral } from '../shared/utils';
 interface Coords {
   x: number;
   y: number
