@@ -1,69 +1,57 @@
 import React from 'react';
-import './App.css';
-import { FibonacciProgress } from './FibonacciProgress';
+import { FibonacciProgress } from './features/FibonacciProgress';
+import { Header } from './features/Header';
+import { TimerButton } from './features/TimerButton';
 
-function App() {
-  const fibonacciNums = [1, 2, 3, 5, 8, 13, 21]
-  
-  const [progress, setProgress] = React.useState(0)
+const App = () => {
+  const [timestamp, setTimestamp] = React.useState(0)
+  const [timerDiff, setTimerDiff] = React.useState(0)
   const [isStarted, setStartedFlag] = React.useState(false)
   const [currentTimerId, setCurrentTimerId] = React.useState<number | undefined>(undefined)
 
   React.useEffect(() => {
+    if (timestamp !== 0) {
+      const timeDiff = Math.round((( Date.now() / 1000 ) - timestamp ))
+      setTimerDiff(timeDiff)
+    }
+    
     return () => {
       clearTimeout(currentTimerId);
     }
-  }, [currentTimerId])
+  }, [currentTimerId, timestamp])
 
-  const setTimer = (num: number) => {
-    setProgress(num)
-    
-    if (fibonacciNums.includes(num)) {
-      console.log('next!')
-
-      // TODO: add sound notification
-    }
-
-    const timerId = window.setTimeout(() => {     
-      setTimer(num + 1)
+  const tickTimer = React.useCallback(() => {
+    const timerId = window.setTimeout(() => {
+      tickTimer()
     }, 100)
     
     setCurrentTimerId(timerId)
-  }
+  }, [])
   
-  const handleTimerClick = () => {
+  const handleTimerClick = React.useCallback(() => {
+    setTimerDiff(0)
+    
     if (isStarted) {
       setStartedFlag(false)
-      setProgress(0)
-
+      setTimestamp(0)
+      
       window.clearTimeout(currentTimerId)
       console.log('Timer resetted');
       
       return
     }
-
+    
     setStartedFlag(true)
-    setTimer(fibonacciNums[0])
-    return
-  }
 
-  const lastFibNumber = fibonacciNums[fibonacciNums.length - 1]
-
+    setTimestamp(Math.round( Date.now() / 1000 ))
+    tickTimer()
+  }, [currentTimerId, isStarted, tickTimer])
 
   return (
     <main>
-      <h1>Покой — приложение для отдыха</h1>
-      
-      <div>
-        <progress value={progress} max={lastFibNumber}/>
-        <p>
-          <button onClick={handleTimerClick}>{isStarted ? 'Закончить' : 'Начать'}</button>
-        </p>
-      </div>
-
-
-      <FibonacciProgress value={progress} />
-
+      <Header />
+      <TimerButton handleTimerClick={handleTimerClick} isStarted={isStarted}/>
+      <FibonacciProgress value={timerDiff} />
     </main>
   );
 }
