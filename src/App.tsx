@@ -11,7 +11,6 @@ function App() {
 
   const setTimer = (num: number) => {
     setProgress(num)
-    console.log(num)
     
     if (fibonacciNums.includes(num)) {
       console.log('next!')
@@ -21,7 +20,7 @@ function App() {
 
     const timerId = window.setTimeout(() => {     
       setTimer(num + 1)
-    }, 1000)
+    }, 10)
     
     setCurrentTimerId(timerId)
   }
@@ -49,11 +48,13 @@ function App() {
     <main>
       <h1>Покой — приложение для отдыха</h1>
       
-      <p>
+      <div>
         <progress value={progress} max={lastFibNumber}/>
-      </p>
+        <p>
+          <button onClick={handleTimerClick}>{isStarted ? 'Закончить' : 'Начать'}</button>
+        </p>
+      </div>
 
-      <button onClick={handleTimerClick}>{isStarted ? 'Закончить' : 'Начать'}</button>
 
       <FibonacciProgress value={progress} />
 

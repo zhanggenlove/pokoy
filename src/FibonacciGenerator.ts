@@ -1,7 +1,19 @@
 export class FibonacciGenerator {
     sequence: number[];
+    colors: string[];
+
     constructor() {
-        this.sequence = [0, 1, 2, 3, 5, 8, 13, 21, 33];
+        this.sequence = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
+        this.colors = [
+          'white',
+          'gray',
+          'blue',
+          'yellow',
+          'orange',
+          'brown',
+          'purple',
+          'black',
+        ]
     }
 
     /** getting approximate value from fibonacci sequence */
@@ -31,4 +43,10 @@ export class FibonacciGenerator {
 
         return fibFloor + a * (fibCeil - fibFloor) /* WTF */;
     };
+
+    getColor(n: number) {
+        const number = this.getNumber(n)
+
+        return this.colors[number]
+    }
 };
