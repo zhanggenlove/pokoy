@@ -58,8 +58,9 @@ export const getSpiral = (
   // Continue drawing until reaching maximum radius
   while (radius * scale <= maxRadius) {
     const scaledRadius = scale * radius
-    const newX = scaledRadius * Math.cos(angle + angleOffset) + firstPoint.x
-    const newY = scaledRadius * Math.sin(angle + angleOffset) + firstPoint.y
+    const newAngle = angle + angleOffset
+    const newX = scaledRadius * Math.cos(newAngle) + firstPoint.x
+    const newY = scaledRadius * Math.sin(newAngle) + firstPoint.y
 
     point = {
       x: newX,
@@ -97,7 +98,8 @@ export const drawStroke = (
 ) => {
   if (!context) return
 
-  context.lineWidth = 3;
+  context.lineWidth = 8;
+  context.lineCap = 'round';
   context.strokeStyle = strokeColor;
   
   context.beginPath();
@@ -122,7 +124,7 @@ export const drawCircle = (context: CanvasRenderingContext2D) => {
 
   context.beginPath();
   context.arc(300, 300, 300, 0, 2 * Math.PI);
-  context.lineWidth = 2;
+  context.lineWidth = 8;
   context.strokeStyle = '#777';
   context.stroke()
 }

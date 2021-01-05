@@ -36,7 +36,7 @@ export class FibonacciGenerator {
             return this.getDiscrete(n);
         }
 
-        const a = Math.pow(n - floor, 1.15 /* WTF */);
+        const a = Math.pow(n - floor, 1.16 /* WTF */);
 
         const fibFloor = this.getDiscrete(floor);
         const fibCeil = this.getDiscrete(ceil);

@@ -45,5 +45,5 @@ export const FibonacciProgress = ({value}: {value: number}) => {
     drawFibonacciSpiral(firstPoint, secondPoint);
   }, [center.x, center.y, drawFibonacciSpiral, value])
 
-  return <canvas ref={canvas} width="600" height="600"></canvas>
+  return <canvas ref={canvas} width={canvasSize} height={canvasSize}></canvas>
 }
