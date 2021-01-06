@@ -36,31 +36,30 @@ export const getSpiral = (
   const distToPointB = getDistance(firstPoint, secondPoint);
   const fibonacci = new FibonacciGenerator();
 
-  // Find scale so that the last point of the curve is at distance to secondPoint
-  const radiusB = fibonacci.getNumber(stepB);
-  const scale = distToPointB / radiusB;
-
   // Find angle offset so that last point of the curve is at angle to secondPoint
   const angleOffset = angleToPointB - (stepB * Math.PI) / 2;
   const path = [];
 
+  // Find scale so that the last point of the curve is at distance to secondPoint
+  const radiusB = fibonacci.getNumber(stepB);
+  const scale = distToPointB / radiusB;
+
   // Start at the center
   let i = 0;
-  let step = 0;
   let radius = 0;
   let angle = 0;
-  let point;
-  // let scaledRadius = radius * scale
 
+  console.log("🚀 ~ file: utils.ts ~ line 60 ~ radius", radius);
   // Continue drawing until reaching maximum radius
   // FIXME: memory stack on extracting `radius * scale` in variable in cause of while loop scope visibility
   while (radius * scale <= maxRadius) {
+    console.log("🚀 ~ file: utils.ts ~ line 60 ~ radius", radius);
     const scaledRadius = scale * radius;
     const newAngle = angle + angleOffset;
     const newX = scaledRadius * Math.cos(newAngle) + firstPoint.x;
     const newY = scaledRadius * Math.sin(newAngle) + firstPoint.y;
 
-    point = {
+    const point = {
       x: newX,
       y: newY,
     };
@@ -68,7 +67,8 @@ export const getSpiral = (
     path.push(point);
 
     i++; // Next point
-    step = i / precision; // 1/4 turns at point
+    const step = i / precision; // 1/4 turns at point
+
     radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
     angle = (step * Math.PI) / 2; // Radians at point
   }
@@ -92,14 +92,13 @@ export const drawStroke = (
   context: CanvasRenderingContext2D,
   points: Coords[],
   offset: Coords = { x: 0, y: 0 },
-  strokeColor: string = "black"
+  strokeColor: string = "#777"
 ) => {
   if (!context) return;
 
   context.lineWidth = 8;
   context.lineCap = "round";
   context.strokeStyle = strokeColor;
-
   context.beginPath();
 
   for (let i = 0; i < points.length; i++) {
@@ -122,7 +121,6 @@ export const drawCircle = (context: CanvasRenderingContext2D) => {
 
   context.beginPath();
   context.arc(300, 300, 300, 0, 2 * Math.PI);
-  context.lineWidth = 8;
-  context.strokeStyle = "#777";
-  context.stroke();
+  context.fillStyle = "#7777";
+  context.fill();
 };
