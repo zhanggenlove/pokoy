@@ -1,8 +1,52 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, unmountComponentAtNode } from "react-dom";
+import { act, isCompositeComponent } from "react-dom/test-utils";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+const mockData = {
+  Header: "Заголовок",
+  TimerButton: "TimerButton",
+  FibonacciProgress: "Канвас с графикой",
+};
+jest.mock("./features", () => {
+  return {
+    Header: () => <h1>{mockData.Header}</h1>,
+    TimerButton: () => <button>{mockData.TimerButton}</button>,
+    FibonacciProgress: () => <canvas>{mockData.FibonacciProgress}</canvas>,
+  };
+});
+import App from "./App";
+describe("App", () => {
+  let container = null;
+
+  beforeEach(() => {
+    // setup a DOM element as a render target
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    // cleanup on exiting
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+  });
+
+  it("should be defined", () => {
+    act(() => {
+      render(<App />, container);
+    });
+    expect(container.textContent.length).toBeGreaterThan(1);
+  });
+
+  it("should contain components", () => {
+    act(() => {
+      render(<App />, container);
+    });
+    expect(container.querySelector("h1").textContent).toEqual(mockData.Header);
+    expect(container.querySelector("button").textContent).toEqual(
+      mockData.TimerButton
+    );
+    expect(container.querySelector("canvas").textContent).toEqual(
+      mockData.FibonacciProgress
+    );
+  });
 });

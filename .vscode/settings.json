@@ -1,0 +1,5 @@
+{
+  "files.autoSave": "off",
+  "typescript.suggest.autoImports": false,
+  "javascript.suggest.autoImports": false,
+}

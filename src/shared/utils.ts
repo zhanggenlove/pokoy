@@ -1,35 +1,32 @@
-import { FibonacciGenerator } from '../features/FibonacciGenerator';
-import { fibonacciNums } from './constants';
-import { Coords } from './types';
+import { FibonacciGenerator } from "features/Progress/FibonacciGenerator";
+import { fibonacciNums } from "./constants";
+import { Coords } from "./types";
 
 // TODO: refactor this methods
-export const getAngle = (firstPoint: Coords, secondPoint: Coords) =>{
-  const deltaX = secondPoint.x - firstPoint.x
-  const deltaY = secondPoint.y - firstPoint.y
+export const getAngle = (firstPoint: Coords, secondPoint: Coords) => {
+  const deltaX = secondPoint.x - firstPoint.x;
+  const deltaY = secondPoint.y - firstPoint.y;
   const radians = Math.atan2(deltaY, deltaX);
 
   //radians into degrees
   // const angle = radians * (180 / Math.PI);
-  
+
   return radians;
 };
 
-export const getDistance = (
-  firstPoint: Coords, 
-  secondPoint: Coords
-) => {
-  const deltaX = firstPoint.x - secondPoint.x
-  const deltaY = firstPoint.y - secondPoint.y
-  
-  /** pythagoras theorem for distance */
-  const distance = Math.sqrt(deltaX**2 + deltaY**2);
+export const getDistance = (firstPoint: Coords, secondPoint: Coords) => {
+  const deltaX = firstPoint.x - secondPoint.x;
+  const deltaY = firstPoint.y - secondPoint.y;
 
-  return distance
+  /** pythagoras theorem for distance */
+  const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+  return distance;
 };
 
 export const getSpiral = (
-  firstPoint: Coords, 
-  secondPoint: Coords, 
+  firstPoint: Coords,
+  secondPoint: Coords,
   maxRadius: number
 ) => {
   // 1 step = 1/4 turn or 90º
@@ -44,70 +41,71 @@ export const getSpiral = (
   const scale = distToPointB / radiusB;
 
   // Find angle offset so that last point of the curve is at angle to secondPoint
-  const angleOffset = angleToPointB - stepB * Math.PI / 2;
+  const angleOffset = angleToPointB - (stepB * Math.PI) / 2;
   const path = [];
 
   // Start at the center
   let i = 0;
   let step = 0;
-  let radius = 0
-  let angle = 0
+  let radius = 0;
+  let angle = 0;
   let point;
-  // let scaledRadius = radius * scale 
+  // let scaledRadius = radius * scale
 
   // Continue drawing until reaching maximum radius
+  // FIXME: memory stack on extracting `radius * scale` in variable in cause of while loop scope visibility
   while (radius * scale <= maxRadius) {
-    const scaledRadius = scale * radius
-    const newAngle = angle + angleOffset
-    const newX = scaledRadius * Math.cos(newAngle) + firstPoint.x
-    const newY = scaledRadius * Math.sin(newAngle) + firstPoint.y
+    const scaledRadius = scale * radius;
+    const newAngle = angle + angleOffset;
+    const newX = scaledRadius * Math.cos(newAngle) + firstPoint.x;
+    const newY = scaledRadius * Math.sin(newAngle) + firstPoint.y;
 
     point = {
       x: newX,
-      y: newY
+      y: newY,
     };
 
     path.push(point);
 
     i++; // Next point
-    step = i / precision; // 1/4 turns at point    
+    step = i / precision; // 1/4 turns at point
     radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
-    angle = step * Math.PI / 2; // Radians at point
+    angle = (step * Math.PI) / 2; // Radians at point
   }
 
   return path;
-}
+};
 
 export const getColor = (num: number) => {
-  const isFibNum = fibonacciNums.includes(num)
+  const isFibNum = fibonacciNums.includes(num);
 
-  if (!isFibNum) return '#fff'
+  if (!isFibNum) return "#fff";
 
-  const hex = num.toString(16)
-  const hexArr = hex.split('')
-  const newArr = Array(6 - hexArr.length).fill('F')
-  
-  return `#${hexArr.concat(newArr).join('')}`
-}
+  const hex = num.toString(16);
+  const hexArr = hex.split("");
+  const newArr = Array(6 - hexArr.length).fill("F");
+
+  return `#${hexArr.concat(newArr).join("")}`;
+};
 
 export const drawStroke = (
   context: CanvasRenderingContext2D,
   points: Coords[],
   offset: Coords = { x: 0, y: 0 },
-  strokeColor: string = 'black'
+  strokeColor: string = "black"
 ) => {
-  if (!context) return
+  if (!context) return;
 
   context.lineWidth = 8;
-  context.lineCap = 'round';
+  context.lineCap = "round";
   context.strokeStyle = strokeColor;
-  
+
   context.beginPath();
-  
+
   for (let i = 0; i < points.length; i++) {
     const point = points[i];
-    const newPointX = offset.x + point.x
-    const newPointY = offset.y + point.y
+    const newPointX = offset.x + point.x;
+    const newPointY = offset.y + point.y;
 
     if (i === 0) {
       context.moveTo(newPointX, newPointY);
@@ -117,7 +115,7 @@ export const drawStroke = (
   }
 
   context.stroke();
-}
+};
 
 export const drawCircle = (context: CanvasRenderingContext2D) => {
   if (!context) return;
@@ -125,6 +123,6 @@ export const drawCircle = (context: CanvasRenderingContext2D) => {
   context.beginPath();
   context.arc(300, 300, 300, 0, 2 * Math.PI);
   context.lineWidth = 8;
-  context.strokeStyle = '#777';
-  context.stroke()
-}
+  context.strokeStyle = "#777";
+  context.stroke();
+};
