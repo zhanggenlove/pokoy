@@ -1,5 +1,10 @@
 import React from "react";
-import { FibonacciProgress, Header, TimerButton } from "./features";
+import {
+  FibonacciProgress,
+  Header,
+  TimerButton,
+  DigitCountdown,
+} from "./features";
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = React.useState(0);
@@ -34,6 +39,7 @@ const App: React.FC = () => {
     if (isStarted) {
       setStartedFlag(false);
       setTimestamp(0);
+      setTimerDiff(0);
 
       window.clearTimeout(currentTimerId);
       console.log("Timer resetted");
@@ -54,6 +60,7 @@ const App: React.FC = () => {
         handleTimerClick={handleTimerClick}
         isTimerStarted={isStarted}
       />
+      <DigitCountdown seconds={timerDiff} />
       <FibonacciProgress value={timerDiff} />
     </main>
   );

@@ -11,13 +11,14 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
 
   const canvasSize = 600;
 
-  const center = React.useMemo(
-    () => ({
-      x: canvasSize / 2,
-      y: canvasSize / 2,
-    }),
-    [canvasSize]
-  );
+  const center = React.useMemo(() => {
+    const halfSize = canvasSize / 2;
+
+    return {
+      x: halfSize,
+      y: halfSize,
+    };
+  }, [canvasSize]);
 
   const drawFibonacciSpiral = React.useCallback(
     (firstPoint: Coords, secondPoint: Coords) => {
@@ -29,9 +30,19 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
       if (ctx) {
         const radius = progress < 300 ? progress : 300;
         const spiral = getSpiral(firstPoint, secondPoint, radius);
+        const ancorSpiral = getSpiral(firstPoint, secondPoint, 300);
 
         drawCircle(ctx);
-        drawStroke(ctx, spiral, center, "#fff");
+
+        ctx.lineWidth = 2;
+        ctx.lineCap = "square";
+        ctx.strokeStyle = "#7777";
+        drawStroke(ctx, ancorSpiral, center);
+
+        ctx.lineWidth = 8;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#eeee";
+        drawStroke(ctx, spiral, center);
       }
     },
     [center, canvasSize, progress]

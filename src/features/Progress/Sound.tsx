@@ -1,7 +1,7 @@
 import useSound from "use-sound";
 import React from "react";
 import gongSfx from "./gong.mp3";
-import { fibonacciNums } from "shared/constants";
+import { fibonacciNumsForTimer } from "shared/constants";
 
 interface Props {
   progress: number;
@@ -11,9 +11,10 @@ export const Sound: React.FC<Props> = ({ progress }) => {
   const [playGong] = useSound(gongSfx);
 
   React.useEffect(() => {
-    console.log(progress);
+    const minutes = progress / 60;
+    const isFibNum = fibonacciNumsForTimer.includes(minutes);
 
-    if (fibonacciNums.includes(progress)) {
+    if (isFibNum) {
       playGong();
     }
   }, [progress, playGong]);

@@ -33,7 +33,7 @@ export class FibonacciGenerator {
     const floor = Math.floor(n);
     const ceil = Math.ceil(n);
 
-    if (Math.floor(n) === n) {
+    if (floor === n) {
       return this.getDiscrete(n);
     }
 

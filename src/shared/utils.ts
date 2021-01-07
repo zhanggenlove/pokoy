@@ -49,11 +49,9 @@ export const getSpiral = (
   let radius = 0;
   let angle = 0;
 
-  console.log("🚀 ~ file: utils.ts ~ line 60 ~ radius", radius);
   // Continue drawing until reaching maximum radius
   // FIXME: memory stack on extracting `radius * scale` in variable in cause of while loop scope visibility
   while (radius * scale <= maxRadius) {
-    console.log("🚀 ~ file: utils.ts ~ line 60 ~ radius", radius);
     const scaledRadius = scale * radius;
     const newAngle = angle + angleOffset;
     const newX = scaledRadius * Math.cos(newAngle) + firstPoint.x;
@@ -91,14 +89,10 @@ export const getColor = (num: number) => {
 export const drawStroke = (
   context: CanvasRenderingContext2D,
   points: Coords[],
-  offset: Coords = { x: 0, y: 0 },
-  strokeColor: string = "#777"
+  offset: Coords = { x: 0, y: 0 }
 ) => {
   if (!context) return;
 
-  context.lineWidth = 8;
-  context.lineCap = "round";
-  context.strokeStyle = strokeColor;
   context.beginPath();
 
   for (let i = 0; i < points.length; i++) {
@@ -123,4 +117,13 @@ export const drawCircle = (context: CanvasRenderingContext2D) => {
   context.arc(300, 300, 300, 0, 2 * Math.PI);
   context.fillStyle = "#7777";
   context.fill();
+};
+
+export const getFibonacciDiscrete = (num: number) => {
+  return fibonacciNums.reduce((acc, fibNum) => {
+    const curDiff = Math.abs(fibNum - num);
+    const prevDiff = Math.abs(acc - num);
+
+    return curDiff < prevDiff ? fibNum : acc;
+  }, Infinity);
 };
