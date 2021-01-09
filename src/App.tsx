@@ -34,7 +34,6 @@ const App: React.FC = () => {
     if (isStarted) {
       setStartedFlag(false);
       setTimestamp(0);
-      setTimerDiff(0);
 
       window.clearTimeout(currentTimerId);
       console.log("Timer resetted");

@@ -28,75 +28,53 @@ describe("Countdown", () => {
   });
 
   describe("should display properly remain time", () => {
-    it("should display properly remain minutes", () => {
+    it("should display remain time for less than 1 minute, but more than 0", () => {
       act(() => {
         render(<Countdown seconds={1} />, container);
       });
-
-      const value = container.textContent;
-      const minutes = value.split("").slice(0, 2).join("");
-      expect(minutes).toBe("00");
+      expect(container.textContent).toBe("00:59");
     });
 
-    it("should display properly remain seconds", () => {
+    it("should display remain time for less than 2 minute, but more than 1", () => {
       act(() => {
-        render(<Countdown seconds={1} />, container);
+        render(<Countdown seconds={61} />, container);
       });
-
-      const value = container.textContent;
-      const seconds = value.split("").slice(3).join("");
-      expect(seconds).toBe("59");
+      expect(container.textContent).toBe("00:59");
     });
 
-    describe("should display properly remain time", () => {
-      it("should display remain time for less than 1 minute, but more than 0", () => {
-        act(() => {
-          render(<Countdown seconds={1} />, container);
-        });
-        expect(container.textContent).toBe("00:59");
+    it("should display remain time for less than 3 minutes, but more than 2", () => {
+      act(() => {
+        render(<Countdown seconds={121} />, container);
       });
+      expect(container.textContent).toBe("00:59");
+    });
 
-      it("should display remain time for less than 2 minute, but more than 1", () => {
-        act(() => {
-          render(<Countdown seconds={61} />, container);
-        });
-        expect(container.textContent).toBe("00:59");
+    it("should display remain time for less than 5 minutes, but more than 3", () => {
+      act(() => {
+        render(<Countdown seconds={181} />, container);
       });
+      expect(container.textContent).toBe("01:59");
+    });
 
-      it("should display remain time for less than 3 minutes, but more than 2", () => {
-        act(() => {
-          render(<Countdown seconds={121} />, container);
-        });
-        expect(container.textContent).toBe("01:59");
+    it("should display remain time for less than 8 minutes, but more than 5", () => {
+      act(() => {
+        render(<Countdown seconds={301} />, container);
       });
+      expect(container.textContent).toBe("02:59");
+    });
 
-      it("should display remain time for less than 5 minutes, but more than 3", () => {
-        act(() => {
-          render(<Countdown seconds={181} />, container);
-        });
-        expect(container.textContent).toBe("02:59");
+    it("should display remain time for less than 13 minutes, but more than 8", () => {
+      act(() => {
+        render(<Countdown seconds={481} />, container);
       });
+      expect(container.textContent).toBe("04:59");
+    });
 
-      it("should display remain time for less than 8 minutes, but more than 5", () => {
-        act(() => {
-          render(<Countdown seconds={301} />, container);
-        });
-        expect(container.textContent).toBe("04:59");
+    it("should display remain time for less than 21 minutes, but more than 13", () => {
+      act(() => {
+        render(<Countdown seconds={781} />, container);
       });
-
-      it("should display remain time for less than 13 minutes, but more than 8", () => {
-        act(() => {
-          render(<Countdown seconds={481} />, container);
-        });
-        expect(container.textContent).toBe("07:59");
-      });
-
-      it("should display remain time for less than 21 minutes, but more than 13", () => {
-        act(() => {
-          render(<Countdown seconds={481} />, container);
-        });
-        expect(container.textContent).toBe("12:59");
-      });
+      expect(container.textContent).toBe("07:59");
     });
   });
 });

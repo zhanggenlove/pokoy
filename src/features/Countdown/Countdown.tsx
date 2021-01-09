@@ -1,45 +1,36 @@
 import React from "react";
 import { fibonacciNums } from "shared/constants";
-import { getFibonacciDiscrete } from "shared/utils";
+import { getFibonacciDiscrete, remainTimeToDigitClock } from "shared/utils";
 
 interface Props {
   seconds: number;
 }
 
+const SECS_IN_MIN = 60;
+
 export const Countdown: React.FC<Props> = ({ seconds }) => {
   const [secondsRemain, setSecondsRemain] = React.useState(0);
   const [minutesRemain, setMinutesRemain] = React.useState(0);
+  const [timeRemain, setTimeRemain] = React.useState("00:00");
 
-  const setTimeRemainByFibonacci = React.useCallback(
-    (stage: number) => {
-      const secondsRemain =
-        minutesRemain * 60 > seconds
-          ? minutesRemain * 60 - seconds
-          : (minutesRemain + 1) * 60 -
-            ((minutesRemain + 1) * 60 - seconds + minutesRemain * 60);
-      console.log("🚀 ~ secondsRemain", secondsRemain);
+  const timerProgressToCountdown = React.useCallback((seconds: number) => {
+    const minutes = Math.floor(seconds / SECS_IN_MIN);
+    const discreteStage = getFibonacciDiscrete(minutes);
 
-      setSecondsRemain(secondsRemain);
-    },
-    [minutesRemain, seconds]
-  );
+    for (const num of fibonacciNums) {
+      if (discreteStage === num) {
+        const nextStageIndex = fibonacciNums.indexOf(discreteStage) + 1;
+        const nextStage = fibonacciNums[nextStageIndex];
+        const secondsToNextStage = nextStage * SECS_IN_MIN - seconds;
 
-  const timerProgressToCountdown = React.useCallback(
-    (seconds: number) => {
-      const minutes = Math.floor(seconds / 60);
-      setMinutesRemain(minutes);
-
-      const discreteStage = getFibonacciDiscrete(minutes);
-      // console.log("🚀 ~ discrete", seconds, minutes, discreteStage)
-
-      for (const num of fibonacciNums) {
-        if (discreteStage === num) {
-          setTimeRemainByFibonacci(num);
-        }
+        const minutesRemain = Math.floor(secondsToNextStage / SECS_IN_MIN);
+        const secondsRemain =
+          (nextStage - minutesRemain) * SECS_IN_MIN - seconds;
+        setSecondsRemain(secondsRemain);
+        setMinutesRemain(minutesRemain);
       }
-    },
-    [setTimeRemainByFibonacci]
-  );
+    }
+  }, []);
 
   React.useEffect(() => {
     if (seconds) {
@@ -47,17 +38,14 @@ export const Countdown: React.FC<Props> = ({ seconds }) => {
     }
   }, [seconds, timerProgressToCountdown]);
 
-  const remainSecondsToDigitClock = React.useCallback(() => {
-    // console.log("🚀 ~ remainSecondsToDigitClock ~ minutesRemain", minutesRemain)
-    const formattedMinsRemain =
-      minutesRemain < 10 ? `0${minutesRemain}` : `${minutesRemain}`;
+  React.useEffect(() => {
+    if (seconds === 0) {
+      setSecondsRemain(0);
+      setMinutesRemain(0);
+    }
 
-    // const remainder = secondsRemain - minutesRemain * 60;
-    const formattedRemainder =
-      secondsRemain < 10 ? `0${secondsRemain}` : `${secondsRemain}`;
+    setTimeRemain(remainTimeToDigitClock(secondsRemain, minutesRemain));
+  }, [minutesRemain, seconds, secondsRemain]);
 
-    return `${formattedMinsRemain}:${formattedRemainder}`;
-  }, [minutesRemain, secondsRemain]);
-
-  return <div>{remainSecondsToDigitClock()}</div>;
+  return <div>{timeRemain}</div>;
 };
