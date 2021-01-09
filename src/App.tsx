@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  FibonacciProgress,
-  Header,
-  TimerButton,
-  DigitCountdown,
-} from "./features";
+import { FibonacciProgress, Header, TimerButton, Countdown } from "./features";
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = React.useState(0);
@@ -60,7 +55,7 @@ const App: React.FC = () => {
         handleTimerClick={handleTimerClick}
         isTimerStarted={isStarted}
       />
-      <DigitCountdown seconds={timerDiff} />
+      <Countdown seconds={timerDiff} />
       <FibonacciProgress value={timerDiff} />
     </main>
   );

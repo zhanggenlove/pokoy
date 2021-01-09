@@ -24,54 +24,73 @@ export const getDistance = (firstPoint: Coords, secondPoint: Coords) => {
   return distance;
 };
 
+const fibonacci = new FibonacciGenerator();
+
 export const getSpiral = (
   firstPoint: Coords,
   secondPoint: Coords,
   maxRadius: number
-) => {
+): Coords[] => {
   // 1 step = 1/4 turn or 90º
-  const precision = 50; // Lines to draw in each 1/4 turn
-  const stepB = 4; // Steps to get to point B
-  const angleToPointB = getAngle(firstPoint, secondPoint);
-  const distToPointB = getDistance(firstPoint, secondPoint);
-  const fibonacci = new FibonacciGenerator();
+  const stepsToSecondPoint = 4; // Steps to get to second point
 
+  const angleToSecondPoint = getAngle(firstPoint, secondPoint);
   // Find angle offset so that last point of the curve is at angle to secondPoint
-  const angleOffset = angleToPointB - (stepB * Math.PI) / 2;
-  const path = [];
+  const angleOffset = angleToSecondPoint - (stepsToSecondPoint * Math.PI) / 2;
+  const distanceToSecondPoint = getDistance(firstPoint, secondPoint);
+  const scale = getScale(distanceToSecondPoint, stepsToSecondPoint);
 
+  return getPath(scale, maxRadius, angleOffset, firstPoint, 0, 0, 0, []);
+};
+
+const getScale = (distance: number, stepsToNext: number) => {
   // Find scale so that the last point of the curve is at distance to secondPoint
-  const radiusB = fibonacci.getNumber(stepB);
-  const scale = distToPointB / radiusB;
+  const radiusToSecondPoint = fibonacci.getNumber(stepsToNext);
 
-  // Start at the center
-  let i = 0;
-  let radius = 0;
-  let angle = 0;
+  return distance / radiusToSecondPoint;
+};
 
-  // Continue drawing until reaching maximum radius
-  // FIXME: memory stack on extracting `radius * scale` in variable in cause of while loop scope visibility
-  while (radius * scale <= maxRadius) {
-    const scaledRadius = scale * radius;
-    const newAngle = angle + angleOffset;
-    const newX = scaledRadius * Math.cos(newAngle) + firstPoint.x;
-    const newY = scaledRadius * Math.sin(newAngle) + firstPoint.y;
+const getPath = (
+  scale: number,
+  maxRadius: number,
+  angleOffset: number,
+  firstPoint: Coords,
+  radius: number,
+  angle: number,
+  iter: number,
+  path: Coords[]
+): Coords[] => {
+  const scaledRadius = scale * radius;
 
-    const point = {
-      x: newX,
-      y: newY,
-    };
-
-    path.push(point);
-
-    i++; // Next point
-    const step = i / precision; // 1/4 turns at point
-
-    radius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
-    angle = (step * Math.PI) / 2; // Radians at point
+  if (scaledRadius > maxRadius) {
+    return path;
   }
 
-  return path;
+  const precision = 40; // Lines to draw in each 1/4 turn
+  const nextAngle = angle + angleOffset;
+
+  const newX = scaledRadius * Math.cos(nextAngle) + firstPoint.x;
+  const newY = scaledRadius * Math.sin(nextAngle) + firstPoint.y;
+  const newPoint = {
+    x: newX,
+    y: newY,
+  };
+  const newPath = [...path, newPoint];
+  const newIter = iter + 1; // Next point
+  const step = newIter / precision; // 1/4 turns at point
+  const newRadius = fibonacci.getNumber(step); // Radius of Fibonacci spiral
+  const newAngle = (step * Math.PI) / 2; // Radians at point
+
+  return getPath(
+    scale,
+    maxRadius,
+    angleOffset,
+    firstPoint,
+    newRadius,
+    newAngle,
+    newIter,
+    newPath
+  );
 };
 
 export const getColor = (num: number) => {
@@ -110,12 +129,17 @@ export const drawStroke = (
   context.stroke();
 };
 
-export const drawCircle = (context: CanvasRenderingContext2D) => {
+export const drawCircle = (
+  context: CanvasRenderingContext2D,
+  radius: number,
+  startPoint: Coords,
+  color: string
+) => {
   if (!context) return;
 
   context.beginPath();
-  context.arc(300, 300, 300, 0, 2 * Math.PI);
-  context.fillStyle = "#7777";
+  context.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI);
+  context.fillStyle = color;
   context.fill();
 };
 
@@ -123,7 +147,8 @@ export const getFibonacciDiscrete = (num: number) => {
   return fibonacciNums.reduce((acc, fibNum) => {
     const curDiff = Math.abs(fibNum - num);
     const prevDiff = Math.abs(acc - num);
+    const isCloserToDiscrete = curDiff < prevDiff;
 
-    return curDiff < prevDiff ? fibNum : acc;
+    return isCloserToDiscrete ? fibNum : acc;
   }, Infinity);
 };
