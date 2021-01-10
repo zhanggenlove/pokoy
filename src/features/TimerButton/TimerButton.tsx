@@ -13,7 +13,9 @@ export const TimerButton: React.FC<Props> = ({
 
   return (
     <p>
-      <button onClick={handleTimerClick}>{buttonText}</button>
+      <button type="button" onClick={handleTimerClick}>
+        {buttonText}
+      </button>
     </p>
   );
 };
