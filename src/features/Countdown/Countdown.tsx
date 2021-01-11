@@ -1,6 +1,7 @@
 import React from "react";
 import { fibonacciNums } from "shared/constants";
 import { getFibonacciDiscrete, remainTimeToDigitClock } from "shared/utils";
+import styles from "./Countdown.module.css";
 
 interface Props {
   seconds: number;
@@ -47,5 +48,10 @@ export const Countdown: React.FC<Props> = ({ seconds }) => {
     setTimeRemain(remainTimeToDigitClock(secondsRemain, minutesRemain));
   }, [minutesRemain, seconds, secondsRemain]);
 
-  return <div>{timeRemain}</div>;
+  return (
+    <div>
+      До следующего этапа:{" "}
+      <span className={styles.countdown}>{timeRemain}</span>
+    </div>
+  );
 };
