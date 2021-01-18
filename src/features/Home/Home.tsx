@@ -5,9 +5,10 @@ import {
   TimerButton,
   Countdown,
   Noise,
-} from "./features";
+} from "features";
+import styles from "./Home.module.css";
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   const [timestamp, setTimestamp] = React.useState(0);
   const [timerDiff, setTimerDiff] = React.useState(0);
   const [isStarted, setStartedFlag] = React.useState(false);
@@ -54,17 +55,17 @@ const App: React.FC = () => {
   }, [currentTimerId, isStarted, tickTimer]);
 
   return (
-    <main>
+    <main className={styles["app-wrapper"]}>
       <Header />
       <TimerButton
         handleTimerClick={handleTimerClick}
         isTimerStarted={isStarted}
       />
-      <Countdown seconds={timerDiff} />
       <FibonacciProgress value={timerDiff} />
       <Noise isTimerStarted={isStarted} />
+      <Countdown seconds={timerDiff} />
     </main>
   );
 };
 
-export default App;
+export default Home;

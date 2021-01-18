@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import Home from "./features/Home/Home";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import "./global.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Home />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -13,8 +13,11 @@ jest.mock("./features", () => {
     FibonacciProgress: () => <canvas>{mockData.FibonacciProgress}</canvas>,
   };
 });
-import App from "./App";
-describe("App", () => {
+
+/* eslint-disable-next-line */
+import Home from "./Home";
+
+describe("Home", () => {
   let container = null;
 
   beforeEach(() => {
@@ -32,14 +35,14 @@ describe("App", () => {
 
   it("should be defined", () => {
     act(() => {
-      render(<App />, container);
+      render(<Home />, container);
     });
     expect(container.textContent.length).toBeGreaterThan(1);
   });
 
   it("should contain components", () => {
     act(() => {
-      render(<App />, container);
+      render(<Home />, container);
     });
     expect(container.querySelector("h1").textContent).toEqual(mockData.Header);
     expect(container.querySelector("button").textContent).toEqual(

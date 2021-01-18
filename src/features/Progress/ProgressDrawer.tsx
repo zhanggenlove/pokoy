@@ -25,6 +25,18 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     };
   }, [halfSize]);
 
+  const drawStageCircles = React.useCallback(
+    (ctx: CanvasRenderingContext2D, progress: number) => {
+      fibonacciNumsForTimer.forEach((n, i) => {
+        const second = fibonacciMinsToSeconds[i];
+        const color = progress >= second ? fibonacciColors[i] : "#7772";
+
+        drawCircle(ctx, second, center, color);
+      });
+    },
+    [center]
+  );
+
   const drawFibonacciProgression = React.useCallback(
     (firstPoint: Coords, secondPoint: Coords) => {
       const ctx = canvasRef?.current?.getContext("2d");
@@ -34,19 +46,13 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
       }
 
       ctx.clearRect(0, 0, canvasSize, canvasSize);
+      ctx.globalAlpha = 0.66;
 
       const radius = progress < canvasSize ? progress : canvasSize;
       const ancorSpiral = getSpiral(firstPoint, secondPoint, halfSize);
       const spiral = getSpiral(firstPoint, secondPoint, radius);
 
-      ctx.globalAlpha = 0.66;
-
-      fibonacciNumsForTimer.forEach((n, i) => {
-        const second = fibonacciMinsToSeconds[i];
-        const color = progress >= second ? fibonacciColors[i] : "#7772";
-
-        drawCircle(ctx, second, center, color);
-      });
+      drawStageCircles(ctx, progress);
 
       ctx.lineWidth = 8;
       ctx.lineCap = "square";
@@ -58,7 +64,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
       ctx.strokeStyle = "#fff";
       drawStroke(ctx, spiral, center);
     },
-    [center, halfSize, progress]
+    [center, drawStageCircles, halfSize, progress]
   );
 
   React.useEffect(() => {
