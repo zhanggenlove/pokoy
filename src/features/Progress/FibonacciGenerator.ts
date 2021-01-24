@@ -1,3 +1,4 @@
+// TODO: refactor this class and transform to functions
 export class FibonacciGenerator {
   sequence: number[];
   colors: string[];
