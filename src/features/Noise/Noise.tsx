@@ -5,16 +5,18 @@ interface Props {
 }
 
 export const Noise: React.FC<Props> = ({ isTimerStarted }) => {
+  const [gain, setGain] = React.useState<any>(null);
   const audioCtx = React.useMemo(() => {
-    const { AudioContext } = window;
+    // @ts-expect-error in case of Safari audio context support
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
     return new AudioContext();
   }, []);
 
   const generateBrownNoise = React.useCallback((audioCtx) => {
     const bufferSize = 4096;
-    const processor = audioCtx.createScriptProcessor(bufferSize, 1, 1);
+    const processorNode = audioCtx.createScriptProcessor(bufferSize, 1, 1);
 
-    processor.onaudioprocess = (e: any) => {
+    processorNode.onaudioprocess = (e: any) => {
       const output = e.outputBuffer.getChannelData(0);
       let lastOut = 0.0;
 
@@ -27,21 +29,34 @@ export const Noise: React.FC<Props> = ({ isTimerStarted }) => {
       }
     };
 
-    return processor;
+    return processorNode;
   }, []);
 
   React.useEffect(() => {
+    const gainNode = audioCtx.createGain();
+    gainNode.connect(audioCtx.destination);
+    gainNode.gain.value = 0;
+    setGain(gainNode.gain);
+
     const brownNoise = generateBrownNoise(audioCtx);
-    brownNoise.connect(audioCtx.destination);
+    brownNoise.connect(gainNode);
   }, [audioCtx, generateBrownNoise]);
+
+  const turnOnNoise = React.useCallback(() => {
+    audioCtx.resume();
+  }, [audioCtx]);
+
+  const turnOffNoise = React.useCallback(() => {
+    audioCtx.suspend();
+  }, [audioCtx]);
 
   React.useEffect(() => {
     if (isTimerStarted) {
-      audioCtx.resume();
+      turnOnNoise();
     } else {
-      audioCtx.suspend();
+      turnOffNoise();
     }
-  }, [audioCtx, isTimerStarted]);
+  }, [isTimerStarted, turnOffNoise, turnOnNoise]);
 
   return null;
 };
