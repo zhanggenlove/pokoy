@@ -32,6 +32,16 @@ export const Noise: React.FC<Props> = ({ isTimerStarted }) => {
     return processorNode;
   }, []);
 
+  const handleVolumeChange = React.useCallback(
+    (e) => {
+      console.log("🚀 ~ handleVolumeChange ~ e", e);
+      const newGain = Number(e.target.value);
+
+      gain.value = newGain;
+    },
+    [gain]
+  );
+
   React.useEffect(() => {
     const gainNode = audioCtx.createGain();
     gainNode.connect(audioCtx.destination);
@@ -58,5 +68,18 @@ export const Noise: React.FC<Props> = ({ isTimerStarted }) => {
     }
   }, [isTimerStarted, turnOffNoise, turnOnNoise]);
 
-  return null;
+  return (
+    <div>
+      <label>
+        Громкость
+        <input
+          onChange={handleVolumeChange}
+          type="range"
+          name="volume"
+          min="0"
+          max="10"
+        />
+      </label>
+    </div>
+  );
 };
