@@ -85,7 +85,7 @@ export const Home: React.FC = () => {
     <main className={styles["app-wrapper"]}>
       <Header />
       {/* <Stats sessionsData={sessionsData} /> */}
-      <Noise isTimerStarted={isStarted} />
+      {/* <Noise isTimerStarted={isStarted}/> */}
       <TimerButton
         handleTimerClick={handleTimerClick}
         isTimerStarted={isStarted}
