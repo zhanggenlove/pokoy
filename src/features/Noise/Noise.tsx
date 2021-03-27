@@ -49,7 +49,7 @@ export const Noise: React.FC<Props> = ({ isTimerStarted }) => {
   React.useEffect(() => {
     const gainNode = audioCtx.createGain();
     gainNode.connect(audioCtx.destination);
-    gainNode.gain.value = 3; // dafault volume value
+    gainNode.gain.value = 0; // dafault volume value
     setGain(gainNode.gain);
 
     const brownNoise = generateBrownNoise(audioCtx);
@@ -74,7 +74,7 @@ export const Noise: React.FC<Props> = ({ isTimerStarted }) => {
 
   return (
     <label className={styles["volume-control"]}>
-      Громкость
+      Brown noise volume
       <input
         onChange={handleVolumeChange}
         value={gain?.value || 0}
