@@ -9,7 +9,7 @@ interface Props {
 
 export const Sound: React.FC<Props> = ({ progress }) => {
   const [playGong] = useSound(gongSfx, {
-    volume: 0.001 /* comfort volume value */,
+    volume: 0.01 /* comfort volume value */,
   });
 
   // TODO: remake in custom hook instead of component
