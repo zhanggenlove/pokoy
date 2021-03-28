@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  FibonacciProgress,
-  Header,
-  TimerButton,
-  Countdown,
-  // Noise,
-  // Stats,
-} from "features";
+import { FibonacciProgress, TimerButton, Countdown } from "features";
 import styles from "./Home.module.css";
-// import { writeSessionToStore } from "./writeSessionToStore"
 
 // TODO: refactor this component
 export const Home: React.FC = () => {
