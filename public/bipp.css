@@ -76,7 +76,7 @@ textarea {
 /* base: dark theme */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--c-background: rgb(55, 53, 47);
+		--c-background: rgb(43, 42, 50); /* firefox dark theme */
 		--c-foreground: rgb(249, 248, 246);
 		--link-bg: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(249, 248, 246, .5)'/%3E%3C/svg%3E");
 		--link-bg-focus: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(255, 78, 35 , .5)'/%3E%3C/svg%3E");
