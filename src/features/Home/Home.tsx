@@ -55,7 +55,6 @@ export const Home: React.FC = () => {
 
   return (
     <main className={styles["app-wrapper"]}>
-      {/* <Header /> */}
       <p>
         <TimerButton
           handleTimerClick={handleTimerClick}
@@ -68,8 +67,6 @@ export const Home: React.FC = () => {
       <div className={styles["progress-spiral-wrapper"]}>
         <FibonacciProgress value={timerDiff} />
       </div>
-      {/* <Stats sessionsData={sessionsData} /> */}
-      {/* <Noise isTimerStarted={isStarted}/> */}
     </main>
   );
 };

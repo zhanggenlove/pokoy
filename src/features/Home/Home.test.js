@@ -2,13 +2,13 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act, isCompositeComponent } from "react-dom/test-utils";
 
 const mockData = {
-  Header: "Заголовок",
+  Countdown: "00:00",
   TimerButton: "TimerButton",
   FibonacciProgress: "Канвас с графикой",
 };
-jest.mock("./features", () => {
+jest.mock("../../features", () => {
   return {
-    Header: () => <h1>{mockData.Header}</h1>,
+    Countdown: () => <h1>{mockData.Countdown}</h1>,
     TimerButton: () => <button>{mockData.TimerButton}</button>,
     FibonacciProgress: () => <canvas>{mockData.FibonacciProgress}</canvas>,
   };
