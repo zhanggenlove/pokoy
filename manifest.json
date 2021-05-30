@@ -1,6 +1,7 @@
 {
+  "lang": "en",
   "short_name": "Pokoy",
-  "name": "Pokoy app for the habit of relaxation",
+  "name": "Pokoy — the meditation game",
   "icons": [
     {
       "src": "favicon.ico",
