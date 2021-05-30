@@ -1,5 +1,5 @@
 import React from "react";
-import { FibonacciProgress, TimerButton, Countdown } from "features";
+import { FibonacciProgress, TimerButton, Countdown, Minutes } from "features";
 import styles from "./Home.module.css";
 
 // TODO: refactor this component
@@ -66,6 +66,9 @@ export const Home: React.FC = () => {
           <FibonacciProgress value={timerDiff} />
         </TimerButton>
       </div>
+      <p>
+        <Minutes seconds={timerDiff} />
+      </p>
     </main>
   );
 };
