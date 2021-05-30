@@ -48,14 +48,14 @@ textarea {
 
 /* base */
 :root {
-	--c-brand: rgb(237, 6, 12);
-	--c-brand-focus: rgba(237, 6, 12, .3);
-	--c-marker: hsl(48, 16%, 44%);
+	--c-brand: teal;
+	--c-brand-focus: mediumturquoise;
+	--c-marker: wheat;
 
-	--c-red: #ed060c;
-	--c-green: #075f23;
-	--c-yellow: #f99a08;
-	--c-blue: #07165b;
+	--c-red: tomato;
+	--c-green: seagreen;
+	--c-yellow: khaki;
+	--c-blue: cornflowerblue;
 
 	--link-bg: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(0, 0, 0, .3)'/%3E%3C/svg%3E");
 
@@ -63,7 +63,7 @@ textarea {
 
 	/* text, body background */
 	--c-background: rgb(242, 241, 237);
-	--c-foreground: rgb(55, 53, 47);
+	--c-foreground: darkslategray;
 
 	/* button text, text when background is not --c-background */
 	--c-foreground-contrast: rgb(255, 255, 255);
