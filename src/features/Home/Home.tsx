@@ -56,16 +56,15 @@ export const Home: React.FC = () => {
   return (
     <main className={styles["app-wrapper"]}>
       <p>
+        <Countdown seconds={timerDiff} />
+      </p>
+      <div className={styles["progress-spiral-wrapper"]}>
         <TimerButton
           handleTimerClick={handleTimerClick}
           isTimerStarted={isStarted}
-        />
-        <p>
-          <Countdown seconds={timerDiff} />
-        </p>
-      </p>
-      <div className={styles["progress-spiral-wrapper"]}>
-        <FibonacciProgress value={timerDiff} />
+        >
+          <FibonacciProgress value={timerDiff} />
+        </TimerButton>
       </div>
     </main>
   );

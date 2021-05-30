@@ -9,8 +9,8 @@ type Props = {
 export const TimerButton: React.FC<Props> = ({
   isTimerStarted = false,
   handleTimerClick,
+  children,
 }) => {
-  const buttonText = isTimerStarted ? "End" : "Start";
   const buttonClassNames = `${styles["timer-button"]} ${
     isTimerStarted ? styles["timer-button-started"] : null
   }`;
@@ -21,7 +21,7 @@ export const TimerButton: React.FC<Props> = ({
       type="button"
       onClick={handleTimerClick}
     >
-      {buttonText}
+      {children}
     </button>
   );
 };

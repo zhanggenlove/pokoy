@@ -1,8 +1,21 @@
 .timer-button.timer-button {
-  background-color: teal;
-  width: 128px;
+  color: teal;
+  border-radius: 50%;
+  transition: box-shadow ease-out 0.3s, transform ease-out 0.1s;
+  background-color: transparent;
+  box-shadow: 0px 0px 4px 0px currentcolor inset;
+  padding: 0px;
+  display: block;
+}
+
+.timer-button:hover {
+  box-shadow: 0px 0px 0px 4px currentcolor inset;
+}
+
+.timer-button:active {
+  transform: scale(0.99);
 }
 
 .timer-button-started.timer-button-started {
-  background-color: tomato;
+  color: tomato;
 }

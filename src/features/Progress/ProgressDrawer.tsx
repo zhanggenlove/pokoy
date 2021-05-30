@@ -47,7 +47,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
       }
 
       ctx.clearRect(0, 0, canvasSize, canvasSize);
-      ctx.globalAlpha = 0.66;
+      ctx.globalAlpha = 0.33;
 
       const radius = progress < canvasSize ? progress : canvasSize;
       const ancorSpiral = getSpiral(firstPoint, secondPoint, halfSize);
