@@ -55,12 +55,12 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
 
       drawStageCircles(ctx, progress);
 
-      ctx.lineWidth = 8;
+      ctx.lineWidth = 24;
       ctx.lineCap = "square";
       ctx.strokeStyle = "#777";
       drawStroke(ctx, ancorSpiral, center);
 
-      ctx.lineWidth = 16;
+      ctx.lineWidth = 32;
       ctx.lineCap = "round";
       ctx.strokeStyle = "#fff";
       drawStroke(ctx, spiral, center);
