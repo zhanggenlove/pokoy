@@ -16,17 +16,21 @@ export const Countdown: React.FC<Props> = ({ seconds }) => {
 
   const timerProgressToCountdown = React.useCallback((seconds: number) => {
     const minutes = Math.floor(seconds / SECS_IN_MIN);
-    const discreteStage = getFibonacciDiscrete(minutes);
+    const closestDiscreteStage = getFibonacciDiscrete(minutes);
 
     for (const num of fibonacciNums) {
-      if (discreteStage === num) {
-        const nextStageIndex = fibonacciNums.indexOf(discreteStage) + 1;
-        const nextStage = fibonacciNums[nextStageIndex];
+      if (closestDiscreteStage === num) {
+        const nextStageIndex = fibonacciNums.indexOf(closestDiscreteStage) + 1;
+        const nextStage =
+          minutes < closestDiscreteStage
+            ? closestDiscreteStage
+            : fibonacciNums[nextStageIndex];
         const secondsToNextStage = nextStage * SECS_IN_MIN - seconds;
 
         const minutesRemain = Math.floor(secondsToNextStage / SECS_IN_MIN);
         const secondsRemain =
           (nextStage - minutesRemain) * SECS_IN_MIN - seconds;
+
         setSecondsRemain(secondsRemain);
         setMinutesRemain(minutesRemain);
       }

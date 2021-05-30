@@ -27,7 +27,7 @@ describe("Countdown", () => {
     expect(/\d\d:\d\d/.test(value)).toBe(true);
   });
 
-  describe("should display properly remain time", () => {
+  describe("when timer is started", () => {
     it("should display remain time for less than 1 minute, but more than 0", () => {
       act(() => {
         render(<Countdown seconds={1} />, container);
@@ -75,6 +75,36 @@ describe("Countdown", () => {
         render(<Countdown seconds={781} />, container);
       });
       expect(container.textContent).toBe("07:59");
+    });
+
+    it("should display remain time for end of 13th minute (penultimate timer)", () => {
+      act(() => {
+        render(<Countdown seconds={780} />, container);
+      });
+      expect(container.textContent).toBe("08:00");
+    });
+
+    it("should display remain time for end of 21th minute (last timer)", () => {
+      act(() => {
+        render(<Countdown seconds={1260} />, container);
+      });
+      expect(container.textContent).toBe("13:00");
+    });
+
+    test("should display properlsy remain time on 11th minute", () => {
+      act(() => {
+        render(<Countdown seconds={659} />, container);
+      });
+
+      expect(container.textContent).toBe("02:01");
+    });
+
+    test("bug: should display properlsy remain time on 12th minute", () => {
+      act(() => {
+        render(<Countdown seconds={661} />, container);
+      });
+
+      expect(container.textContent).toBe("01:59");
     });
   });
 });

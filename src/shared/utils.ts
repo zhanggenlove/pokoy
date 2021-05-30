@@ -143,14 +143,16 @@ export const drawCircle = (
   context.fill();
 };
 
-export const getFibonacciDiscrete = (num: number) => {
-  return fibonacciNums.reduce((acc, fibNum) => {
-    const curDiff = Math.abs(fibNum - num);
-    const prevDiff = Math.abs(acc - num);
+export const getFibonacciDiscrete = (minute: number) => {
+  const fibDiscrete = fibonacciNums.reduce((acc, fibNum) => {
+    const curDiff = Math.abs(fibNum - minute);
+    const prevDiff = Math.abs(acc - minute);
     const isCloserToDiscrete = curDiff < prevDiff;
 
     return isCloserToDiscrete ? fibNum : acc;
   }, Infinity);
+
+  return fibDiscrete;
 };
 
 export const remainTimeToDigitClock = (
