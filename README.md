@@ -12,4 +12,11 @@ Meditation timer focused on progressive stages for game based habit consolidatio
 
 Visit https://pokoy.netlify.app and play!
 
+## To be done
+
+- [] easier concept description
+- [] strongier concept description
+- [] loging in
+- [] statistics
+
 <img width="521" alt="image" src="https://user-images.githubusercontent.com/20739202/120170972-cd4c0800-c201-11eb-9e86-edfe913c7191.png">
