@@ -15,6 +15,6 @@ Visit https://pokoy.netlify.app and play!
 ## To be done
 
 - [ ] easier concept description
-- [ ] strongier concept description
+- [ ] stronger concept description
 - [ ] loging in
 - [ ] statistics
