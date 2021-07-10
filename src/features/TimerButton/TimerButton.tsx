@@ -17,9 +17,10 @@ export const TimerButton: React.FC<Props> = ({
 
   return (
     <button
+      onClick={handleTimerClick}
       className={buttonClassNames}
       type="button"
-      onClick={handleTimerClick}
+      autoFocus
     >
       {children}
     </button>
