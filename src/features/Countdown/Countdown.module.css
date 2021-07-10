@@ -5,3 +5,10 @@
   cursor: help;
   color: var(--c-gray);
 }
+
+/* NOTE: for small devices or iframes */
+@media screen and (max-height: 500px) {
+  .countdown {
+    display: none;
+  }
+}

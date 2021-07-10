@@ -6,6 +6,13 @@
   text-align: center;
 }
 
+/* NOTE: for iframe in Notion */
+@media screen and (max-width: 240px) {
+  .app-wrapper {
+    justify-content: flex-end;
+  }
+}
+
 .progress-spiral-wrapper {
   display: flex;
   justify-content: center;
