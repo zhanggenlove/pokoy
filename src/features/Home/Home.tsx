@@ -1,5 +1,6 @@
 import React from "react";
 import { FibonacciProgress, TimerButton, Countdown, Minutes } from "features";
+import { writeSessionToServer } from "./writeSessionToServer";
 import styles from "./Home.module.css";
 
 // TODO: refactor this component
@@ -34,7 +35,7 @@ export const Home: React.FC = () => {
     setTimerDiff(0);
 
     if (isStarted) {
-      // writeSessionToStore(timerDiff);
+      writeSessionToServer(timerDiff); // NOTE: side effect for write session data to google sheet
 
       setStartedFlag(false);
       setTimestamp(0);
@@ -49,9 +50,7 @@ export const Home: React.FC = () => {
 
     setTimestamp(Math.round(Date.now() / 1000));
     tickTimer();
-  }, [currentTimerId, isStarted, tickTimer]);
-
-  // const sessionsData = JSON.parse(localStorage.getItem("stats") ?? "[]");
+  }, [currentTimerId, isStarted, tickTimer, timerDiff]);
 
   return (
     <main className={styles["app-wrapper"]}>

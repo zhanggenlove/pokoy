@@ -21,3 +21,4 @@ export const fibNumToColorMap = {
   [fibonacciNumsForTimer[5]]: fibonacciColors[5],
   [fibonacciNumsForTimer[6]]: fibonacciColors[6],
 };
+export const SERVER_URL = process.env.REACT_APP_SHEET_URL;

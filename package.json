@@ -11,6 +11,7 @@
     "format": "react-scripts format"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "lodash.round": "^4.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
