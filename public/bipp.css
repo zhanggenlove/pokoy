@@ -48,26 +48,27 @@ textarea {
 
 /* base */
 :root {
-	--c-brand: teal;
+	--c-brand: #0B6E99; /* Notion LM text Blue */
 	--c-brand-focus: mediumturquoise;
 	--c-marker: wheat;
 
-	--c-red: tomato;
-	--c-green: seagreen;
-	--c-yellow: khaki;
-	--c-blue: cornflowerblue;
-
+	--c-red: #E03E3E; /* Notion LM text red */
+	--c-green: #0F7B6C; /* Notion LM text green */
+	--c-blue: #0B6E99; /* Notion LM text Blue */
+	--c-yellow: #DFAB01; /* Notion LM text yellow */
+	--c-gray: #9B9A97; /* Notion LM text gray */
+  
 	--link-bg: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(0, 0, 0, .3)'/%3E%3C/svg%3E");
-
+  
 	--link-bg-focus: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(237, 6, 12, .3)' /%3E%3C/svg%3E");
-
+  
 	/* text, body background */
-	--c-background: rgb(242, 241, 237);
-	--c-foreground: darkslategray;
-
+	--c-background: white;
+	--c-foreground: #37352f;
+  
 	/* button text, text when background is not --c-background */
 	--c-foreground-contrast: rgb(255, 255, 255);
-
+  
 	/* alternative background for callouts and other prominent elements */
 	--c-background--accent: rgba(148, 140, 107, .1);
 	--c-background--inline-code: rgba(148, 140, 107, .15);
@@ -75,9 +76,16 @@ textarea {
 
 /* base: dark theme */
 @media (prefers-color-scheme: dark) {
-	:root {
-		--c-background: rgb(43, 42, 50); /* firefox dark theme */
-		--c-foreground: rgb(249, 248, 246);
+  :root {
+    --c-background: rgb(47, 52, 55); /* notion DM BG */
+		--c-foreground: #ffffff5A;
+    --c-brand: #529CCA;
+    --c-red: #FF7369; /* Notion DM text red */
+    --c-green: #4DAB9A; /* Notion DM text green */
+    --c-blue: #529CCA; /* Notion DM text Blue */
+    --c-yellow: #FFDC49; /* Notion LM text yellow */
+    --c-gray: #979A9B5F; /* Notion LM text gray */
+
 		--link-bg: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(249, 248, 246, .5)'/%3E%3C/svg%3E");
 		--link-bg-focus: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(255, 78, 35 , .5)'/%3E%3C/svg%3E");
 	}

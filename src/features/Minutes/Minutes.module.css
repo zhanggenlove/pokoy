@@ -1,5 +1,6 @@
 .minutes {
   font-size: small;
   margin: 0;
-  color: slategrey;
+  color: var(--c-gray);
+  cursor: help;
 }

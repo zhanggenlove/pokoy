@@ -3,5 +3,5 @@
   font-family: monospace;
   font-size: xxx-large;
   cursor: help;
-  color: slategrey;
+  color: var(--c-gray);
 }

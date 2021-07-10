@@ -1,5 +1,5 @@
 .timer-button.timer-button {
-  color: teal;
+  color: var(--c-blue);
   border-radius: 50%;
   transition: box-shadow ease-out 0.3s, transform ease-out 0.1s;
   background-color: transparent;
@@ -18,5 +18,5 @@
 }
 
 .timer-button-started.timer-button-started {
-  color: tomato;
+  color: var(--c-red);
 }
