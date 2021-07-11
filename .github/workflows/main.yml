@@ -22,5 +22,6 @@ jobs:
 
     steps:
       - name: set env variable
+        run: echo setting variables 
         env:
           REACT_APP_SHEET_URL: ${{ secrets.SHEET_URL }}
