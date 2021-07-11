@@ -16,5 +16,7 @@ export const writeSessionToServer = (seconds: number) => {
     axios.post(SERVER_URL, sessionData).then((response) => {
       console.info(response);
     });
+  } else {
+    console.error(`Server url is not available: ${SERVER_URL}`);
   }
 };
