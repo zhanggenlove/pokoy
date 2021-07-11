@@ -19,13 +19,9 @@ export const writeSessionToServer = (seconds: number) => {
     sessionTime: String(totalTime),
   };
 
-  if (SERVER_URL) {
+  if (totalTime > 0 && SERVER_URL) {
     axios.post(SERVER_URL, sessionData).then((response) => {
       console.info(response);
     });
-  } else {
-    console.error(
-      `Server url is not available: ${SERVER_URL}, ${process.env.REACT_APP_SHEET_URL}`
-    );
   }
 };
