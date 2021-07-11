@@ -17,6 +17,8 @@ export const writeSessionToServer = (seconds: number) => {
       console.info(response);
     });
   } else {
-    console.error(`Server url is not available: ${SERVER_URL}`);
+    console.error(
+      `Server url is not available: ${SERVER_URL}, ${process.env.REACT_APP_SHEET_URL}`
+    );
   }
 };
