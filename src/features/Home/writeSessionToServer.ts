@@ -8,7 +8,7 @@ export const writeSessionToServer = (seconds: number) => {
   const month = String(dateObj.getMonth() + 1).padStart(2, "0");
   const day = String(dateObj.getDate()).padStart(2, "0");
   const year = dateObj.getFullYear();
-  const hours = String(dateObj.getHours() + 1).padStart(2, "0");
+  const hours = String(dateObj.getHours()).padStart(2, "0");
   const minutes = String(dateObj.getMinutes() + 1).padStart(2, "0");
   const secs = String(dateObj.getSeconds() + 1).padStart(2, "0");
   const date = `${day}/${month}/${year} ${hours}:${minutes}:${secs}`;
