@@ -9,14 +9,16 @@ interface Props {
 
 export const Sound: React.FC<Props> = ({ progress }) => {
   const [playGong] = useSound(gongSfx, {
-    volume: 0.01 /* comfort volume value */,
+    // NOTE: comfortable volume value
+    volume: 0.03,
   });
 
   // TODO: remake in custom hook instead of component
   React.useEffect(() => {
     const minutes = progress / 60;
     const isFibNum = fibonacciNumsForTimer.includes(minutes);
-    const playbackRate = 4 - minutes / 7; // ? for 21 it will be 1 — original playback rate
+    // NOTE: for 21 it will be 1 — original playback rate
+    const playbackRate = 4 - minutes / 7;
 
     if (isFibNum) {
       playGong({ playbackRate });
