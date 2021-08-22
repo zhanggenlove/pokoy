@@ -1,4 +1,4 @@
-import { getFibonacciDiscrete } from "./utils";
+import { getFibonacciDiscrete, getFloorFibonacciDiscrete } from "./utils";
 
 describe("getFibonacciDiscrete", () => {
   it("should return properly values", () => {
@@ -22,5 +22,25 @@ describe("getFibonacciDiscrete", () => {
   it("Bug: should return 13 discrete number on 11 input", () => {
     const result = getFibonacciDiscrete(11);
     expect(result).toEqual(13);
+  });
+});
+
+describe("getFloorFibDiscrete", () => {
+  it("should return properly values", () => {
+    const outputToInputMap = {
+      0: 0.1,
+      1: 1.3,
+      2: 2.5,
+      3: 3,
+      8: 11,
+      13: 14,
+      34: 34,
+      55: 55,
+      89: 101,
+    };
+    const inputValues = Object.values(outputToInputMap);
+    const outputValues = Object.keys(outputToInputMap).map((v) => +v);
+    const result = inputValues.map((n) => getFloorFibonacciDiscrete(n));
+    expect(result).toEqual(outputValues);
   });
 });

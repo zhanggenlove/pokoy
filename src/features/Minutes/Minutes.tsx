@@ -1,6 +1,6 @@
 import React from "react";
 import { fibonacciNums } from "shared/constants";
-import { getFibonacciDiscrete } from "shared/utils";
+import { getFloorFibonacciDiscrete } from "shared/utils";
 import styles from "./Minutes.module.css";
 
 interface Props {
@@ -12,21 +12,27 @@ const SECS_IN_MIN = 60;
 export const Minutes: React.FC<Props> = ({ seconds }) => {
   const [stage, setStage] = React.useState(0);
 
+  // TODO: extract function
   const timerProgressToMinutes = React.useCallback((seconds: number) => {
     const minutes = Math.floor(seconds / SECS_IN_MIN);
-    const closestFibonacciDiscrete = getFibonacciDiscrete(minutes);
+    const closestFibonacciDiscrete = getFloorFibonacciDiscrete(minutes);
 
     const nextStageIndex = fibonacciNums.indexOf(closestFibonacciDiscrete) + 1;
-    const nextStage = fibonacciNums[nextStageIndex];
+    const nextStage =
+      closestFibonacciDiscrete > minutes
+        ? closestFibonacciDiscrete
+        : fibonacciNums[nextStageIndex];
+
     const currentStage =
       minutes < closestFibonacciDiscrete ? nextStage : closestFibonacciDiscrete;
 
-    setStage(currentStage);
+    return currentStage;
   }, []);
 
   React.useEffect(() => {
     if (seconds) {
-      timerProgressToMinutes(seconds);
+      const newStage = timerProgressToMinutes(seconds);
+      setStage(newStage);
     }
   }, [seconds, timerProgressToMinutes]);
 

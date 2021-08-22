@@ -81,7 +81,9 @@ describe("Minutes", () => {
       });
       expect(container.textContent).toBe("21m");
     });
+  });
 
+  describe("for bugs", () => {
     test("should display properly stage on 11th minute", () => {
       act(() => {
         render(<Minutes seconds={659} />, container);
@@ -90,7 +92,7 @@ describe("Minutes", () => {
       expect(container.textContent).toBe("8m");
     });
 
-    test("should display properly stage on 12th minute", () => {
+    test("should display 8th stage on 12th minute", () => {
       act(() => {
         render(<Minutes seconds={661} />, container);
       });
