@@ -3,54 +3,62 @@ import { FibonacciProgress, TimerButton, Countdown, Minutes } from "features";
 import { writeSessionToServer } from "./writeSessionToServer";
 import styles from "./Home.module.css";
 
+const MAX_TIMER_SECONDS = 1260; // NOTE: equal to 21 minutes
+
 // TODO: refactor this component
 export const Home: React.FC = () => {
-  const [timestamp, setTimestamp] = React.useState(0);
+  const [startTime, setStartTime] = React.useState(0);
   const [timerDiff, setTimerDiff] = React.useState(0);
   const [isStarted, setStartedFlag] = React.useState(false);
   const [currentTimerId, setCurrentTimerId] = React.useState<
     number | undefined
   >(undefined);
 
-  React.useEffect(() => {
-    if (timestamp !== 0) {
-      const timeDiff = Math.round(Date.now() / 1000 - timestamp);
-      setTimerDiff(timeDiff);
+  const finishTimer = React.useCallback((): void => {
+    writeSessionToServer(timerDiff); // NOTE: side effect for write session data to google sheet
+
+    setStartedFlag(false);
+    setStartTime(0);
+
+    window.clearTimeout(currentTimerId);
+    console.info("Timer resetted");
+  }, [currentTimerId, timerDiff]);
+
+  React.useEffect((): void => {
+    if (startTime !== 0) {
+      const secondsNow = Math.round(Date.now() / 1000);
+      const diff = secondsNow - startTime;
+      setTimerDiff(diff);
     }
 
-    return () => {
-      clearTimeout(currentTimerId);
-    };
-  }, [currentTimerId, timestamp]);
+    if (timerDiff >= MAX_TIMER_SECONDS) {
+      finishTimer();
+    }
+  }, [currentTimerId, finishTimer, startTime, timerDiff]);
 
+  // FIXME: what is this function do?
   const tickTimer = React.useCallback(() => {
-    const timerId = window.setTimeout(() => {
+    window.clearTimeout(currentTimerId);
+
+    const newTimerId = window.setTimeout(() => {
       tickTimer();
     }, 100);
-
-    setCurrentTimerId(timerId);
-  }, []);
+    setCurrentTimerId(newTimerId);
+  }, [currentTimerId]);
 
   const handleTimerClick = React.useCallback(() => {
     setTimerDiff(0);
 
     if (isStarted) {
-      writeSessionToServer(timerDiff); // NOTE: side effect for write session data to google sheet
-
-      setStartedFlag(false);
-      setTimestamp(0);
-
-      window.clearTimeout(currentTimerId);
-      console.log("Timer resetted");
-
-      return;
+      return finishTimer();
     }
 
     setStartedFlag(true);
 
-    setTimestamp(Math.round(Date.now() / 1000));
+    const startInSeconds = Math.round(Date.now() / 1000);
+    setStartTime(startInSeconds);
     tickTimer();
-  }, [currentTimerId, isStarted, tickTimer, timerDiff]);
+  }, [finishTimer, isStarted, tickTimer]);
 
   return (
     <main className={styles["app-wrapper"]}>
