@@ -1,15 +1,16 @@
 export const fibonacciNums = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
-export const fibonacciNumsForTimer = [1, 2, 3, 5, 8, 13, 21];
+export const fibonacciNumsForTimer = [0, 1, 2, 3, 5, 8, 13, 21];
 export const fibonacciMinsToSeconds = [60, 120, 180, 300, 480, 780, 1260];
 export const fibonacciPercents = [1, 2, 3, 6, 9, 15, 24, 38, 62, 100];
 export const fibonacciColors = [
-  "#ff6188ff",
-  "#fc9867ff",
-  "#ffd866ff",
-  "#a9dc76ff",
-  "#78dce8ff",
-  "#ab9df2ff",
-  "#ffffffff",
+  "#FF7369",
+  "#FFA344",
+  "#FFDC49",
+  "#4DAB9A",
+  "#529CCA",
+  "#9A6DD7",
+  "#E255A1",
+  "#FFFFFF",
 ];
 
 export const fibNumToColorMap = {

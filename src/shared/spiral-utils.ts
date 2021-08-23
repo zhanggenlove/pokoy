@@ -1,4 +1,5 @@
 import { FibonacciGenerator } from "features/Progress/FibonacciGenerator";
+import { CENTER_POINT, HALF_SIZE } from "features/Progress/progress.constants";
 import { fibonacciNums } from "./constants";
 import { Coords } from "./types";
 
@@ -59,7 +60,6 @@ const getPath = (
   path: Coords[]
 ): Coords[] => {
   const scaledRadius = scale * radius;
-
   if (scaledRadius > maxRadius) {
     return path;
   }
@@ -112,6 +112,10 @@ export const drawStroke = (
 
   context.beginPath();
 
+  context.lineWidth = 28;
+  context.lineCap = "round";
+  context.strokeStyle = "#777";
+
   for (let i = 0; i < points.length; i++) {
     const point = points[i];
     const newPointX = offset.x + point.x;
@@ -139,4 +143,16 @@ export const drawCircle = (
   context.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI);
   context.fillStyle = color;
   context.fill();
+};
+
+export const drawCenteredCross = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#7773";
+
+  ctx.moveTo(CENTER_POINT.x, CENTER_POINT.y - HALF_SIZE);
+  ctx.lineTo(CENTER_POINT.x, CENTER_POINT.y + HALF_SIZE);
+  ctx.moveTo(CENTER_POINT.x - HALF_SIZE, CENTER_POINT.y);
+  ctx.lineTo(CENTER_POINT.x + HALF_SIZE, CENTER_POINT.y);
+  ctx.stroke();
 };

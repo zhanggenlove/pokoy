@@ -1,11 +1,20 @@
 import React from "react";
-import { drawCircle, drawStroke, getSpiral } from "shared/spiral-utils";
 import {
-  fibonacciNumsForTimer,
-  fibonacciMinsToSeconds,
-  fibonacciColors,
-} from "shared/constants";
+  drawCircle,
+  drawStroke,
+  drawCenteredCross,
+  getSpiral,
+} from "shared/spiral-utils";
+import { fibNumToColorMap } from "shared/constants";
 import styles from "./Progress.module.css";
+import { getFloorFibonacciDiscrete } from "shared/utils";
+import {
+  CANVAS_SIZE,
+  CENTER_POINT,
+  FIRST_POINT,
+  HALF_SIZE,
+  SECOND_POINT,
+} from "./progress.constants";
 
 interface Props {
   progress: number;
@@ -15,64 +24,39 @@ interface Props {
 export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  const CANVAS_SIZE = 2520; // FIXME: WTF, why 2520?
-  const HALF_SIZE = CANVAS_SIZE / 2;
-  const FIRST_POINT = React.useMemo(() => ({ x: 0, y: 0 }), []);
-  const SECOND_POINT = React.useMemo(() => ({ x: -2.17, y: -2.17 }), []); // rough value for nice rotate angle of spiral
   const bgSpiral = React.useMemo(
-    () => getSpiral(FIRST_POINT, SECOND_POINT, HALF_SIZE),
-    [FIRST_POINT, HALF_SIZE, SECOND_POINT]
-  );
-
-  const center = React.useMemo(() => {
-    return {
-      x: HALF_SIZE,
-      y: HALF_SIZE,
-    };
-  }, [HALF_SIZE]);
-
-  const drawStageCircles = React.useCallback(
-    (ctx: CanvasRenderingContext2D, progress: number) => {
-      fibonacciNumsForTimer.forEach((n, i) => {
-        const seconds = fibonacciMinsToSeconds[i];
-        const defaultColor = "#7772";
-        const color = progress >= seconds ? fibonacciColors[i] : defaultColor;
-
-        drawCircle(ctx, seconds, center, color);
-      });
-    },
-    [center]
+    // NOTE: slicing array from start to optimize points amount to draw
+    () => getSpiral(FIRST_POINT, SECOND_POINT, HALF_SIZE).slice(220),
+    []
   );
 
   const drawFibonacciProgression = React.useCallback(() => {
     const ctx = canvasRef?.current?.getContext("2d");
+    const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
+    const minutes = Math.floor(progress / 60);
+    const fibStage = getFloorFibonacciDiscrete(minutes);
+    const color = fibNumToColorMap[fibStage];
 
     if (!ctx) {
       return;
     }
 
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    ctx.globalAlpha = 0.33;
 
-    const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
-    const spiral = getSpiral(FIRST_POINT, SECOND_POINT, radius);
+    // NOTE: draw cross at center of circle
+    drawCenteredCross(ctx);
 
-    drawStageCircles(ctx, progress);
+    ctx.globalCompositeOperation = "destination-atop";
+    // NOTE: draw growing circle from center of spiral
+    drawCircle(ctx, radius, CENTER_POINT, color);
 
-    ctx.lineWidth = 24;
-    ctx.lineCap = "square";
-    ctx.strokeStyle = "#777";
-    drawStroke(ctx, bgSpiral, center);
-
-    ctx.lineWidth = 32;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "#fff";
-    drawStroke(ctx, spiral, center);
-  }, [progress, FIRST_POINT, SECOND_POINT, drawStageCircles, bgSpiral, center]);
+    // NOTE: draw spiral path
+    drawStroke(ctx, bgSpiral, CENTER_POINT);
+  }, [progress, bgSpiral]);
 
   React.useEffect(() => {
     drawFibonacciProgression();
-  }, [center.x, center.y, drawFibonacciProgression, progress]);
+  }, [drawFibonacciProgression, progress]);
 
   return (
     <canvas
