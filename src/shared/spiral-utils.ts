@@ -114,7 +114,7 @@ export const drawStroke = (
 
   context.lineWidth = 28;
   context.lineCap = "round";
-  context.strokeStyle = "#777";
+  context.strokeStyle = "#272727";
 
   for (let i = 0; i < points.length; i++) {
     const point = points[i];
