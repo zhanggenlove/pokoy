@@ -42,13 +42,13 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     }
 
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-
-    // NOTE: draw cross at center of circle
-    drawCenteredCross(ctx);
-
     ctx.globalCompositeOperation = "destination-atop";
+
     // NOTE: draw growing circle from center of spiral
     drawCircle(ctx, radius, CENTER_POINT, color);
+
+    // NOTE: draw cross at center of circle
+    // drawCenteredCross(ctx);
 
     // NOTE: draw spiral path
     drawStroke(ctx, bgSpiral, CENTER_POINT);
