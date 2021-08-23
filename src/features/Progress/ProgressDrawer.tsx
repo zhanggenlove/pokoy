@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  drawCircle,
-  drawStroke,
-  drawCenteredCross,
-  getSpiral,
-} from "shared/spiral-utils";
+import { drawCircle, drawStroke, getSpiral } from "shared/spiral-utils";
 import { fibNumToColorMap } from "shared/constants";
 import styles from "./Progress.module.css";
 import { getFloorFibonacciDiscrete } from "shared/utils";
