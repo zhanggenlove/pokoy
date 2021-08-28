@@ -1,8 +1,8 @@
 import React from "react";
 import { drawCircle, drawStroke, getSpiral } from "shared/spiral-utils";
-import { fibNumToColorMap } from "shared/constants";
-import styles from "./Progress.module.css";
 import { getFloorFibonacciDiscrete } from "shared/utils";
+import { getFibColor } from "./utils";
+import styles from "./Progress.module.css";
 import {
   CANVAS_SIZE,
   CENTER_POINT,
@@ -30,7 +30,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
     const minutes = Math.floor(progress / 60);
     const fibStage = getFloorFibonacciDiscrete(minutes);
-    const color = fibNumToColorMap[fibStage];
+    const color = getFibColor(fibStage);
 
     if (!ctx) {
       return;
