@@ -1,7 +1,7 @@
 import useSound from "use-sound";
 import React from "react";
-import gongSfx from "./gong.mp3";
-import bellSfx from "./meditation-bell-sound.mp3";
+import gongSfx from "shared/assets/gong.mp3";
+import bellSfx from "shared/assets/meditation-bell-sound.mp3";
 import { fibonacciNumsForTimer } from "shared/constants";
 
 interface Props {
