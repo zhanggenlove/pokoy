@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
       setTimerDiff(diff);
     }
 
-    if (timerDiff >= MAX_TIMER_SECONDS) {
+    if (timerDiff === MAX_TIMER_SECONDS) {
       finishTimer();
     }
   }, [currentTimerId, finishTimer, startTime, timerDiff]);
