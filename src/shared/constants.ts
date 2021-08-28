@@ -3,6 +3,7 @@ export const fibonacciNumsForTimer = [0, 1, 2, 3, 5, 8, 13, 21];
 export const fibonacciMinsToSeconds = [60, 120, 180, 300, 480, 780, 1260];
 export const fibonacciPercents = [1, 2, 3, 6, 9, 15, 24, 38, 62, 100];
 export const fibonacciColors = [
+  // Colors from Notion Colors website
   "#FF7369",
   "#FFA344",
   "#FFDC49",
@@ -21,5 +22,6 @@ export const fibNumToColorMap = {
   [fibonacciNumsForTimer[4]]: fibonacciColors[4],
   [fibonacciNumsForTimer[5]]: fibonacciColors[5],
   [fibonacciNumsForTimer[6]]: fibonacciColors[6],
+  [fibonacciNumsForTimer[7]]: fibonacciColors[7],
 };
 export const SERVER_URL = process.env.REACT_APP_SHEET_URL;
