@@ -4,3 +4,9 @@
   color: var(--c-gray);
   cursor: help;
 }
+
+@media screen and (min-width: 500px) {
+  .minutes {
+    font-size: large;
+  }
+}

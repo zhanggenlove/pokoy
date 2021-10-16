@@ -5,3 +5,10 @@
   cursor: help;
   color: var(--c-gray);
 }
+
+@media screen and (max-width: 300px) {
+  .countdown {
+    font-size: large;
+    margin: 4px;
+  }
+}
