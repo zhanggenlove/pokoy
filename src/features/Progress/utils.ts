@@ -1,10 +1,13 @@
-import { fibNumToColorMap } from "shared/constants";
+import { fibNumToStyleSheetVarMap } from "shared/constants";
 
 type ColorHex = string;
 
-export const getFibColor = (
-  fibNum: number,
-  theme: "dark" | "light"
-): ColorHex => {
-  return fibNumToColorMap[theme][fibNum];
+export const getColorStyleSheetVarName = (fibNum: number): ColorHex => {
+  return fibNumToStyleSheetVarMap[fibNum];
+};
+
+export const getStyleSheetColor = (colorCSSVarName: string): ColorHex => {
+  return getComputedStyle(document?.documentElement)?.getPropertyValue(
+    colorCSSVarName
+  );
 };

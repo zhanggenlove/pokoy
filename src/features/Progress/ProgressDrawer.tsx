@@ -1,7 +1,7 @@
 import React from "react";
 import { drawCircle, drawStroke, getSpiral } from "shared/spiral-utils";
 import { getFloorFibonacciDiscrete } from "shared/utils";
-import { getFibColor } from "./utils";
+import { getColorStyleSheetVarName, getStyleSheetColor } from "./utils";
 import styles from "./Progress.module.css";
 import {
   CANVAS_SIZE,
@@ -30,10 +30,8 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
     const minutes = Math.floor(progress / 60);
     const fibStage = getFloorFibonacciDiscrete(minutes);
-    const theme = window?.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-    const color = getFibColor(fibStage, theme);
+    const colorCSSVarName = getColorStyleSheetVarName(fibStage);
+    const color = getStyleSheetColor(colorCSSVarName);
 
     if (!ctx) {
       return;
@@ -49,8 +47,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     // drawCenteredCross(ctx);
 
     // NOTE: draw spiral path
-    const LAST_TIMER_STAGE = 21;
-    const spiralColor = getFibColor(LAST_TIMER_STAGE, theme);
+    const spiralColor = getStyleSheetColor("--c-spiral");
     drawStroke(ctx, bgSpiral, CENTER_POINT, spiralColor);
   }, [progress, bgSpiral]);
 

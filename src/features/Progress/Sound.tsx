@@ -2,7 +2,7 @@ import useSound from "use-sound";
 import React from "react";
 import gongSfx from "shared/assets/gong.mp3";
 import bellSfx from "shared/assets/meditation-bell-sound.mp3";
-import { fibonacciNumsForTimer } from "shared/constants";
+import { FIB_NUMS_FOR_TIMER } from "shared/constants";
 
 interface Props {
   progress: number;
@@ -20,7 +20,7 @@ export const Sound: React.FC<Props> = ({ progress }) => {
   React.useEffect(() => {
     const minutes = progress / 60;
     const isStart = minutes === 0;
-    const isFibNum = fibonacciNumsForTimer.includes(minutes);
+    const isFibNum = FIB_NUMS_FOR_TIMER.includes(minutes);
     const isFinish = minutes === 21;
 
     if (isStart) return;
