@@ -1,13 +1,11 @@
 import React from "react";
-import { fibonacciNums } from "shared/constants";
+import { fibonacciNums, SECS_IN_MIN } from "shared/constants";
 import { getFibonacciDiscrete, remainTimeToDigitClock } from "shared/utils";
 import styles from "./Countdown.module.css";
 
 interface Props {
   seconds: number;
 }
-
-const SECS_IN_MIN = 60;
 
 export const Countdown: React.FC<Props> = ({ seconds }) => {
   const [secondsRemain, setSecondsRemain] = React.useState(0);

@@ -1,7 +1,12 @@
 import React from "react";
 import { FibonacciProgress, TimerButton, Countdown, Minutes } from "features";
-import { writeSessionToServer } from "./writeSessionToServer";
+import {
+  SessionData,
+  sendSession,
+  writeSessionFromSeconds,
+} from "./writeSessionToServer";
 import styles from "./Home.module.css";
+import { LOCAL_CACHE_FIELD_NAME } from "shared/constants";
 
 const MAX_TIMER_SECONDS = 1260; // NOTE: equal to 21 minutes
 
@@ -14,25 +19,40 @@ export const Home: React.FC = () => {
     number | undefined
   >(undefined);
 
-  const finishTimer = React.useCallback((): void => {
-    writeSessionToServer(timerDiff); // NOTE: side effect for write session data to google sheet
+  const finishTimer = React.useCallback(
+    (timerDiff: number): void => {
+      writeSessionFromSeconds(timerDiff); // NOTE: side effect for write session data to google sheet
 
-    setStartedFlag(false);
-    setStartTime(0);
+      setStartedFlag(false);
+      setStartTime(0);
 
-    window.clearTimeout(currentTimerId);
-    console.info("Timer resetted");
-  }, [currentTimerId, timerDiff]);
+      window.clearTimeout(currentTimerId);
+      console.info("Timer resetted");
+    },
+    [currentTimerId]
+  );
 
   React.useEffect((): void => {
+    // NOTE: If there was a request error in the end of last session
+    const pokoyLastSession = window?.localStorage.getItem(
+      LOCAL_CACHE_FIELD_NAME
+    );
+    if (pokoyLastSession) {
+      const lastSession = JSON.parse(pokoyLastSession) as SessionData;
+      sendSession(lastSession);
+      window?.localStorage.removeItem(LOCAL_CACHE_FIELD_NAME);
+    }
+
+    // NOTE: if timer is not started
     if (startTime !== 0) {
       const secondsNow = Math.round(Date.now() / 1000);
       const diff = secondsNow - startTime;
       setTimerDiff(diff);
     }
 
+    // NOTE: if timer is over max session time
     if (timerDiff === MAX_TIMER_SECONDS) {
-      finishTimer();
+      finishTimer(timerDiff);
     }
   }, [currentTimerId, finishTimer, startTime, timerDiff]);
 
@@ -50,7 +70,7 @@ export const Home: React.FC = () => {
     setTimerDiff(0);
 
     if (isStarted) {
-      return finishTimer();
+      return finishTimer(timerDiff);
     }
 
     setStartedFlag(true);
@@ -58,7 +78,7 @@ export const Home: React.FC = () => {
     const startInSeconds = Math.round(Date.now() / 1000);
     setStartTime(startInSeconds);
     tickTimer();
-  }, [finishTimer, isStarted, tickTimer]);
+  }, [finishTimer, isStarted, tickTimer, timerDiff]);
 
   return (
     <main className={styles["app-wrapper"]}>
