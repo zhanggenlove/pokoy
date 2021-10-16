@@ -30,7 +30,10 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
     const minutes = Math.floor(progress / 60);
     const fibStage = getFloorFibonacciDiscrete(minutes);
-    const color = getFibColor(fibStage);
+    const theme = window?.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    const color = getFibColor(fibStage, theme);
 
     if (!ctx) {
       return;
@@ -46,7 +49,9 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     // drawCenteredCross(ctx);
 
     // NOTE: draw spiral path
-    drawStroke(ctx, bgSpiral, CENTER_POINT);
+    const LAST_TIMER_STAGE = 21;
+    const spiralColor = getFibColor(LAST_TIMER_STAGE, theme);
+    drawStroke(ctx, bgSpiral, CENTER_POINT, spiralColor);
   }, [progress, bgSpiral]);
 
   React.useEffect(() => {

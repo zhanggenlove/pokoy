@@ -106,7 +106,8 @@ export const getColor = (num: number) => {
 export const drawStroke = (
   context: CanvasRenderingContext2D,
   points: Coords[],
-  offset: Coords = { x: 0, y: 0 }
+  offset: Coords = { x: 0, y: 0 },
+  color: string
 ) => {
   if (!context) return;
 
@@ -114,7 +115,7 @@ export const drawStroke = (
 
   context.lineWidth = 28;
   context.lineCap = "round";
-  context.strokeStyle = "#272727";
+  context.strokeStyle = color;
 
   for (let i = 0; i < points.length; i++) {
     const point = points[i];
