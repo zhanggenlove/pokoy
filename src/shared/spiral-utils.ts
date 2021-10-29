@@ -22,7 +22,7 @@ export const getDistance = (firstPoint: Coords, secondPoint: Coords) => {
   return distance;
 };
 
-export const getSpiral = (
+export const getSpiralPath = (
   firstPoint: Coords,
   secondPoint: Coords,
   maxRadius: number
@@ -34,6 +34,7 @@ export const getSpiral = (
   // Find angle offset so that last point of the curve is at angle to secondPoint
   const angleOffset = angleToSecondPoint - (stepsToSecondPoint * Math.PI) / 2;
   const distanceToSecondPoint = getDistance(firstPoint, secondPoint);
+  // TODO: What the scale?
   const scale = getScale(distanceToSecondPoint, stepsToSecondPoint);
 
   return getPath(scale, maxRadius, angleOffset, firstPoint, 0, 0, 0, []);
@@ -107,13 +108,14 @@ export const drawStroke = (
   context: CanvasRenderingContext2D,
   points: Coords[],
   offset: Coords = { x: 0, y: 0 },
-  color: string
+  color: string,
+  width: number = 28
 ) => {
   if (!context) return;
 
   context.beginPath();
 
-  context.lineWidth = 28;
+  context.lineWidth = width;
   context.lineCap = "round";
   context.strokeStyle = color;
 
