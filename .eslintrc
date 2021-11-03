@@ -1,6 +1,7 @@
 {
   "extends": [
     "react-app",
-    "react-app/jest"
+    "react-app/jest",
+    "eslint-config-code-complexity"
   ]
 }

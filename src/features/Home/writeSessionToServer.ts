@@ -1,61 +1,66 @@
-import axios from "axios";
+import { User } from "@firebase/auth";
+import { doc, Firestore, setDoc } from "firebase/firestore";
 import {
   LOCAL_CACHE_FIELD_NAME,
   SECS_IN_MIN,
   SERVER_URL,
 } from "shared/constants";
-import { getFibonacciDiscrete } from "shared/utils";
+import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
+import { v4 as uuidV4 } from "uuid";
 
 export interface SessionData {
   timestamp: string;
   sessionTime: string;
 }
 
-export const writeSessionFromSeconds = (seconds: number) => {
-  // NOTE: to G.Sheets std date+time format: <dd/mm/yyyy hh:mm:ss>
-  const date = getTimestamp();
-  const sessionData = getSessionData(seconds, date);
+// TODO: solve linter issues
+// eslint-disable-next-line complexity, max-statements
+export const writeSessionFromSeconds = async (
+  seconds: number,
+  user: User | null | undefined,
+  firestoreDB: Firestore
+) => {
+  const timestamp = new Date().toISOString();
+  const duration = getFibonacciDiscrete(seconds / SECS_IN_MIN);
 
   if (seconds > SECS_IN_MIN && SERVER_URL) {
-    sendSession(sessionData);
+    const pokoyId = uuidV4();
+    const pokoyDoc = doc(firestoreDB, "pokoys", pokoyId);
+
+    if (user) {
+      const userDoc = user && doc(firestoreDB, "users", user.uid);
+      await setDoc(userDoc, {
+        name: user.displayName,
+        email: user.email,
+      });
+    }
+
+    await setDoc(pokoyDoc, {
+      user: user ? `/users/${user?.uid}` : null,
+      timestamp,
+      duration,
+      seconds,
+    });
   }
 };
 
-const getSessionData = (seconds: number, timestamp: string) => {
-  const totalTime = getFibonacciDiscrete(seconds / SECS_IN_MIN);
-  const sessionData: SessionData = {
-    timestamp,
-    sessionTime: String(totalTime),
-  };
-  return sessionData;
-};
+export const sendOrWriteSession = async (
+  sessionData: SessionData,
+  firestoreDB: Firestore,
+  userId: string
+) => {
+  const pokoyId = uuidV4();
+  const pokoyDoc = doc(firestoreDB, "pokoys", pokoyId);
 
-export const sendSession = (sessionData: SessionData) =>
-  axios
-    .post(SERVER_URL as string, sessionData)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((e: Error) => {
-      console.error(e);
-      window?.localStorage.setItem(
-        LOCAL_CACHE_FIELD_NAME,
-        JSON.stringify(sessionData)
-      );
-    });
-
-const getTimestamp = () => {
-  const dateObj = new Date();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const year = dateObj.getFullYear();
-  const date = `${day}/${month}/${year}`;
-
-  const hours = String(dateObj.getHours()).padStart(2, "0");
-  const minutes = String(dateObj.getMinutes() + 1).padStart(2, "0");
-  const secs = String(dateObj.getSeconds() + 1).padStart(2, "0");
-  const time = `${hours}:${minutes}:${secs}`;
-
-  const dateAndTime = `${date} ${time}`;
-  return dateAndTime;
+  await setDoc(pokoyDoc, {
+    user: `/users/${userId}`,
+    timestamp: sessionData.timestamp,
+    duration: sessionData.sessionTime,
+  }).catch((e: Error) => {
+    console.error(e);
+    window?.localStorage.setItem(
+      LOCAL_CACHE_FIELD_NAME,
+      JSON.stringify(sessionData)
+    );
+  });
 };

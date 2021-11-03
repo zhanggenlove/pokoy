@@ -1,6 +1,4 @@
 import React from "react";
-import { drawCircle, drawStroke, getSpiral } from "shared/spiral-utils";
-import { getFloorFibonacciDiscrete } from "shared/utils";
 import { getColorStyleSheetVarName, getStyleSheetColor } from "./utils";
 import styles from "./Progress.module.css";
 import {
@@ -10,6 +8,10 @@ import {
   HALF_SIZE,
   SECOND_POINT,
 } from "./progress.constants";
+import { getFibSpiral } from "features/Progress/getFibSpiral";
+import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
+import { drawStrokeByPath } from "features/Progress/drawStrokeByPath";
+import { drawCircle } from "features/Progress/drawCircle";
 
 interface Props {
   progress: number;
@@ -21,7 +23,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
 
   const bgSpiral = React.useMemo(
     // NOTE: slicing array from start to optimize points amount to draw
-    () => getSpiral(FIRST_POINT, SECOND_POINT, HALF_SIZE).slice(220),
+    () => getFibSpiral(FIRST_POINT, SECOND_POINT, HALF_SIZE).slice(220),
     []
   );
 
@@ -48,7 +50,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
 
     // NOTE: draw spiral path
     const spiralColor = getStyleSheetColor("--c-spiral");
-    drawStroke(ctx, bgSpiral, CENTER_POINT, spiralColor);
+    drawStrokeByPath(ctx, bgSpiral, CENTER_POINT, spiralColor);
   }, [progress, bgSpiral]);
 
   React.useEffect(() => {

@@ -1,6 +1,6 @@
 import React from "react";
 import useSound from "use-sound";
-import clickSfx from "shared/assets/finger-snap.mp3";
+import clickSfx from "shared/assets/sounds/finger-snap.mp3";
 import styles from "./TimerButton.module.css";
 
 type Props = {

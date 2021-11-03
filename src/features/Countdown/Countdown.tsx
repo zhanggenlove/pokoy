@@ -1,7 +1,8 @@
+import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
 import React from "react";
 import { fibonacciNums, SECS_IN_MIN } from "shared/constants";
-import { getFibonacciDiscrete, remainTimeToDigitClock } from "shared/utils";
 import styles from "./Countdown.module.css";
+import { remainTimeToDigitClock } from "./remainTimeToDigitClock";
 
 interface Props {
   seconds: number;

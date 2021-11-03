@@ -1,4 +1,5 @@
-import { getFibonacciDiscrete, getFloorFibonacciDiscrete } from "./utils";
+import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
+import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
 
 describe("getFibonacciDiscrete", () => {
   it("should return properly values", () => {

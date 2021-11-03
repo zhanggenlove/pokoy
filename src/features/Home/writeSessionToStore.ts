@@ -1,21 +1,15 @@
-import { getFibonacciDiscrete } from "shared/utils";
 import { StatsData } from "shared/types";
+import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
 
 export const writeSessionToStore = (seconds: number) => {
-  const dateObj = new Date();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const year = dateObj.getFullYear();
-  const date = `${year}-${month}-${day}`;
+  const date = new Date().toISOString();
 
   const totalTime = getFibonacciDiscrete(seconds / 60);
 
   const dataString = localStorage.getItem("stats") ?? "{}";
   const statsData: StatsData = JSON.parse(dataString);
   const item = statsData[date] || [];
-  const newItem = [...item, totalTime];
-  const newData = { ...statsData, [date]: newItem };
+  const newData = { ...statsData, [date]: [...item, totalTime] };
 
-  const newDataString = JSON.stringify(newData);
-  localStorage.setItem("stats", newDataString);
+  localStorage.setItem("stats", JSON.stringify(newData));
 };

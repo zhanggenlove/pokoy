@@ -1,9 +1,0 @@
-.volume-control {
-  display: flex;
-  flex-direction: column;
-}
-
-.slider {
-  max-width: 200px;
-  margin: 16px 0;
-}

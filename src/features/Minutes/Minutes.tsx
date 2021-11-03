@@ -1,6 +1,6 @@
+import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
 import React from "react";
 import { fibonacciNums } from "shared/constants";
-import { getFloorFibonacciDiscrete } from "shared/utils";
 import styles from "./Minutes.module.css";
 
 interface Props {

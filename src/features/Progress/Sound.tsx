@@ -1,7 +1,7 @@
 import useSound from "use-sound";
 import React from "react";
-import gongSfx from "shared/assets/gong.mp3";
-import bellSfx from "shared/assets/meditation-bell-sound.mp3";
+import gongSfx from "shared/assets/sounds/gong.mp3";
+import bellSfx from "shared/assets/sounds/meditation-bell-sound.mp3";
 import { FIB_NUMS_FOR_TIMER } from "shared/constants";
 
 interface Props {
