@@ -1,6 +1,6 @@
 import React from "react";
 import { User } from "@firebase/auth";
-import { LOCAL_CACHE_FIELD_NAME } from "shared/constants";
+import { LOCAL_CACHE_FIELD_NAME, MAX_TIMER_SECONDS } from "shared/constants";
 import { firestore } from "features/Home/firebase-init";
 import { Minutes } from "features/Minutes";
 import { FibonacciProgress } from "features/Progress/ProgressContainer";
@@ -10,11 +10,8 @@ import {
   sendOrWriteSession,
   SessionData,
   writeSessionFromSeconds,
-} from "features/Home/writeSessionToServer";
+} from "features/Pokoy/writeSessionToServer";
 import styles from "./Pokoy.module.css";
-
-// TODO: extract to constants
-const MAX_TIMER_SECONDS = 1260; // NOTE: equal to 21 minutes
 
 export const Pokoy = ({ user }: { user: User }) => {
   const [startTime, setStartTime] = React.useState(0);

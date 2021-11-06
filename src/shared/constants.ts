@@ -29,3 +29,5 @@ export const SERVER_URL = process.env.REACT_APP_SHEET_URL;
 export const SECS_IN_MIN = 60;
 
 export const LOCAL_CACHE_FIELD_NAME = "pokoy-last-session";
+
+export const MAX_TIMER_SECONDS = 1260; // NOTE: equal to 21 minutes

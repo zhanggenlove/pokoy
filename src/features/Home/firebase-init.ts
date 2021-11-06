@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "firebase/firestore";
 
@@ -23,3 +23,14 @@ onAuthStateChanged(auth, (user) => {
     console.log("No user");
   }
 });
+
+export const getPokoysTotalDuration = async () => {
+  const q = query(collection(firestore, "pokoys"));
+
+  const querySnapshot = await getDocs(q);
+  const total = querySnapshot.docs.reduce((acc, doc) => {
+    // console.log(doc.data().duration);
+    return acc + doc.data().duration;
+  }, 0);
+  return total;
+};

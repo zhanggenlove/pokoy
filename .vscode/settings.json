@@ -1,5 +1,7 @@
 {
   "files.autoSave": "off",
-  "typescript.suggest.autoImports": false,
+  "typescript.suggest.autoImports": true,
   "javascript.suggest.autoImports": false,
+  "workbench.colorTheme": "Rubber",
+  "typescript.tsdk": "node_modules/typescript/lib",
 }
