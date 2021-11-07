@@ -77,7 +77,7 @@ export const writeSessionFromSeconds = async (
   const newUserStats = {
     totalDurations: newDuration || 0,
     count: newCount || 0,
-    lastFive: [pokoyData, ...userData.statistics.lastFive.slice(0, 4)],
+    lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
   };
   await setDoc(userRef, {
     name: user.displayName,
