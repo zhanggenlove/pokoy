@@ -1,17 +1,50 @@
 import { User } from "@firebase/auth";
-import { doc, Firestore, setDoc } from "firebase/firestore";
+import { formatISO } from "date-fns";
 import {
-  LOCAL_CACHE_FIELD_NAME,
-  SECS_IN_MIN,
-  SERVER_URL,
-} from "shared/constants";
+  addDoc,
+  collection,
+  doc,
+  DocumentReference,
+  Firestore,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
+import { LOCAL_CACHE_FIELD_NAME, SECS_IN_MIN } from "shared/constants";
 import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
-import { v4 as uuidV4 } from "uuid";
 
-export interface SessionData {
+// TODO: extract to types
+
+export interface LocalPokoySessionData {
   timestamp: string;
   sessionTime: string;
 }
+
+interface UserData {
+  name: string;
+  email: string;
+  statistics: UserStats;
+}
+
+type Timestamp = string;
+
+interface PokoySession {
+  duration: number;
+  timestamp: Timestamp;
+  user: DocumentReference<UserData>;
+}
+
+interface UserStats {
+  totalDuration: number;
+  count: number;
+  lastFive: PokoySession[];
+}
+
+// TODO: extract to constants
+const INIT_USER_STATS: UserStats = {
+  totalDuration: 0,
+  count: 0,
+  lastFive: [],
+};
 
 // TODO: solve linter issues
 // eslint-disable-next-line complexity, max-statements
@@ -20,43 +53,55 @@ export const writeSessionFromSeconds = async (
   user: User | null | undefined,
   firestoreDB: Firestore
 ) => {
-  const timestamp = new Date().toISOString();
-  const duration = getFibonacciDiscrete(seconds / SECS_IN_MIN);
-
-  if (seconds > SECS_IN_MIN && SERVER_URL) {
-    const pokoyId = uuidV4();
-    const pokoyDoc = doc(firestoreDB, "pokoys", pokoyId);
-
-    if (user) {
-      const userDoc = user && doc(firestoreDB, "users", user.uid);
-      await setDoc(userDoc, {
-        name: user.displayName,
-        email: user.email,
-      });
-    }
-
-    await setDoc(pokoyDoc, {
-      user: user ? `/users/${user?.uid}` : null,
-      timestamp,
-      duration,
-      seconds,
-    });
+  const isSessionLongerThanMinute = seconds > SECS_IN_MIN;
+  if (!isSessionLongerThanMinute || !user) {
+    return;
   }
+
+  const userRef = doc(firestoreDB, "users", user.uid);
+  const userDoc = await getDoc(userRef);
+  const userData = userDoc.data() as UserData;
+
+  if (!userData) return;
+
+  const timestamp = formatISO(new Date());
+  const duration = getFibonacciDiscrete(seconds / SECS_IN_MIN);
+  const pokoyData = {
+    user: userRef,
+    timestamp,
+    duration,
+  };
+  const userStats = userData?.statistics || INIT_USER_STATS;
+  const newCount = userStats.count + 1;
+  const newDuration = userStats.totalDuration + pokoyData.duration;
+  const newUserStats = {
+    totalDurations: newDuration || 0,
+    count: newCount || 0,
+    lastFive: [pokoyData, ...userData.statistics.lastFive.slice(0, 4)],
+  };
+  await setDoc(userRef, {
+    name: user.displayName,
+    email: user.email,
+    statistics: newUserStats,
+  });
+
+  const pokoysColRef = collection(firestoreDB, "pokoys");
+  return await addDoc(pokoysColRef, pokoyData);
 };
 
-export const sendOrWriteSession = async (
-  sessionData: SessionData,
+export const sendOrStoreSession = async (
+  sessionData: LocalPokoySessionData,
   firestoreDB: Firestore,
   userId: string
 ) => {
-  const pokoyId = uuidV4();
-  const pokoyDoc = doc(firestoreDB, "pokoys", pokoyId);
-
-  await setDoc(pokoyDoc, {
-    user: `/users/${userId}`,
+  const userRef = doc(firestoreDB, "users", userId);
+  const pokoyData = {
+    user: userRef,
     timestamp: sessionData.timestamp,
     duration: sessionData.sessionTime,
-  }).catch((e: Error) => {
+  };
+  const pokoysColRef = collection(firestoreDB, "pokoys");
+  await addDoc(pokoysColRef, pokoyData).catch((e: Error) => {
     console.error(e);
     window?.localStorage.setItem(
       LOCAL_CACHE_FIELD_NAME,

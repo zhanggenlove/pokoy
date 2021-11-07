@@ -7,11 +7,12 @@ import { FibonacciProgress } from "features/Progress/ProgressContainer";
 import { TimerButton } from "features/TimerButton/TimerButton";
 import { Countdown } from "features/Countdown/Countdown";
 import {
-  sendOrWriteSession,
-  SessionData,
+  sendOrStoreSession,
+  LocalPokoySessionData,
   writeSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer";
 import styles from "./Pokoy.module.css";
+import { doc, getDoc } from "firebase/firestore";
 
 export const Pokoy = ({ user }: { user: User }) => {
   const [startTime, setStartTime] = React.useState(0);
@@ -23,7 +24,6 @@ export const Pokoy = ({ user }: { user: User }) => {
 
   const finishTimer = React.useCallback(
     (timerDiff: number): void => {
-      // NOTE: side effect for write session data to google sheet
       writeSessionFromSeconds(timerDiff, user, firestore);
 
       setStartedFlag(false);
@@ -41,8 +41,8 @@ export const Pokoy = ({ user }: { user: User }) => {
       LOCAL_CACHE_FIELD_NAME
     );
     if (pokoyLastSession) {
-      const lastSession = JSON.parse(pokoyLastSession) as SessionData;
-      sendOrWriteSession(lastSession, firestore, user.uid);
+      const lastSession = JSON.parse(pokoyLastSession) as LocalPokoySessionData;
+      sendOrStoreSession(lastSession, firestore, user.uid);
       window?.localStorage.removeItem(LOCAL_CACHE_FIELD_NAME);
     }
 
@@ -100,7 +100,29 @@ export const Pokoy = ({ user }: { user: User }) => {
 
       <p>
         <Minutes seconds={timerDiff} />
+        <Total user={user} />
       </p>
     </div>
   );
+};
+
+// TODO: extract to components
+export const Total = ({ user }: { user: User }) => {
+  const [total, setTotal] = React.useState(0);
+
+  React.useEffect(() => {
+    getUserStats(user).then((stats) => {
+      if (!stats) return;
+      setTotal(stats.totalDuration);
+    });
+  }, [user]);
+
+  return <span style={{ color: "gray", fontSize: "xx-small" }}>{total}</span>;
+};
+
+const getUserStats = async (user: User) => {
+  const userStatsRef = doc(firestore, "users", user.uid);
+  const userStatsDoc = await getDoc(userStatsRef);
+  const userStatsData = userStatsDoc.data();
+  return userStatsData;
 };

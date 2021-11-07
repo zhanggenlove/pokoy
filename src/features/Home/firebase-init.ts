@@ -26,11 +26,13 @@ onAuthStateChanged(auth, (user) => {
 
 export const getPokoysTotalDuration = async () => {
   const q = query(collection(firestore, "pokoys"));
-
+  let count = 0;
   const querySnapshot = await getDocs(q);
   const total = querySnapshot.docs.reduce((acc, doc) => {
     // console.log(doc.data().duration);
+    count = count + 1;
     return acc + doc.data().duration;
   }, 0);
+  console.log(total, count);
   return total;
 };
