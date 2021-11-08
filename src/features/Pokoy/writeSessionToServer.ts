@@ -71,19 +71,19 @@ export const writeSessionFromSeconds = async (
     timestamp,
     duration,
   };
-  const userStats = userData?.statistics || INIT_USER_STATS;
-  const newCount = userStats.count + 1;
-  const newDuration = userStats.totalDuration + pokoyData.duration;
-  const newUserStats = {
-    totalDuration: newDuration || 0,
-    count: newCount || 0,
-    lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
-  };
-  await setDoc(userRef, {
-    name: user.displayName,
-    email: user.email,
-    statistics: newUserStats,
-  });
+  // const userStats = userData?.statistics || INIT_USER_STATS;
+  // const newCount = userStats.count + 1;
+  // const newDuration = userStats.totalDuration + pokoyData.duration;
+  // const newUserStats = {
+  //   totalDuration: newDuration || 0,
+  //   count: newCount || 0,
+  //   lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
+  // };
+  // await setDoc(userRef, {
+  //   name: user.displayName,
+  //   email: user.email,
+  //   statistics: newUserStats,
+  // });
 
   const pokoysColRef = collection(firestoreDB, "pokoys");
   return await addDoc(pokoysColRef, pokoyData);

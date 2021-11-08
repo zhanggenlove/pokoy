@@ -1,5 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore, query } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "firebase/firestore";
 
@@ -16,9 +24,20 @@ const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const firestore = getFirestore(firebaseApp);
 
-onAuthStateChanged(auth, (user) => {
+/* eslint-disable-next-line max-statements */
+onAuthStateChanged(auth, async (user): Promise<void> => {
   if (user !== null) {
-    console.log("Logged in");
+    const userDocRef = doc(firestore, "users", user.uid);
+    const userDoc = await getDoc(userDocRef);
+    const userData = {
+      name: user.displayName,
+      email: user.email,
+    };
+
+    if (userDoc === null) {
+      const usersColRef = collection(firestore, "users");
+      await addDoc(usersColRef, userData);
+    }
   } else {
     console.log("No user");
   }
