@@ -75,7 +75,7 @@ export const writeSessionFromSeconds = async (
   const newCount = userStats.count + 1;
   const newDuration = userStats.totalDuration + pokoyData.duration;
   const newUserStats = {
-    totalDurations: newDuration || 0,
+    totalDuration: newDuration || 0,
     count: newCount || 0,
     lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
   };
