@@ -1,15 +1,16 @@
-name: Deploy the main branch
+name: Firebase
 on:
   push:
     branches:
-      - master
+    - master
 jobs:
   main:
-    name: Deploy to Firebase
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: lowply/deploy-firebase@v0.0.5
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: Deploy to Firebase
+      uses: BIGG-Kaymo/deploy-firebase-functions@v1.0.1
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: pokoy-1bf7f
