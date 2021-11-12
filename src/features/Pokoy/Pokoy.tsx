@@ -120,6 +120,7 @@ export const Total = ({ user }: { user: User }) => {
   return <span style={{ color: "gray", fontSize: "xx-small" }}>{total}</span>;
 };
 
+// TODO: extract from file
 const getUserStats = async (user: User) => {
   const userStatsRef = doc(firestore, "users", user.uid);
   const userStatsDoc = await getDoc(userStatsRef);

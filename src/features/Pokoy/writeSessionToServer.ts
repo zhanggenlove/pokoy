@@ -40,11 +40,11 @@ interface UserStats {
 }
 
 // TODO: extract to constants
-const INIT_USER_STATS: UserStats = {
-  totalDuration: 0,
-  count: 0,
-  lastFive: [],
-};
+// const INIT_USER_STATS: UserStats = {
+//   totalDuration: 0,
+//   count: 0,
+//   lastFive: [],
+// };
 
 // TODO: solve linter issues
 // eslint-disable-next-line complexity, max-statements
@@ -59,10 +59,10 @@ export const writeSessionFromSeconds = async (
   }
 
   const userRef = doc(firestoreDB, "users", user.uid);
-  const userDoc = await getDoc(userRef);
-  const userData = userDoc.data() as UserData;
+  // const userDoc = await getDoc(userRef);
+  // const userData = userDoc.data() as UserData;
 
-  if (!userData) return;
+  // if (!userData) return;
 
   const timestamp = formatISO(new Date());
   const duration = getFibonacciDiscrete(seconds / SECS_IN_MIN);
@@ -71,19 +71,6 @@ export const writeSessionFromSeconds = async (
     timestamp,
     duration,
   };
-  // const userStats = userData?.statistics || INIT_USER_STATS;
-  // const newCount = userStats.count + 1;
-  // const newDuration = userStats.totalDuration + pokoyData.duration;
-  // const newUserStats = {
-  //   totalDuration: newDuration || 0,
-  //   count: newCount || 0,
-  //   lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
-  // };
-  // await setDoc(userRef, {
-  //   name: user.displayName,
-  //   email: user.email,
-  //   statistics: newUserStats,
-  // });
 
   const pokoysColRef = collection(firestoreDB, "pokoys");
   return await addDoc(pokoysColRef, pokoyData);
