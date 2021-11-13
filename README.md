@@ -14,7 +14,7 @@ Visit https://pokoy.netlify.app and play! Can be used as PWA (from homescreen)
 
 ## To be done
 
-- [ ] easier concept description
-- [ ] stronger concept description
-- [ ] loging in
-- [ ] statistics
+* [ ] easier concept description
+* [ ] stronger concept description
+* [x] loging in
+* [ ] statistics

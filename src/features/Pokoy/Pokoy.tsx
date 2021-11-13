@@ -1,102 +1,100 @@
-import React from "react";
 import { User } from "@firebase/auth";
+import { useNoSleep } from "use-no-sleep";
 import { LOCAL_CACHE_FIELD_NAME, MAX_TIMER_SECONDS } from "shared/constants";
 import { firestore } from "features/Home/firebase-init";
 import { Minutes } from "features/Minutes";
+import { useState, useEffect, useCallback } from "react";
 import { FibonacciProgress } from "features/Progress/ProgressContainer";
 import { TimerButton } from "features/TimerButton/TimerButton";
 import { Countdown } from "features/Countdown/Countdown";
 import {
-  sendOrStoreSession,
-  LocalPokoySessionData,
+  writeSessionFromLocalStore as writeSessionFromLocalStorage,
   writeSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer";
+import { Total } from "./Total";
+import { PokoySession } from "./types";
 import styles from "./Pokoy.module.css";
-import { doc, getDoc } from "firebase/firestore";
 
 export const Pokoy = ({ user }: { user: User }) => {
-  const [startTime, setStartTime] = React.useState(0);
-  const [timerDiff, setTimerDiff] = React.useState(0);
-  const [isStarted, setStartedFlag] = React.useState(false);
-  const [currentTimerId, setCurrentTimerId] = React.useState<
-    number | undefined
-  >(undefined);
+  useNoSleep(true);
+  const [currentTimerId, setCurrentTimerId] = useState<number | null>(null);
+  const [timerDiff, setTimerDiff] = useState<number>(0);
+  const [isStarted, setStartedFlag] = useState(false);
 
-  const finishTimer = React.useCallback(
-    (timerDiff: number): void => {
-      writeSessionFromSeconds(timerDiff, user, firestore);
+  const finishTimer = useCallback(
+    async (timerDiff: number): Promise<void> => {
+      await writeSessionFromSeconds(firestore, user, timerDiff);
 
       setStartedFlag(false);
-      setStartTime(0);
-
-      window.clearTimeout(currentTimerId);
-      console.info("Timer resetted");
+      const isCurrentTimerIdExist = currentTimerId !== null;
+      if (isCurrentTimerIdExist) {
+        window.clearInterval(currentTimerId);
+        console.info("Timer resetted");
+      }
     },
     [currentTimerId, user]
   );
 
-  React.useEffect((): void => {
-    // NOTE: If there was a request error in the end of last session
-    const pokoyLastSession = window?.localStorage.getItem(
-      LOCAL_CACHE_FIELD_NAME
-    );
-    if (pokoyLastSession) {
-      const lastSession = JSON.parse(pokoyLastSession) as LocalPokoySessionData;
-      sendOrStoreSession(lastSession, firestore, user.uid);
-      window?.localStorage.removeItem(LOCAL_CACHE_FIELD_NAME);
-    }
-
-    // NOTE: if timer is not started
-    if (startTime !== 0) {
+  const handleTimer = useCallback(
+    (startTime: number) => {
       const secondsNow = Math.round(Date.now() / 1000);
-      const diff = secondsNow - startTime;
-      setTimerDiff(diff);
-    }
+      const secondsDiff = secondsNow - startTime;
+      setTimerDiff(secondsDiff);
 
-    // NOTE: if timer is over max session time
-    if (timerDiff === MAX_TIMER_SECONDS) {
-      finishTimer(timerDiff);
-    }
-  }, [currentTimerId, finishTimer, startTime, timerDiff, user.uid]);
+      const isTimerDiffMoreThanMinute = timerDiff === MAX_TIMER_SECONDS;
+      if (isTimerDiffMoreThanMinute) {
+        finishTimer(timerDiff);
+      }
+    },
+    [finishTimer, timerDiff]
+  );
 
-  // FIXME: what is this function do?
-  const tickTimer = React.useCallback(() => {
-    window.clearTimeout(currentTimerId);
+  const startTimer = useCallback(() => {
+    const startInSeconds = Math.round(Date.now() / 1000);
+    setStartedFlag(true);
 
-    const newTimerId = window.setTimeout(() => {
-      tickTimer();
-    }, 100);
+    const newTimerId = window.setInterval(
+      () => handleTimer(startInSeconds),
+      100
+    );
     setCurrentTimerId(newTimerId);
-  }, [currentTimerId]);
+  }, [handleTimer]);
 
-  const handleTimerClick = React.useCallback(() => {
+  const handleClick = useCallback(() => {
     setTimerDiff(0);
 
     if (isStarted) {
       return finishTimer(timerDiff);
+    } else {
+      return startTimer();
     }
+  }, [finishTimer, isStarted, startTimer, timerDiff]);
 
-    setStartedFlag(true);
+  // TODO: extract function in useEffect from component
+  useEffect(() => {
+    const storedAfterFailurePokoySession = window?.localStorage.getItem(
+      LOCAL_CACHE_FIELD_NAME
+    );
 
-    const startInSeconds = Math.round(Date.now() / 1000);
-    setStartTime(startInSeconds);
-    tickTimer();
-  }, [finishTimer, isStarted, tickTimer, timerDiff]);
+    if (storedAfterFailurePokoySession) {
+      const lastSession = JSON.parse(
+        storedAfterFailurePokoySession
+      ) as PokoySession;
+
+      writeSessionFromLocalStorage(firestore, user, lastSession);
+      window?.localStorage.removeItem(LOCAL_CACHE_FIELD_NAME);
+    }
+  }, [user]);
 
   return (
-    <div>
+    <div className={styles["pokoy-wrapper"]}>
       <p>
         <Countdown seconds={timerDiff} />
       </p>
 
-      <div className={styles["progress-spiral-wrapper"]}>
-        <TimerButton
-          handleTimerClick={handleTimerClick}
-          isTimerStarted={isStarted}
-        >
-          <FibonacciProgress value={timerDiff} />
-        </TimerButton>
-      </div>
+      <TimerButton handleTimerClick={handleClick} isTimerStarted={isStarted}>
+        <FibonacciProgress value={timerDiff} />
+      </TimerButton>
 
       <p>
         <Minutes seconds={timerDiff} />
@@ -104,26 +102,4 @@ export const Pokoy = ({ user }: { user: User }) => {
       </p>
     </div>
   );
-};
-
-// TODO: extract to components
-export const Total = ({ user }: { user: User }) => {
-  const [total, setTotal] = React.useState(0);
-
-  React.useEffect(() => {
-    getUserStats(user).then((stats) => {
-      if (!stats) return;
-      setTotal(stats.totalDuration);
-    });
-  }, [user]);
-
-  return <span style={{ color: "gray", fontSize: "xx-small" }}>{total}</span>;
-};
-
-// TODO: extract from file
-const getUserStats = async (user: User) => {
-  const userStatsRef = doc(firestore, "users", user.uid);
-  const userStatsDoc = await getDoc(userStatsRef);
-  const userStatsData = userStatsDoc.data();
-  return userStatsData;
 };

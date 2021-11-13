@@ -1,4 +1,6 @@
-.progress-spiral-wrapper {
+.pokoy-wrapper {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }

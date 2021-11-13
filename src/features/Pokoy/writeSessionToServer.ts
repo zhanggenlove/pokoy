@@ -4,40 +4,13 @@ import {
   addDoc,
   collection,
   doc,
+  DocumentData,
   DocumentReference,
   Firestore,
-  getDoc,
-  setDoc,
 } from "firebase/firestore";
 import { LOCAL_CACHE_FIELD_NAME, SECS_IN_MIN } from "shared/constants";
 import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
-
-// TODO: extract to types
-
-export interface LocalPokoySessionData {
-  timestamp: string;
-  sessionTime: string;
-}
-
-interface UserData {
-  name: string;
-  email: string;
-  statistics: UserStats;
-}
-
-type Timestamp = string;
-
-interface PokoySession {
-  duration: number;
-  timestamp: Timestamp;
-  user: DocumentReference<UserData>;
-}
-
-interface UserStats {
-  totalDuration: number;
-  count: number;
-  lastFive: PokoySession[];
-}
+import { PokoySession, UserData } from "./types";
 
 // TODO: extract to constants
 // const INIT_USER_STATS: UserStats = {
@@ -47,18 +20,22 @@ interface UserStats {
 // };
 
 // TODO: solve linter issues
-// eslint-disable-next-line complexity, max-statements
+// eslint-disable-next-line max-statements
 export const writeSessionFromSeconds = async (
-  seconds: number,
+  firestoreDB: Firestore,
   user: User | null | undefined,
-  firestoreDB: Firestore
-) => {
+  seconds: number
+): Promise<DocumentReference<DocumentData> | void> => {
   const isSessionLongerThanMinute = seconds > SECS_IN_MIN;
   if (!isSessionLongerThanMinute || !user) {
     return;
   }
 
-  const userRef = doc(firestoreDB, "users", user.uid);
+  const userRef = doc(
+    firestoreDB,
+    "users",
+    user.uid
+  ) as DocumentReference<UserData>;
   // const userDoc = await getDoc(userRef);
   // const userData = userDoc.data() as UserData;
 
@@ -72,27 +49,36 @@ export const writeSessionFromSeconds = async (
     duration,
   };
 
-  const pokoysColRef = collection(firestoreDB, "pokoys");
-  return await addDoc(pokoysColRef, pokoyData);
+  return await sendPokoySessionToServer(firestoreDB, pokoyData);
 };
 
-export const sendOrStoreSession = async (
-  sessionData: LocalPokoySessionData,
+// TODO: add working with several session not just last
+export const writeSessionFromLocalStore = async (
   firestoreDB: Firestore,
-  userId: string
-) => {
-  const userRef = doc(firestoreDB, "users", userId);
-  const pokoyData = {
-    user: userRef,
-    timestamp: sessionData.timestamp,
-    duration: sessionData.sessionTime,
-  };
+  user: User | null | undefined,
+  LocalPokoyData: PokoySession
+): Promise<DocumentReference<DocumentData> | void> => {
+  const isSessionLongerThanMinute =
+    Number(LocalPokoyData.duration) > SECS_IN_MIN;
+  if (!isSessionLongerThanMinute || !user) {
+    return;
+  }
+
+  return await sendPokoySessionToServer(firestoreDB, LocalPokoyData);
+};
+
+const sendPokoySessionToServer = async (
+  firestoreDB: Firestore,
+  pokoyData: PokoySession
+): Promise<DocumentReference<DocumentData> | void> => {
   const pokoysColRef = collection(firestoreDB, "pokoys");
-  await addDoc(pokoysColRef, pokoyData).catch((e: Error) => {
+  try {
+    return await addDoc(pokoysColRef, pokoyData);
+  } catch (e: unknown) {
     console.error(e);
     window?.localStorage.setItem(
       LOCAL_CACHE_FIELD_NAME,
-      JSON.stringify(sessionData)
+      JSON.stringify(pokoyData)
     );
-  });
+  }
 };
