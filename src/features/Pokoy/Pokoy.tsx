@@ -8,8 +8,8 @@ import { FibonacciProgress } from "features/Progress/ProgressContainer";
 import { TimerButton } from "features/TimerButton/TimerButton";
 import { Countdown } from "features/Countdown/Countdown";
 import {
-  writeSessionFromLocalStore as writeSessionFromLocalStorage,
-  writeSessionFromSeconds,
+  sendSessionFromLocalStore as writeSessionFromLocalStorage,
+  sendSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer";
 import { Total } from "./Total";
 import { PokoySession } from "./types";
@@ -23,9 +23,10 @@ export const Pokoy = ({ user }: { user: User }) => {
 
   const finishTimer = useCallback(
     async (timerDiff: number): Promise<void> => {
-      await writeSessionFromSeconds(firestore, user, timerDiff);
+      await sendSessionFromSeconds(firestore, user, timerDiff);
 
       setStartedFlag(false);
+      setTimerDiff(0);
       const isCurrentTimerIdExist = currentTimerId !== null;
       if (isCurrentTimerIdExist) {
         window.clearInterval(currentTimerId);

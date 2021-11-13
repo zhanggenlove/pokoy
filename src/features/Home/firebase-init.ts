@@ -7,6 +7,7 @@ import {
   getDocs,
   getFirestore,
   query,
+  where,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "firebase/firestore";
@@ -44,14 +45,17 @@ onAuthStateChanged(auth, async (user): Promise<void> => {
 });
 
 export const getPokoysTotalDuration = async () => {
-  const q = query(collection(firestore, "pokoys"));
-  let count = 0;
+  const q = query(
+    collection(firestore, "pokoys"),
+    where("user", "==", "/users/rnuYUc9vigMVMkYqs70cSDBTgSm2")
+  );
+
   const querySnapshot = await getDocs(q);
-  const total = querySnapshot.docs.reduce((acc, doc) => {
-    // console.log(doc.data().duration);
-    count = count + 1;
-    return acc + doc.data().duration;
-  }, 0);
-  console.log(total, count);
+  const total = querySnapshot.docs.reduce(
+    (acc, doc) => acc + doc.data().duration,
+    0
+  );
+
+  console.log(total, querySnapshot.docs.length);
   return total;
 };

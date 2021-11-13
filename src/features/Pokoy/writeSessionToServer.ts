@@ -21,7 +21,7 @@ import { PokoySession, UserData } from "./types";
 
 // TODO: solve linter issues
 // eslint-disable-next-line max-statements
-export const writeSessionFromSeconds = async (
+export const sendSessionFromSeconds = async (
   firestoreDB: Firestore,
   user: User | null | undefined,
   seconds: number
@@ -53,7 +53,7 @@ export const writeSessionFromSeconds = async (
 };
 
 // TODO: add working with several session not just last
-export const writeSessionFromLocalStore = async (
+export const sendSessionFromLocalStore = async (
   firestoreDB: Firestore,
   user: User | null | undefined,
   LocalPokoyData: PokoySession

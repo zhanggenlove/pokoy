@@ -1,5 +1,7 @@
 import { DocumentReference } from "firebase/firestore";
 
+export type Timestamp = string;
+
 export interface PokoySession {
   duration: number;
   timestamp: Timestamp;
@@ -17,5 +19,3 @@ interface UserStats {
   count: number;
   lastFive: PokoySession[];
 }
-
-export type Timestamp = string;
