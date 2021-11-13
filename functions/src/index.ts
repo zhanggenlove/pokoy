@@ -3,11 +3,11 @@ import * as admin from "firebase-admin";
 
 admin.initializeApp();
 
-// const INIT_USER_STATS = {
-//   totalDuration: 0,
-//   count: 0,
-//   lastFive: [],
-// };
+const INIT_USER_STATS = {
+  totalDuration: 0,
+  count: 0,
+  lastFive: [],
+};
 
 exports.updateUserStats = functions.firestore
   .document("pokoys/{pokoyId}")
@@ -20,13 +20,13 @@ exports.updateUserStats = functions.firestore
     
     if (!userData) return;
 
-    // const userStats = userData?.statistics || INIT_USER_STATS
-    // const totalDuration = userStats.totalDuration + pokoyData.duration
-    // const newUserStats = {
-    //   totalDuration,
-    //   count: userStats.count + 1,
-    //   lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
-    // };
+    const userStats = userData?.statistics || INIT_USER_STATS
+    const totalDuration = userStats.totalDuration + pokoyData.duration
+    const newUserStats = {
+      totalDuration,
+      count: userStats.count + 1,
+      lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
+    };
 
-    // return userRef.set({...userData, statistics: newUserStats});
+    return userRef.set({...userData, statistics: newUserStats});
   });
