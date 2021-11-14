@@ -1,16 +1,17 @@
 import { initializeApp } from "firebase/app";
 import {
-  addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
   getFirestore,
   query,
+  setDoc,
   where,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "firebase/firestore";
+import { INIT_USER_STATS } from "shared/constants";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCi-EqHSZokQvSvemUnyQ_gFV6Aq3u44Ig",
@@ -25,22 +26,24 @@ const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const firestore = getFirestore(firebaseApp);
 
-/* eslint-disable-next-line max-statements */
-onAuthStateChanged(auth, async (user): Promise<void> => {
-  if (user !== null) {
-    const userDocRef = doc(firestore, "users", user.uid);
-    const userDoc = await getDoc(userDocRef);
-    const userData = {
-      name: user.displayName,
-      email: user.email,
-    };
+// eslint-disable-next-line max-statements
+onAuthStateChanged(auth, async (user): Promise<void | never> => {
+  if (user === null) {
+    throw Error("No authenticated user");
+  }
 
-    if (userDoc === null) {
-      const usersColRef = collection(firestore, "users");
-      await addDoc(usersColRef, userData);
-    }
-  } else {
-    console.log("No user");
+  const userDocRef = doc(firestore, "users", user.uid);
+  const userDoc = await getDoc(userDocRef);
+  const newUserData = {
+    uid: user.uid,
+    name: user.displayName,
+    email: user.email,
+    statistics: INIT_USER_STATS,
+  };
+
+  const userData = userDoc.data();
+  if (!userData) {
+    await setDoc(userDocRef, newUserData);
   }
 });
 

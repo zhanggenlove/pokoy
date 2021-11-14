@@ -11,7 +11,6 @@ import {
   sendSessionFromLocalStore as writeSessionFromLocalStorage,
   sendSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer";
-import { Total } from "./Total";
 import { PokoySession } from "./types";
 import styles from "./Pokoy.module.css";
 
@@ -98,8 +97,9 @@ export const Pokoy = ({ user }: { user: User }) => {
 
       <p>
         <Minutes seconds={timerDiff} />
-        <Total user={user} />
+        {/* <Total user={user} /> */}
       </p>
+      {/* <SignOut /> */}
     </div>
   );
 };

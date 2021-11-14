@@ -12,13 +12,6 @@ import { LOCAL_CACHE_FIELD_NAME, SECS_IN_MIN } from "shared/constants";
 import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
 import { PokoySession, UserData } from "./types";
 
-// TODO: extract to constants
-// const INIT_USER_STATS: UserStats = {
-//   totalDuration: 0,
-//   count: 0,
-//   lastFive: [],
-// };
-
 // TODO: solve linter issues
 // eslint-disable-next-line max-statements
 export const sendSessionFromSeconds = async (

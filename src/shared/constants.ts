@@ -1,3 +1,5 @@
+import { UserStats } from "features/Pokoy/types";
+
 export const fibonacciNums = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
 export const FIB_NUMS_FOR_TIMER = [0, 1, 2, 3, 5, 8, 13, 21];
 export const fibonacciMinsToSeconds = [60, 120, 180, 300, 480, 780, 1260];
@@ -31,3 +33,9 @@ export const SECS_IN_MIN = 60;
 export const LOCAL_CACHE_FIELD_NAME = "pokoy-last-session";
 
 export const MAX_TIMER_SECONDS = 1260; // NOTE: equal to 21 minutes
+
+export const INIT_USER_STATS: UserStats = {
+  totalDuration: 0,
+  count: 0,
+  lastFive: [],
+};

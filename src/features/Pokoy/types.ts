@@ -14,7 +14,7 @@ export interface UserData {
   statistics: UserStats;
 }
 
-interface UserStats {
+export interface UserStats {
   totalDuration: number;
   count: number;
   lastFive: PokoySession[];
