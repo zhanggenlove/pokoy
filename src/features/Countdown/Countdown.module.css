@@ -1,14 +1,14 @@
 .countdown {
-  margin: 16px;
+  margin: 0;
   font-family: monospace;
   font-size: xxx-large;
   cursor: help;
-  color: var(--c-gray);
+  color: var(--c-extra-gray);
 }
 
 @media screen and (max-width: 300px) {
   .countdown {
     font-size: large;
-    margin: 4px;
+    margin: 0;
   }
 }

@@ -3,4 +3,22 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 3em;
+}
+
+.top-text-wrapper {
+  margin: 0;
+  margin-bottom: 1.5em;
+}
+
+.bottom-text-wrapper {
+  font-size: medium;
+  color: var(--c-extra-gray);
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 500px) {
+  .bottom-text {
+    font-size: large;
+  }
 }

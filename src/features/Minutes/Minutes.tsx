@@ -1,14 +1,13 @@
 import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
 import React from "react";
-import { fibonacciNums } from "shared/constants";
+import { fibonacciNums, SECS_IN_MIN } from "shared/constants";
 import styles from "./Minutes.module.css";
 
 interface Props {
   seconds: number;
 }
 
-const SECS_IN_MIN = 60;
-
+// TODO: change props to minutes
 export const Minutes: React.FC<Props> = ({ seconds }) => {
   const [stage, setStage] = React.useState(0);
 
@@ -44,7 +43,7 @@ export const Minutes: React.FC<Props> = ({ seconds }) => {
 
   return (
     <span className={styles.minutes} title="Достигнутый этап в минутах">
-      {stage}m
+      Пройден этап в {stage} мин
     </span>
   );
 };

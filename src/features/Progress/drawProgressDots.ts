@@ -6,12 +6,16 @@ import {
 import { Coords } from "shared/types";
 import { drawCircle } from "./drawCircle";
 import { CANVAS_SIZE, CENTER_POINT } from "./progress.constants";
-import { getStyleSheetColor } from "./utils";
+import { getColorFromCSSVar } from "./utils";
 
-const getFibColor = (progress: number, styleSheetVarName: string) =>
-  progress < fibonacciMinsToSeconds[0]
-    ? getStyleSheetColor("--c-gray")
-    : getStyleSheetColor(styleSheetVarName);
+const getFibColor = (
+  progress: number,
+  index: number,
+  styleSheetVarName: string
+) =>
+  progress < fibonacciMinsToSeconds[index]
+    ? getColorFromCSSVar("--c-gray")
+    : getColorFromCSSVar(styleSheetVarName);
 
 const getCenterPoint = (index: number, bgSpiralPath: Coords[]) =>
   bgSpiralPath[200 + 40 * index];
@@ -34,17 +38,17 @@ export const drawProgressDots = (
 
   ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-  FIB_NUMS_FOR_TIMER.forEach((fibNum, index) => {
+  FIB_NUMS_FOR_TIMER.forEach((fibNum, index, array) => {
     if (index > 6) return;
 
-    const styleSheetVarName = fibNumToStyleSheetVarMap[fibNum];
+    const styleSheetVarName = fibNumToStyleSheetVarMap[array[index + 1]];
     const centerPoint = getCenterPoint(index, bgSpiralPath);
 
     drawCircle(
       ctx,
       8,
       getPointWithOffset(centerPoint),
-      getFibColor(progress, styleSheetVarName)
+      getFibColor(progress, index, styleSheetVarName)
     );
   });
 };

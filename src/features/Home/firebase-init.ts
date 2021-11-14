@@ -29,7 +29,8 @@ export const firestore = getFirestore(firebaseApp);
 // eslint-disable-next-line max-statements
 onAuthStateChanged(auth, async (user): Promise<void | never> => {
   if (user === null) {
-    throw Error("No authenticated user");
+    console.info("No authenticated user");
+    return;
   }
 
   const userDocRef = doc(firestore, "users", user.uid);

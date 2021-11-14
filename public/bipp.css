@@ -50,42 +50,44 @@ textarea {
 
 :root {
   /* NOTE: Notion Light Mode text colors */
-	--c-gray: #9B9A97;
-  --c-brown: #64473A;
-  --c-orange: #D9730D;
-	--c-yellow: #DFAB01;
-	--c-green: #0F7B6C;
-	--c-blue: #0B6E99;
-  --c-purple: #6940A5;
-  --c-pink: #AD1A72;
-  --c-red: #E03E3E;
+	--c-gray: #787774;
+  --c-brown: #9f6b53;
+  --c-orange: #d9730d;
+	--c-yellow: #cb912f;
+	--c-green: #448361;
+	--c-blue: #337ea9;
+  --c-purple: #9065b0;
+  --c-pink: #c14c8a;
+  --c-red: #d44c47;
 
-	--c-background: white;
+	--c-background: #ffffff;
 	--c-foreground: #37352f;
-  --c-spiral: #D0CBC8;
+  --c-spiral: #F0EBE8;
+  --c-extra-gray: #37352f66;
 }
 
 /* base: dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
     /* NOTE: Notion Dark Mode text colors */
-    --c-gray: #979A9BF2;
-    --c-brown: #937264;
-    --c-orange: #FFA344;
-    --c-yellow: #FFDC49;
-    --c-green: #4DAB9A;
-    --c-blue: #529CCA;
-    --c-purple: #9A6DD7;
-    --c-pink: #E255A1;
-    --c-red: #FF7369;
+    --c-gray: #9fa4a9;
+    --c-brown: #d49675;
+    --c-orange: #d98538;
+    --c-yellow: #c99126;
+    --c-green: #71b283;
+    --c-blue: #66aada;
+    --c-purple: #b098d9;
+    --c-pink: #df84d1;
+    --c-red: #ea878c;
     
     --c-background: #2f3437;
 		--c-foreground: #ffffffe6;
     --c-spiral: #202020;
+    --c-extra-gray: #ffffff66;
+  }
 
-		--link-bg: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(249, 248, 246, .5)'/%3E%3C/svg%3E");
-		--link-bg-focus: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(255, 78, 35 , .5)'/%3E%3C/svg%3E");
-	}
+  --link-bg: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(249, 248, 246, .5)'/%3E%3C/svg%3E");
+  --link-bg-focus: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect x='0' y='.5' width='1' height='.5' fill='rgba(255, 78, 35 , .5)'/%3E%3C/svg%3E");
 }
 
 :root {

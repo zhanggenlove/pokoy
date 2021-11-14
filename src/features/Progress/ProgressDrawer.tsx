@@ -1,5 +1,5 @@
 import React from "react";
-import { getColorStyleSheetVarName, getStyleSheetColor } from "./utils";
+import { getColorStyleSheetVarName, getColorFromCSSVar } from "./utils";
 import styles from "./Progress.module.css";
 import {
   CANVAS_SIZE,
@@ -37,7 +37,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     const minutes = Math.floor(progress / 60);
     const fibStage = getFloorFibonacciDiscrete(minutes);
     const colorCSSVarName = getColorStyleSheetVarName(fibStage);
-    const color = getStyleSheetColor(colorCSSVarName);
+    const color = getColorFromCSSVar(colorCSSVarName);
 
     if (!ctx) {
       return;
@@ -50,7 +50,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     drawCircle(ctx, radius, CENTER_POINT, color);
 
     // NOTE: draw spiral path
-    const spiralColor = getStyleSheetColor("--c-spiral");
+    const spiralColor = getColorFromCSSVar("--c-spiral");
     drawStrokeByPath(ctx, bgSpiralPath, CENTER_POINT, spiralColor);
   }, [progress, bgSpiralPath]);
 

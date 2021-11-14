@@ -4,6 +4,7 @@
   flex: 1 1 auto;
   height: 100%;
   text-align: center;
+  justify-content: center;
 }
 
 /* NOTE: for iframe in Notion */

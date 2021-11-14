@@ -13,6 +13,7 @@ import {
 } from "features/Pokoy/writeSessionToServer";
 import { PokoySession } from "./types";
 import styles from "./Pokoy.module.css";
+import { Tip } from "features/Tip";
 
 export const Pokoy = ({ user }: { user: User }) => {
   useNoSleep(true);
@@ -87,7 +88,7 @@ export const Pokoy = ({ user }: { user: User }) => {
 
   return (
     <div className={styles["pokoy-wrapper"]}>
-      <p>
+      <p className={styles["top-text-wrapper"]}>
         <Countdown seconds={timerDiff} />
       </p>
 
@@ -95,8 +96,9 @@ export const Pokoy = ({ user }: { user: User }) => {
         <FibonacciProgress value={timerDiff} />
       </TimerButton>
 
-      <p>
-        <Minutes seconds={timerDiff} />
+      {/* // TODO: extract to component */}
+      <p className={styles["bottom-text-wrapper"]}>
+        {isStarted ? <Minutes seconds={timerDiff} /> : <Tip />}
         {/* <Total user={user} /> */}
       </p>
       {/* <SignOut /> */}
