@@ -1,25 +1,12 @@
 import {
   fibNumToStyleSheetVarMap,
   fibonacciMinsToSeconds,
-  fibonacciNums,
   FIB_NUMS_FOR_TIMER,
-  SECS_IN_MIN,
 } from "shared/constants";
 import { Coords } from "shared/types";
 import { drawCircle } from "./drawCircle";
 import { CANVAS_SIZE, CENTER_POINT } from "./progress.constants";
 import { getStyleSheetColor } from "./utils";
-
-const spiralColor = getStyleSheetColor("--c-spiral");
-
-const getFibRadius = (progress: number, index: number) => {
-  const fibMinsToSeconds = fibonacciMinsToSeconds[index];
-  const progressInMins = Math.floor(progress / SECS_IN_MIN);
-
-  return progress < fibMinsToSeconds
-    ? progressInMins
-    : fibonacciNums[6 + index];
-};
 
 const getFibColor = (progress: number, styleSheetVarName: string) =>
   progress < fibonacciMinsToSeconds[0]
