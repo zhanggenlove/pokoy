@@ -1,4 +1,11 @@
-.canvas {
+.progress-spiral {
+  width: 100%;
+  max-width: 448px;
+  display: block;
+}
+
+.progress-dots {
+  position: absolute;
   width: 100%;
   max-width: 448px;
   display: block;

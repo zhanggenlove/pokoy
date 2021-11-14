@@ -23,15 +23,14 @@ export const Pokoy = ({ user }: { user: User }) => {
 
   const finishTimer = useCallback(
     async (timerDiff: number): Promise<void> => {
-      await sendSessionFromSeconds(firestore, user, timerDiff);
+      const isCurrentTimerIdExist = currentTimerId !== null;
+      if (!isCurrentTimerIdExist) throw Error("currentTimerId is not exist");
 
+      window.clearInterval(currentTimerId);
       setStartedFlag(false);
       setTimerDiff(0);
-      const isCurrentTimerIdExist = currentTimerId !== null;
-      if (isCurrentTimerIdExist) {
-        window.clearInterval(currentTimerId);
-        console.info("Timer resetted");
-      }
+      await sendSessionFromSeconds(firestore, user, timerDiff);
+      console.info("Timer resetted");
     },
     [currentTimerId, user]
   );

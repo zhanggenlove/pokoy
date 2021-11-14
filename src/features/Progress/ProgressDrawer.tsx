@@ -12,6 +12,7 @@ import { getFibSpiral } from "features/Progress/getFibSpiral";
 import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
 import { drawStrokeByPath } from "features/Progress/drawStrokeByPath";
 import { drawCircle } from "features/Progress/drawCircle";
+import { drawProgressDots } from "./drawProgressDots";
 
 interface Props {
   progress: number;
@@ -19,16 +20,19 @@ interface Props {
 
 // TODO: refactor component
 export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const spiralCanvasRef = React.useRef<HTMLCanvasElement>(null);
+  const dotsCanvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  const bgSpiral = React.useMemo(
-    // NOTE: slicing array from start to optimize points amount to draw
-    () => getFibSpiral(FIRST_POINT, SECOND_POINT, HALF_SIZE).slice(220),
-    []
-  );
+  const bgSpiralPath = React.useMemo(() => {
+    const numOfRendundantPoints = 220;
+    const slicedPath = getFibSpiral(FIRST_POINT, SECOND_POINT, HALF_SIZE).slice(
+      numOfRendundantPoints
+    );
+    return slicedPath;
+  }, []);
 
   const drawFibonacciProgression = React.useCallback(() => {
-    const ctx = canvasRef?.current?.getContext("2d");
+    const ctx = spiralCanvasRef?.current?.getContext("2d");
     const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
     const minutes = Math.floor(progress / 60);
     const fibStage = getFloorFibonacciDiscrete(minutes);
@@ -45,24 +49,34 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     // NOTE: draw growing circle from center of spiral
     drawCircle(ctx, radius, CENTER_POINT, color);
 
-    // NOTE: draw cross at center of circle
-    // drawCenteredCross(ctx);
-
     // NOTE: draw spiral path
     const spiralColor = getStyleSheetColor("--c-spiral");
-    drawStrokeByPath(ctx, bgSpiral, CENTER_POINT, spiralColor);
-  }, [progress, bgSpiral]);
+    drawStrokeByPath(ctx, bgSpiralPath, CENTER_POINT, spiralColor);
+  }, [progress, bgSpiralPath]);
 
   React.useEffect(() => {
     drawFibonacciProgression();
-  }, [drawFibonacciProgression, progress]);
+
+    const ctx = dotsCanvasRef?.current?.getContext("2d");
+    if (ctx) {
+      drawProgressDots(ctx, progress, bgSpiralPath);
+    }
+  }, [bgSpiralPath, drawFibonacciProgression, progress]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={CANVAS_SIZE}
-      height={CANVAS_SIZE}
-      className={styles.canvas}
-    ></canvas>
+    <>
+      <canvas
+        ref={dotsCanvasRef}
+        width={CANVAS_SIZE}
+        height={CANVAS_SIZE}
+        className={styles["progress-dots"]}
+      ></canvas>
+      <canvas
+        ref={spiralCanvasRef}
+        width={CANVAS_SIZE}
+        height={CANVAS_SIZE}
+        className={styles["progress-spiral"]}
+      ></canvas>
+    </>
   );
 };

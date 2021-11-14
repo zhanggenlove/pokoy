@@ -4,6 +4,7 @@ import { FibonacciGenerator } from "features";
 import { Coords } from "shared/types";
 
 // TODO: solve linter issues
+// TODO: rewrite this function
 // NOTE: recursion function
 // eslint-disable-next-line max-statements
 export const getSpiralPath = (
