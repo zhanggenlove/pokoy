@@ -106,6 +106,15 @@ const createNewDay = async (
     limit(1)
   );
   const userStatsQuerySnapshot = await getDocs(statsQuery);
+
+  if (userStatsQuerySnapshot.empty) {
+    console.error("User stats not found");
+    console.log(
+      "🚀 ~ userStatsQuerySnapshot.docs",
+      userStatsQuerySnapshot.docs
+    );
+    return;
+  }
   const userStatsRef = userStatsQuerySnapshot.docs[0].ref;
 
   const newDayData: DayData = {
