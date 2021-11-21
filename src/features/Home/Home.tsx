@@ -15,7 +15,7 @@ export const Home: React.FC = () => {
   return (
     <main className={styles["app-wrapper"]}>
       {user ? <Pokoy user={user} /> : <SignIn />}
-      {isOnline && <OfflineStatus />}
+      {!isOnline && <OfflineStatus />}
     </main>
   );
 };
