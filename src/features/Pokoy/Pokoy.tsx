@@ -11,9 +11,9 @@ import {
   sendSessionFromLocalStore as writeSessionFromLocalStorage,
   sendSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer";
-import { PokoySession } from "./types";
-import styles from "./Pokoy.module.css";
 import { Tip } from "features/Tip";
+import styles from "./Pokoy.module.css";
+import { PokoySession } from "shared/types";
 
 export const Pokoy = ({ user }: { user: User }) => {
   useNoSleep(true);
@@ -102,6 +102,9 @@ export const Pokoy = ({ user }: { user: User }) => {
         {/* <Total user={user} /> */}
       </p>
       {/* <SignOut /> */}
+      {/* <button type="button" onClick={handleTestClick}>
+        Migrate
+      </button> */}
     </div>
   );
 };

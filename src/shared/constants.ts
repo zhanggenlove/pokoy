@@ -1,4 +1,5 @@
-import { UserStats } from "features/Pokoy/types";
+import { Timestamp } from "firebase/firestore";
+import { DayData, UserStats } from "./types";
 
 export const fibonacciNums = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
 export const FIB_NUMS_FOR_TIMER = [0, 1, 2, 3, 5, 8, 13, 21];
@@ -37,5 +38,13 @@ export const MAX_TIMER_SECONDS = 1260; // NOTE: equal to 21 minutes
 export const INIT_USER_STATS: UserStats = {
   totalDuration: 0,
   count: 0,
-  lastFive: [],
+  userId: "",
+};
+
+export const INIT_DAY_DATA: DayData = {
+  timestamp: Timestamp.fromDate(new Date(new Date().toDateString())),
+  count: 0,
+  totalDuration: 0,
+  meditations: [],
+  userId: "",
 };

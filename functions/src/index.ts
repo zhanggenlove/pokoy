@@ -1,32 +1,40 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { DayData, PokoySession, UserStats } from "./types";
+import { collection, getDoc, limit, query, setDoc } from "firebase/firestore";
+import { firestore } from "firebase-functions";
+// import {UserStatss} from './types'
 
 admin.initializeApp();
 
-const INIT_USER_STATS = {
+const INIT_USER_STATS: UserStats = {
   totalDuration: 0,
   count: 0,
-  lastFive: [],
+  userId: ''
 };
 
 exports.updateUserStats = functions.firestore
-  .document("pokoys/{pokoyId}")
-  .onCreate(async (pokoySnapshot, context) => {
-    const pokoyData = pokoySnapshot.data();
-    const userRef = pokoyData.user as FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
+  .document("days/{dayId}")
+  .onWrite(async (dayChange, context) => {
+    const dayAfterChange = dayChange.after;
+    const dayData = dayAfterChange.data() as DayData;
+    const userId = dayData.userId;
+    const userStatsSnapshot = await getDoc(dayData.statsRef);
+    const userStatsData = userStatsSnapshot.data();
 
-    const userSnapshot = await userRef.get();
-    const userData = userSnapshot.data();
-    
-    if (!userData) return;
+    if (!userStatsData) return;
 
-    const userStats = userData?.statistics || INIT_USER_STATS
-    const totalDuration = userStats.totalDuration + pokoyData.duration
+    const userStats = userStatsData || INIT_USER_STATS;
+    const totalDuration = userStats.totalDuration + dayData.totalDuration
     const newUserStats = {
       totalDuration,
       count: userStats.count + 1,
-      lastFive: [pokoyData, ...userStats.lastFive.slice(0, 4)],
+      userId,
     };
 
-    return userRef.set({...userData, statistics: newUserStats});
+    try {
+      await setDoc(dayData.statsRef, newUserStats)
+    } catch(e) {
+      console.error('ERROR: ', e)
+    }
   });

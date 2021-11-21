@@ -1,13 +1,6 @@
 import { DocumentData, DocumentReference, Timestamp } from "firebase/firestore";
 
-export interface Coords {
-  x: number;
-  y: number;
-}
-
-export interface StatsData {
-  [date: string]: number[];
-}
+// FIXME: duplicated types from pokoy-frontend sources
 
 export interface PokoySession {
   duration: number;
@@ -28,5 +21,5 @@ export interface DayData {
   count: number;
   meditations: PokoySession[];
   userId: string;
-  statsRef?: DocumentReference<DocumentData>;
+  statsRef: DocumentReference<DocumentData>
 }
