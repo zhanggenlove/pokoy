@@ -3,7 +3,9 @@
 export interface PokoySession {
   duration: number;
   timestamp: string;
-  user?: string | FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
+  user?:
+    | string
+    | FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
   userId: string;
 }
 
@@ -19,5 +21,5 @@ export interface DayData {
   count: number;
   meditations: PokoySession[];
   userId: string;
-  statsRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>
+  statsRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
 }
