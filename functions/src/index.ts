@@ -1,15 +1,11 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { DayData, UserStats } from "./types";
-import { getDoc, setDoc } from "firebase/firestore";
+import { DayData } from "./types";
+import { INIT_USER_STATS } from "./constants";
 
 admin.initializeApp();
+const db = admin.firestore();
 
-const INIT_USER_STATS: UserStats = {
-  totalDuration: 0,
-  count: 0,
-  userId: ''
-};
 
 exports.updateUserStats = functions.firestore
   .document("days/{dayId}")
@@ -17,7 +13,9 @@ exports.updateUserStats = functions.firestore
     const dayAfterChange = dayChange.after;
     const dayData = dayAfterChange.data() as DayData;
     const userId = dayData.userId;
-    const userStatsSnapshot = await getDoc(dayData.statsRef);
+    const statsDocId = dayData.statsRef.id;
+    const userStatsRef = db.doc(`stats/${statsDocId}`);
+    const userStatsSnapshot = await userStatsRef.get();
     const userStatsData = userStatsSnapshot.data();
 
     if (!userStatsData) return;
@@ -31,7 +29,8 @@ exports.updateUserStats = functions.firestore
     };
 
     try {
-      await setDoc(dayData.statsRef, newUserStats)
+      await userStatsRef.set(newUserStats);
+      console.log('SUCCESS');
     } catch(e) {
       console.error('ERROR: ', e)
     }
