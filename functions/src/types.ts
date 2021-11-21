@@ -1,11 +1,9 @@
-import { DocumentData, DocumentReference, Timestamp } from "firebase/firestore";
-
 // FIXME: duplicated types from pokoy-frontend sources
 
 export interface PokoySession {
   duration: number;
   timestamp: string;
-  user?: string | DocumentReference<DocumentData>;
+  user?: string | FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
   userId: string;
 }
 
@@ -16,10 +14,9 @@ export interface UserStats {
 }
 
 export interface DayData {
-  timestamp: Timestamp;
+  timestamp: FirebaseFirestore.Timestamp;
   totalDuration: number;
   count: number;
   meditations: PokoySession[];
   userId: string;
-  statsRef: DocumentReference<DocumentData>
-}
+  statsRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>
