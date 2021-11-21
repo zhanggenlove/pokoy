@@ -20,3 +20,4 @@ export interface DayData {
   meditations: PokoySession[];
   userId: string;
   statsRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>
+}
