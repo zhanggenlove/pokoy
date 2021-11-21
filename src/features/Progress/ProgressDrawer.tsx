@@ -12,7 +12,7 @@ import { getFibSpiral } from "features/Progress/getFibSpiral";
 import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
 import { drawStrokeByPath } from "features/Progress/drawStrokeByPath";
 import { drawCircle } from "features/Progress/drawCircle";
-import { drawProgressDots } from "./drawProgressDots";
+import { drawCenteredCross } from "./drawCenteredCross";
 
 interface Props {
   progress: number;
@@ -31,35 +31,38 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     return slicedPath;
   }, []);
 
-  const drawFibonacciProgression = React.useCallback(() => {
-    const ctx = spiralCanvasRef?.current?.getContext("2d");
-    const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
-    const minutes = Math.floor(progress / 60);
-    const fibStage = getFloorFibonacciDiscrete(minutes);
-    const colorCSSVarName = getColorStyleSheetVarName(fibStage);
-    const color = getColorFromCSSVar(colorCSSVarName);
+  const drawFibonacciProgression = React.useCallback(
+    (ctx) => {
+      const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE;
+      const minutes = Math.floor(progress / 60);
+      const fibStage = getFloorFibonacciDiscrete(minutes);
+      const colorCSSVarName = getColorStyleSheetVarName(fibStage);
+      const color = getColorFromCSSVar(colorCSSVarName);
 
-    if (!ctx) {
-      return;
-    }
+      if (!ctx) {
+        return;
+      }
 
-    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    ctx.globalCompositeOperation = "destination-atop";
+      ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+      ctx.globalCompositeOperation = "destination-atop";
 
-    // NOTE: draw growing circle from center of spiral
-    drawCircle(ctx, radius, CENTER_POINT, color);
+      // NOTE: draw growing circle from center of spiral
+      drawCircle(ctx, radius, CENTER_POINT, color);
 
-    // NOTE: draw spiral path
-    const spiralColor = getColorFromCSSVar("--c-spiral");
-    drawStrokeByPath(ctx, bgSpiralPath, CENTER_POINT, spiralColor);
-  }, [progress, bgSpiralPath]);
+      // NOTE: draw spiral path
+      const spiralColor = getColorFromCSSVar("--c-spiral");
+      drawStrokeByPath(ctx, bgSpiralPath, CENTER_POINT, spiralColor);
+    },
+    [progress, bgSpiralPath]
+  );
 
   React.useEffect(() => {
-    drawFibonacciProgression();
+    const ctx1 = dotsCanvasRef?.current?.getContext("2d");
+    const ctx2 = spiralCanvasRef?.current?.getContext("2d");
 
-    const ctx = dotsCanvasRef?.current?.getContext("2d");
-    if (ctx) {
-      drawProgressDots(ctx, progress, bgSpiralPath);
+    if (ctx1 && ctx2) {
+      drawCenteredCross(ctx1);
+      drawFibonacciProgression(ctx2);
     }
   }, [bgSpiralPath, drawFibonacciProgression, progress]);
 
@@ -69,7 +72,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
         ref={dotsCanvasRef}
         width={CANVAS_SIZE}
         height={CANVAS_SIZE}
-        className={styles["progress-dots"]}
+        className={styles["centered-cross"]}
       ></canvas>
       <canvas
         ref={spiralCanvasRef}

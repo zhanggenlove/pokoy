@@ -14,6 +14,7 @@ import {
 import { Tip } from "features/Tip";
 import styles from "./Pokoy.module.css";
 import { PokoySession } from "shared/types";
+import { SignOut } from "features/Home/SignOut";
 
 export const Pokoy = ({ user }: { user: User }) => {
   useNoSleep(true);
@@ -22,15 +23,17 @@ export const Pokoy = ({ user }: { user: User }) => {
   const [isStarted, setStartedFlag] = useState(false);
 
   const finishTimer = useCallback(
-    async (timerDiff: number): Promise<void> => {
+    (timerDiff: number): void => {
       const isCurrentTimerIdExist = currentTimerId !== null;
       if (!isCurrentTimerIdExist) throw Error("currentTimerId is not exist");
 
       window.clearInterval(currentTimerId);
       setStartedFlag(false);
       setTimerDiff(0);
-      await sendSessionFromSeconds(firestore, user, timerDiff);
-      console.info("Timer resetted");
+
+      sendSessionFromSeconds(firestore, user, timerDiff);
+      // NOTE: for developing
+      // sendSessionFromSeconds(firestore, user, 61);
     },
     [currentTimerId, user]
   );
@@ -101,7 +104,8 @@ export const Pokoy = ({ user }: { user: User }) => {
         {isStarted ? <Minutes seconds={timerDiff} /> : <Tip />}
         {/* <Total user={user} /> */}
       </p>
-      {/* <SignOut /> */}
+      <SignOut />
+
       {/* <button type="button" onClick={handleTestClick}>
         Migrate
       </button> */}

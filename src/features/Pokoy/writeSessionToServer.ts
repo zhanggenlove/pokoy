@@ -34,7 +34,9 @@ export const sendSessionFromSeconds = async (
   seconds: number
 ): Promise<DocumentReference<DocumentData> | void> => {
   const isSessionLongerThanMinute = seconds > SECS_IN_MIN;
+
   if (!isSessionLongerThanMinute || !user) {
+    console.error("Request not sended. ", "user: ", user);
     return;
   }
 
@@ -123,7 +125,8 @@ const updateExistingDay = async (
   daysQuerySnapshot: QuerySnapshot<DocumentData>,
   pokoyData: PokoySession
 ) => {
-  // FIXME: hardcode
+  console.log("write day to EXISTED document");
+  // TODO: replace hardcode by dynamic code
   const dayDocRef = daysQuerySnapshot.docs[0].ref;
   const daySnapshot = await getDoc(dayDocRef);
   const dayData = daySnapshot.data() as DayData;
