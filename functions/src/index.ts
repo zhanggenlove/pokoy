@@ -1,9 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { DayData, PokoySession, UserStats } from "./types";
-import { collection, getDoc, limit, query, setDoc } from "firebase/firestore";
-import { firestore } from "firebase-functions";
-// import {UserStatss} from './types'
+import { DayData, UserStats } from "./types";
+import { getDoc, setDoc } from "firebase/firestore";
 
 admin.initializeApp();
 
