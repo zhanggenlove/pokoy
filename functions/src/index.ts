@@ -6,7 +6,6 @@ import { INIT_USER_STATS } from "./constants";
 admin.initializeApp();
 const db = admin.firestore();
 
-
 exports.updateUserStats = functions.firestore
   .document("days/{dayId}")
   .onWrite(async (dayChange, context) => {
@@ -21,7 +20,7 @@ exports.updateUserStats = functions.firestore
     if (!userStatsData) return;
 
     const userStats = userStatsData || INIT_USER_STATS;
-    const totalDuration = userStats.totalDuration + dayData.totalDuration
+    const totalDuration = userStats.totalDuration + dayData.totalDuration;
     const newUserStats = {
       totalDuration,
       count: userStats.count + 1,
@@ -30,8 +29,8 @@ exports.updateUserStats = functions.firestore
 
     try {
       await userStatsRef.set(newUserStats);
-      console.log('SUCCESS');
-    } catch(e) {
-      console.error('ERROR: ', e)
+      console.log("SUCCESS");
+    } catch (e) {
+      console.error("ERROR: ", e);
     }
   });
