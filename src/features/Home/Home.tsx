@@ -3,18 +3,28 @@ import styles from "./Home.module.css";
 import { auth } from "features/Home/firebase-init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Pokoy } from "features/Pokoy/Pokoy";
-import { SignIn } from "./SignIn";
 import { useOnline } from "@saulpalv/useonline";
 import { OfflineStatus } from "./OfflineStatus";
+import { SignIn } from "features/SignIn/SignIn";
+import { FibLoader } from "features/fib-loader";
 
 // TODO: refactor this component
 export const Home: React.FC = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const isOnline = useOnline();
+
+  const isStillLoading = loading && !user;
+  const userNotExist = !loading && !user;
+  const userExist = !loading && user;
 
   return (
     <main className={styles["app-wrapper"]}>
-      {user ? <Pokoy user={user} /> : <SignIn />}
+      {userNotExist && <SignIn />}
+
+      <FibLoader loading={isStillLoading} />
+
+      {userExist && <Pokoy user={user} />}
+
       {!isOnline && <OfflineStatus />}
     </main>
   );

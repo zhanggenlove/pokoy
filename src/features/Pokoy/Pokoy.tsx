@@ -4,7 +4,6 @@ import { LOCAL_CACHE_FIELD_NAME, MAX_TIMER_SECONDS } from "shared/constants";
 import { firestore } from "features/Home/firebase-init";
 import { Minutes } from "features/Minutes";
 import { useState, useEffect, useCallback } from "react";
-import { FibonacciProgress } from "features/Progress/ProgressContainer";
 import { TimerButton } from "features/TimerButton/TimerButton";
 import { Countdown } from "features/Countdown/Countdown";
 import {
@@ -14,8 +13,10 @@ import {
 import { Tip } from "features/Tip";
 import styles from "./Pokoy.module.css";
 import { PokoySession } from "shared/types";
-import { SignOut } from "features/Home/SignOut";
+import { SignOut } from "features/SignIn/SignOut";
+import { FibonacciProgress } from "features";
 
+// TODO: refactor component
 export const Pokoy = ({ user }: { user: User }) => {
   useNoSleep(true);
   const [currentTimerId, setCurrentTimerId] = useState<number | null>(null);
@@ -102,13 +103,9 @@ export const Pokoy = ({ user }: { user: User }) => {
       {/* // TODO: extract to component */}
       <p className={styles["bottom-text-wrapper"]}>
         {isStarted ? <Minutes seconds={timerDiff} /> : <Tip />}
-        {/* <Total user={user} /> */}
       </p>
-      <SignOut />
 
-      {/* <button type="button" onClick={handleTestClick}>
-        Migrate
-      </button> */}
+      <SignOut />
     </div>
   );
 };
