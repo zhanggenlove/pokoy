@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback } from "react";
 import { TimerButton } from "features/TimerButton/TimerButton";
 import { Countdown } from "features/Countdown/Countdown";
 import {
-  sendSessionFromLocalStore as writeSessionFromLocalStorage,
+  sendSessionFromLocalStore,
   sendSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer";
 import { Tip } from "features/Tip";
@@ -18,13 +18,16 @@ import { FibonacciProgress } from "features";
 
 // TODO: refactor component
 export const Pokoy = ({ user }: { user: User }) => {
-  useNoSleep(true);
   const [currentTimerId, setCurrentTimerId] = useState<number | null>(null);
   const [timerDiff, setTimerDiff] = useState<number>(0);
   const [isStarted, setStartedFlag] = useState(false);
+  const [requestStatus, setRequestStatus] = useState<
+    "REQUEST" | "SUCCESS" | "FAILURE" | "NONE"
+  >("NONE");
+  useNoSleep(true);
 
   const finishTimer = useCallback(
-    (timerDiff: number): void => {
+    async (timerDiff: number): Promise<void> => {
       const isCurrentTimerIdExist = currentTimerId !== null;
       if (!isCurrentTimerIdExist) throw Error("currentTimerId is not exist");
 
@@ -32,9 +35,16 @@ export const Pokoy = ({ user }: { user: User }) => {
       setStartedFlag(false);
       setTimerDiff(0);
 
-      sendSessionFromSeconds(firestore, user, timerDiff);
-      // NOTE: for developing
-      // sendSessionFromSeconds(firestore, user, 61);
+      try {
+        setRequestStatus("REQUEST");
+        // NOTE: for developing
+        await sendSessionFromSeconds(firestore, user, 61);
+        // await sendSessionFromSeconds(firestore, user, timerDiff);
+        setRequestStatus("SUCCESS");
+      } catch (e) {
+        setRequestStatus("FAILURE");
+        console.error(e);
+      }
     },
     [currentTimerId, user]
   );
@@ -85,7 +95,7 @@ export const Pokoy = ({ user }: { user: User }) => {
         storedAfterFailurePokoySession
       ) as PokoySession;
 
-      writeSessionFromLocalStorage(firestore, user, lastSession);
+      sendSessionFromLocalStore(firestore, user, lastSession);
       window?.localStorage.removeItem(LOCAL_CACHE_FIELD_NAME);
     }
   }, [user]);
@@ -96,7 +106,11 @@ export const Pokoy = ({ user }: { user: User }) => {
         <Countdown seconds={timerDiff} />
       </p>
 
-      <TimerButton handleTimerClick={handleClick} isTimerStarted={isStarted}>
+      <TimerButton
+        handleTimerClick={handleClick}
+        isTimerStarted={isStarted}
+        requestStatus={requestStatus}
+      >
         <FibonacciProgress value={timerDiff} />
       </TimerButton>
 

@@ -35,7 +35,11 @@ export const sendSessionFromSeconds = async (
 ): Promise<DocumentReference<DocumentData> | void> => {
   const isSessionLongerThanMinute = seconds > SECS_IN_MIN;
 
-  if (!isSessionLongerThanMinute || !user) {
+  if (!isSessionLongerThanMinute) {
+    return;
+  }
+
+  if (!user) {
     console.error("Request not sended. ", "user: ", user);
     return;
   }
