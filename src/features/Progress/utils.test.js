@@ -1,5 +1,5 @@
-import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
-import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete";
+import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete"
+import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete"
 
 describe("getFibonacciDiscrete", () => {
   it("should return properly values", () => {
@@ -12,19 +12,19 @@ describe("getFibonacciDiscrete", () => {
       34: 34,
       55: 55,
       89: 101,
-    };
-    const inputValues = Object.values(outputToInputMap);
-    const outputValues = Object.keys(outputToInputMap).map((v) => +v);
-    const results = inputValues.map((n) => getFibonacciDiscrete(n));
+    }
+    const inputValues = Object.values(outputToInputMap)
+    const outputValues = Object.keys(outputToInputMap).map((v) => +v)
+    const results = inputValues.map((n) => getFibonacciDiscrete(n))
 
-    expect(results).toEqual(outputValues);
-  });
+    expect(results).toEqual(outputValues)
+  })
 
   it("Bug: should return 13 discrete number on 11 input", () => {
-    const result = getFibonacciDiscrete(11);
-    expect(result).toEqual(13);
-  });
-});
+    const result = getFibonacciDiscrete(11)
+    expect(result).toEqual(13)
+  })
+})
 
 describe("getFloorFibDiscrete", () => {
   it("should return properly values", () => {
@@ -38,10 +38,10 @@ describe("getFloorFibDiscrete", () => {
       34: 34,
       55: 55,
       89: 101,
-    };
-    const inputValues = Object.values(outputToInputMap);
-    const outputValues = Object.keys(outputToInputMap).map((v) => +v);
-    const result = inputValues.map((n) => getFloorFibonacciDiscrete(n));
-    expect(result).toEqual(outputValues);
-  });
-});
+    }
+    const inputValues = Object.values(outputToInputMap)
+    const outputValues = Object.keys(outputToInputMap).map((v) => +v)
+    const result = inputValues.map((n) => getFloorFibonacciDiscrete(n))
+    expect(result).toEqual(outputValues)
+  })
+})

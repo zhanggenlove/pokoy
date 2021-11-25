@@ -1,4 +1,4 @@
-import { Coords } from "shared/types";
+import { Coords } from "shared/types"
 
 export const drawCircle = (
   context: CanvasRenderingContext2D,
@@ -6,10 +6,10 @@ export const drawCircle = (
   startPoint: Coords,
   color: string
 ) => {
-  if (!context) return;
+  if (!context) return
 
-  context.beginPath();
-  context.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI);
-  context.fillStyle = color;
-  context.fill();
-};
+  context.beginPath()
+  context.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI)
+  context.fillStyle = color
+  context.fill()
+}

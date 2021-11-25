@@ -1,9 +1,9 @@
-import { useCallback } from "react";
-import { auth } from "features/Home/firebase-init";
-import styles from "./SignIn.module.css";
+import { useCallback } from "react"
+import { auth } from "features/Home/firebase-init"
+import styles from "./SignIn.module.css"
 
 export const SignOut = () => {
-  const signOut = useCallback(() => auth.signOut(), []);
+  const signOut = useCallback(() => auth.signOut(), [])
 
   return (
     auth.currentUser && (
@@ -11,5 +11,5 @@ export const SignOut = () => {
         Sign out
       </button>
     )
-  );
-};
+  )
+}

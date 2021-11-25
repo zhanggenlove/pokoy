@@ -1,18 +1,18 @@
-import React from "react";
-import { ProgressContainer } from "features/Progress/ProgressContainer";
-import { ProgressWrapper, Wrapper } from "./fib-loader.styles";
-import { useTransition, animated } from "react-spring";
+import React from "react"
+import { ProgressContainer } from "features/Progress/ProgressContainer"
+import { ProgressWrapper, Wrapper } from "./fib-loader.styles"
+import { useTransition, animated } from "react-spring"
 
 type Props = {
-  loading: boolean;
-};
+  loading: boolean
+}
 
 export const FibLoader: React.FC<Props> = ({ loading }) => {
   const transition = useTransition(loading, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
-  });
+  })
 
   return (
     <Wrapper>
@@ -27,9 +27,9 @@ export const FibLoader: React.FC<Props> = ({ loading }) => {
           )
       )}
     </Wrapper>
-  );
-};
+  )
+}
 
 FibLoader.defaultProps = {
   loading: false,
-};
+}
