@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { Home } from "./features"
+import { App } from "./features/app"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 import "./global.css"
@@ -10,7 +10,7 @@ import { onServiceWorkerUpdate } from "@3m1/service-worker-updater"
 ReactDOM.render(
   <React.StrictMode>
     {/* TODO: rename Home component to App */}
-    <Home />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 )
