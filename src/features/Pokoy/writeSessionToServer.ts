@@ -1,6 +1,6 @@
 import { User } from "@firebase/auth"
 import { formatISO } from "date-fns"
-import { firestore } from "features/Home/firebase-init"
+import { firestore } from "features/app/firebase-init"
 import {
   collection,
   CollectionReference,
@@ -34,8 +34,12 @@ export const sendSessionFromSeconds = async (
 ): Promise<DocumentReference<DocumentData> | void> => {
   const isSessionLongerThanMinute = seconds > SECS_IN_MIN
 
-  if (!isSessionLongerThanMinute || !user) {
-    console.error("Request not sended. ", "user: ", user)
+  if (!isSessionLongerThanMinute) {
+    return
+  }
+
+  if (!user) {
+    console.error("User is not defined. Request not sended.", "user: ", user)
     return
   }
 

@@ -5,7 +5,7 @@ import {
   QueryDocumentSnapshot,
   setDoc,
 } from "@firebase/firestore"
-import { firestore } from "features/Home/firebase-init"
+import { firestore } from "features/app/firebase-init"
 import {
   doc,
   getDoc,

@@ -1,6 +1,6 @@
 // TODO: refactor this
 
-import { FibonacciGenerator } from "features"
+import { FibonacciGenerator } from "features/Progress/FibonacciGenerator"
 import { Coords } from "shared/types"
 
 // TODO: solve linter issues

@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { auth } from "features/Home/firebase-init"
+import { auth } from "features/app/firebase-init"
 import styles from "./SignIn.module.css"
 
 export const SignIn = () => {
