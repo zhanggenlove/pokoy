@@ -1,1 +1,1 @@
-export * from "./fib-loader.component";
+export * from "./fib-loader.component"

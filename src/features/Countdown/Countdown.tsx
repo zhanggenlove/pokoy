@@ -1,59 +1,59 @@
-import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete";
-import React from "react";
-import { fibonacciNums, SECS_IN_MIN } from "shared/constants";
-import styles from "./Countdown.module.css";
-import { remainTimeToDigitClock } from "./remainTimeToDigitClock";
+import { getFibonacciDiscrete } from "shared/utils/getFibonacciDiscrete"
+import React from "react"
+import { fibonacciNums, SECS_IN_MIN } from "shared/constants"
+import styles from "./Countdown.module.css"
+import { remainTimeToDigitClock } from "./remainTimeToDigitClock"
 
 interface Props {
-  seconds: number;
+  seconds: number
 }
 
 export const Countdown: React.FC<Props> = ({ seconds }) => {
-  const [secondsRemain, setSecondsRemain] = React.useState(0);
-  const [minutesRemain, setMinutesRemain] = React.useState(0);
-  const [timeRemain, setTimeRemain] = React.useState("00:00");
+  const [secondsRemain, setSecondsRemain] = React.useState(0)
+  const [minutesRemain, setMinutesRemain] = React.useState(0)
+  const [timeRemain, setTimeRemain] = React.useState("00:00")
 
   const timerProgressToCountdown = React.useCallback((seconds: number) => {
-    const minutes = Math.floor(seconds / SECS_IN_MIN);
-    const closestDiscreteStage = getFibonacciDiscrete(minutes);
+    const minutes = Math.floor(seconds / SECS_IN_MIN)
+    const closestDiscreteStage = getFibonacciDiscrete(minutes)
 
     for (const num of fibonacciNums) {
       if (closestDiscreteStage === num) {
-        const nextStageIndex = fibonacciNums.indexOf(closestDiscreteStage) + 1;
+        const nextStageIndex = fibonacciNums.indexOf(closestDiscreteStage) + 1
         const nextStage =
           minutes < closestDiscreteStage
             ? closestDiscreteStage
-            : fibonacciNums[nextStageIndex];
-        const secondsToNextStage = nextStage * SECS_IN_MIN - seconds;
+            : fibonacciNums[nextStageIndex]
+        const secondsToNextStage = nextStage * SECS_IN_MIN - seconds
 
-        const minutesRemain = Math.floor(secondsToNextStage / SECS_IN_MIN);
+        const minutesRemain = Math.floor(secondsToNextStage / SECS_IN_MIN)
         const secondsRemain =
-          (nextStage - minutesRemain) * SECS_IN_MIN - seconds;
+          (nextStage - minutesRemain) * SECS_IN_MIN - seconds
 
-        setSecondsRemain(secondsRemain);
-        setMinutesRemain(minutesRemain);
+        setSecondsRemain(secondsRemain)
+        setMinutesRemain(minutesRemain)
       }
     }
-  }, []);
+  }, [])
 
   React.useEffect(() => {
     if (seconds) {
-      timerProgressToCountdown(seconds);
+      timerProgressToCountdown(seconds)
     }
-  }, [seconds, timerProgressToCountdown]);
+  }, [seconds, timerProgressToCountdown])
 
   React.useEffect(() => {
     if (seconds === 0) {
-      setSecondsRemain(0);
-      setMinutesRemain(0);
+      setSecondsRemain(0)
+      setMinutesRemain(0)
     }
 
-    setTimeRemain(remainTimeToDigitClock(secondsRemain, minutesRemain));
-  }, [minutesRemain, seconds, secondsRemain]);
+    setTimeRemain(remainTimeToDigitClock(secondsRemain, minutesRemain))
+  }, [minutesRemain, seconds, secondsRemain])
 
   return (
     <span className={styles.countdown} title="Времени до следующего этапа">
       {timeRemain}
     </span>
-  );
-};
+  )
+}

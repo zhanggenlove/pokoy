@@ -1,32 +1,32 @@
-import { DocumentData, DocumentReference, Timestamp } from "firebase/firestore";
+import { DocumentData, DocumentReference, Timestamp } from "firebase/firestore"
 
 export interface Coords {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 export interface StatsData {
-  [date: string]: number[];
+  [date: string]: number[]
 }
 
 export interface PokoySession {
-  duration: number;
-  timestamp: string;
-  user?: string | DocumentReference<DocumentData>;
-  userId: string;
+  duration: number
+  timestamp: string
+  user?: string | DocumentReference<DocumentData>
+  userId: string
 }
 
 export interface UserStats {
-  totalDuration: number;
-  count: number;
-  userId: string;
+  totalDuration: number
+  count: number
+  userId: string
 }
 
 export interface DayData {
-  timestamp: Timestamp;
-  totalDuration: number;
-  count: number;
-  meditations: PokoySession[];
-  userId: string;
-  statsRef?: DocumentReference<DocumentData>;
+  timestamp: Timestamp
+  totalDuration: number
+  count: number
+  meditations: PokoySession[]
+  userId: string
+  statsRef?: DocumentReference<DocumentData>
 }
