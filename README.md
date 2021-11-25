@@ -4,7 +4,7 @@
 
 ## Concept
 
-Meditation timer focused on progressive stages for game based habit consolidation. Progressive stages implemented with fibonacci sequence function for smooth progression.
+This is a reverse meditation timer that is built on progressively longer stretches of time to reinforce the habit and keep statistics.
 
 ## Usage
 
@@ -14,7 +14,9 @@ Visit https://pokoy.netlify.app and play! Can be used as PWA (from homescreen)
 
 ## To be done
 
-* [ ] easier concept description
-* [ ] stronger concept description
+* [x] easier concept description
+* [x] stronger concept description
 * [x] loging in
-* [ ] statistics
+* [x] statistics
+* [ ] visualisation of statistics
+* [ ] onbording

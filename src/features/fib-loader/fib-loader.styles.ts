@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components"
 
 const spinning = keyframes`
   from {
@@ -8,7 +8,7 @@ const spinning = keyframes`
   to {
     transform: rotate(360deg);
   }
-`;
+`
 
 export const ProgressWrapper = styled.div`
   display: flex;
@@ -24,9 +24,9 @@ export const ProgressWrapper = styled.div`
     box-shadow: 0px 0px 4px 0px currentcolor;
     padding: 0px;
   }
-`;
+`
 
 export const Wrapper = styled.div`
   position: absolute;
   width: 100%;
-`;
+`

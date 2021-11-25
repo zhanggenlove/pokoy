@@ -1,17 +1,17 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "features/Home/firebase-init";
-import styles from "./SignIn.module.css";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { auth } from "features/app/firebase-init"
+import styles from "./SignIn.module.css"
 
 export const SignIn = () => {
   const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider()
 
     try {
-      return await signInWithPopup(auth, provider);
+      return await signInWithPopup(auth, provider)
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
-  };
+  }
 
   return (
     <button
@@ -32,5 +32,5 @@ export const SignIn = () => {
         <path fill="none" d="M0 0h48v48H0z" />
       </svg>
     </button>
-  );
-};
+  )
+}

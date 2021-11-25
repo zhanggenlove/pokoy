@@ -1,1 +1,1 @@
-export { Minutes } from "./Minutes";
+export { Minutes } from "./Minutes"

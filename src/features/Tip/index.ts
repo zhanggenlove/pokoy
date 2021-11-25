@@ -1,1 +1,1 @@
-export { Tip } from "./tip";
+export { Tip } from "./tip"

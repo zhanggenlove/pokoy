@@ -1,13 +1,13 @@
-import React from "react";
-import useSound from "use-sound";
-import clickSfx from "shared/assets/sounds/finger-snap.mp3";
-import { ButtonWrapper } from "./timer-button.styles";
+import React from "react"
+import useSound from "use-sound"
+import clickSfx from "shared/assets/sounds/finger-snap.mp3"
+import { ButtonWrapper } from "./timer-button.styles"
 
 type Props = {
-  handleTimerClick: () => void;
-  isTimerStarted: boolean;
-  requestStatus: "NONE" | "REQUEST" | "SUCCESS" | "FAILURE";
-};
+  handleTimerClick: () => void
+  isTimerStarted: boolean
+  requestStatus: "NONE" | "REQUEST" | "SUCCESS" | "FAILURE"
+}
 
 export const TimerButton: React.FC<Props> = ({
   isTimerStarted = false,
@@ -15,12 +15,12 @@ export const TimerButton: React.FC<Props> = ({
   requestStatus,
   children,
 }) => {
-  const [playClick] = useSound(clickSfx);
+  const [playClick] = useSound(clickSfx)
 
   const clickWithSound = React.useCallback(() => {
-    playClick();
-    handleTimerClick();
-  }, [handleTimerClick, playClick]);
+    playClick()
+    handleTimerClick()
+  }, [handleTimerClick, playClick])
 
   return (
     <ButtonWrapper
@@ -32,5 +32,5 @@ export const TimerButton: React.FC<Props> = ({
     >
       {children}
     </ButtonWrapper>
-  );
-};
+  )
+}

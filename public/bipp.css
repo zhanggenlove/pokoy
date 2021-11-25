@@ -214,22 +214,7 @@ button {
 	font-size: large;
 
 	transition: transform .1s;
-}
-
-button:nth-child(n) {
-	background-color: var(--c-red);
-}
-
-button:nth-child(2n) {
-	background-color: var(--c-green);
-}
-
-button:nth-child(3n) {
-	background-color: var(--c-yellow);
-}
-
-button:nth-child(4n) {
-	background-color: var(--c-blue);
+  background-color: var(--c-blue)
 }
 
 button::before {
