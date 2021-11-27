@@ -1,10 +1,14 @@
 import { User } from "@firebase/auth"
 import { useNoSleep } from "use-no-sleep"
-import { LOCAL_CACHE_FIELD_NAME, MAX_TIMER_SECONDS } from "shared/constants"
+import {
+  LOCAL_CACHE_FIELD_NAME,
+  MAX_TIMER_SECONDS,
+  SECS_IN_MIN,
+} from "shared/constants"
 import { firestore } from "features/app/firebase-init"
 import { Minutes } from "features/Minutes"
 import { useState, useEffect, useCallback } from "react"
-import { TimerButton } from "features/TimerButton/TimerButton"
+import { TimerButton } from "features/timer-button/timer-button.component"
 import { Countdown } from "features/Countdown/Countdown"
 import {
   sendSessionFromLocalStore,
@@ -12,7 +16,7 @@ import {
 } from "features/Pokoy/writeSessionToServer"
 import { Tip } from "features/Tip"
 import styles from "./Pokoy.module.css"
-import { PokoySession } from "shared/types"
+import { PokoySession, RequestStatus } from "shared/types"
 import { ProgressContainer } from "features/Progress/ProgressContainer"
 
 // TODO: refactor component
