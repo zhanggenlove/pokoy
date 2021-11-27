@@ -34,20 +34,20 @@ export const Pokoy = ({ user }: { user: User }) => {
       const isCurrentTimerIdExist = currentTimerId !== null
       if (!isCurrentTimerIdExist) throw Error("currentTimerId is not exist")
 
+      window.clearInterval(currentTimerId)
+      setStartedFlag(false)
+      setTimerDiff(0)
+
       const isSessionLongerThanMinute = timerDiff > SECS_IN_MIN
       if (!isSessionLongerThanMinute) {
         return
       }
 
-      window.clearInterval(currentTimerId)
-      setStartedFlag(false)
-      setTimerDiff(0)
-
       try {
         setRequestStatus(RequestStatus.REQUEST)
         // NOTE: for developing
-        await sendSessionFromSeconds(firestore, user, 61)
-        // await sendSessionFromSeconds(firestore, user, timerDiff);
+        // await sendSessionFromSeconds(firestore, user, 61)
+        await sendSessionFromSeconds(firestore, user, timerDiff)
         setRequestStatus(RequestStatus.SUCCESS)
       } catch (e) {
         setRequestStatus(RequestStatus.FAILURE)
@@ -74,6 +74,7 @@ export const Pokoy = ({ user }: { user: User }) => {
   const startTimer = useCallback(() => {
     const startInSeconds = Math.round(Date.now() / 1000)
     setStartedFlag(true)
+    setRequestStatus(RequestStatus.NONE)
 
     const newTimerId = window.setInterval(
       () => handleTimer(startInSeconds),
