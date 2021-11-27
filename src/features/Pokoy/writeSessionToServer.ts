@@ -32,12 +32,6 @@ export const sendSessionFromSeconds = async (
   user: User | null | undefined,
   seconds: number
 ): Promise<DocumentReference<DocumentData> | void> => {
-  const isSessionLongerThanMinute = seconds > SECS_IN_MIN
-
-  if (!isSessionLongerThanMinute) {
-    return
-  }
-
   if (!user) {
     console.error("User is not defined. Request not sended.", "user: ", user)
     return

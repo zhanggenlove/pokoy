@@ -24,9 +24,9 @@ export const Pokoy = ({ user }: { user: User }) => {
   const [currentTimerId, setCurrentTimerId] = useState<number | null>(null)
   const [timerDiff, setTimerDiff] = useState<number>(0)
   const [isStarted, setStartedFlag] = useState(false)
-  const [requestStatus, setRequestStatus] = useState<
-    "REQUEST" | "SUCCESS" | "FAILURE" | "NONE"
-  >("NONE")
+  const [requestStatus, setRequestStatus] = useState<RequestStatus>(
+    RequestStatus.NONE
+  )
   useNoSleep(true)
 
   const finishTimer = useCallback(
@@ -34,18 +34,23 @@ export const Pokoy = ({ user }: { user: User }) => {
       const isCurrentTimerIdExist = currentTimerId !== null
       if (!isCurrentTimerIdExist) throw Error("currentTimerId is not exist")
 
+      const isSessionLongerThanMinute = timerDiff > SECS_IN_MIN
+      if (!isSessionLongerThanMinute) {
+        return
+      }
+
       window.clearInterval(currentTimerId)
       setStartedFlag(false)
       setTimerDiff(0)
 
       try {
-        setRequestStatus("REQUEST")
+        setRequestStatus(RequestStatus.REQUEST)
         // NOTE: for developing
         await sendSessionFromSeconds(firestore, user, 61)
         // await sendSessionFromSeconds(firestore, user, timerDiff);
-        setRequestStatus("SUCCESS")
+        setRequestStatus(RequestStatus.SUCCESS)
       } catch (e) {
-        setRequestStatus("FAILURE")
+        setRequestStatus(RequestStatus.FAILURE)
         console.error(e)
       }
     },
@@ -87,7 +92,7 @@ export const Pokoy = ({ user }: { user: User }) => {
     }
   }, [finishTimer, isStarted, startTimer, timerDiff])
 
-  // TODO: extract function in useEffect from component
+  // TODO: extract function in useEffect from component or extract custom hook
   useEffect(() => {
     const storedAfterFailurePokoySession = window?.localStorage.getItem(
       LOCAL_CACHE_FIELD_NAME
