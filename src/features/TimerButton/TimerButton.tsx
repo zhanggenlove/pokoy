@@ -2,11 +2,12 @@ import React from "react"
 import useSound from "use-sound"
 import clickSfx from "shared/assets/sounds/finger-snap.mp3"
 import { ButtonWrapper } from "./timer-button.styles"
+import { RequestStatus } from "shared/types"
 
 type Props = {
   handleTimerClick: () => void
   isTimerStarted: boolean
-  requestStatus: "NONE" | "REQUEST" | "SUCCESS" | "FAILURE"
+  requestStatus: RequestStatus
 }
 
 export const TimerButton: React.FC<Props> = ({
@@ -25,7 +26,7 @@ export const TimerButton: React.FC<Props> = ({
   return (
     <ButtonWrapper
       onClick={clickWithSound}
-      isStarted={isTimerStarted}
+      isTimerStarted={isTimerStarted}
       requestStatus={requestStatus}
       type="button"
       autoFocus

@@ -4,11 +4,11 @@
 
 ## Concept
 
-This is a reverse meditation timer that is built on progressively longer stretches of time to reinforce the habit and keep statistics.
+This is a Fibonacci timer for meditation. In more complicated terms it reverse timer that is built on progressively longer stretches of time to reinforce the meditations and keep statistics.
 
 ## Usage
 
-Visit https://pokoy.netlify.app and play! Can be used as PWA (from homescreen)
+Just visit https://pokoy.netlify.app and play! Can be installed to homescreen as PWA
 
 <img width="521" alt="image" src="https://user-images.githubusercontent.com/20739202/120170972-cd4c0800-c201-11eb-9e86-edfe913c7191.png">
 
@@ -18,5 +18,6 @@ Visit https://pokoy.netlify.app and play! Can be used as PWA (from homescreen)
 * [x] stronger concept description
 * [x] loging in
 * [x] statistics
+* [x] auto updates
 * [ ] visualisation of statistics
 * [ ] onbording
