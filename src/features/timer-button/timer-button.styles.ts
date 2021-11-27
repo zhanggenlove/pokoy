@@ -4,7 +4,6 @@ import styled from "styled-components"
 
 interface Props {
   requestStatus: RequestStatus
-  isTimerStarted: boolean
 }
 
 export const ButtonWrapper = styled.button<Props>`

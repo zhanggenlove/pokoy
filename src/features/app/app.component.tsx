@@ -19,7 +19,7 @@ export const App: React.FC = () => {
     <Wrapper>
       <Header />
       <AppUpdater />
-      <FibLoader loading={isStillLoading} />
+      <FibLoader stillLoading={isStillLoading} />
 
       {userNotExist && <SignIn />}
       {userExist && <Pokoy user={user} />}

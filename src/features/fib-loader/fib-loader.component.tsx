@@ -3,17 +3,13 @@ import { ProgressContainer } from "features/Progress/ProgressContainer"
 import { Wrapper } from "./fib-loader.styles"
 
 type Props = {
-  loading: boolean
+  stillLoading: boolean
 }
 
-export const FibLoader: React.FC<Props> = ({ loading }) => {
+export const FibLoader: React.FC<Props> = ({ stillLoading = false }) => {
   return (
-    <Wrapper loading={loading}>
+    <Wrapper stillLoading={stillLoading}>
       <ProgressContainer value={0} />
     </Wrapper>
   )
-}
-
-FibLoader.defaultProps = {
-  loading: false,
 }

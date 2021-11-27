@@ -13,11 +13,11 @@ const spinning = keyframes`
 `
 
 interface Props {
-  loading: boolean
+  stillLoading: boolean
 }
 
 export const Wrapper = styled.div<Props>`
-  opacity: ${({ loading }) => (loading ? 1 : 0)};
+  opacity: ${({ stillLoading }) => (stillLoading ? 1 : 0)};
   transition: opacity 1s;
 
   display: flex;
