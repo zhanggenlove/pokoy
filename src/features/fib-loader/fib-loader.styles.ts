@@ -18,6 +18,7 @@ interface Props {
 
 export const Wrapper = styled.div<Props>`
   opacity: ${({ loading }) => (loading ? 1 : 0)};
+  transition: opacity 1s;
 
   display: flex;
   align-items: center;
@@ -27,7 +28,6 @@ export const Wrapper = styled.div<Props>`
   width: 100%;
   position: absolute;
   width: 100%;
-  transition: opacity 1s;
 
   & > canvas {
     animation-name: ${spinning};

@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase/firestore"
-import { DayData, UserStats } from "./types"
+import { DayData, RequestStatus, UserStats } from "./types"
 
 export const fibonacciNums = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 export const FIB_NUMS_FOR_TIMER = [0, 1, 2, 3, 5, 8, 13, 21]
@@ -48,3 +48,10 @@ export const INIT_DAY_DATA: DayData = {
   meditations: [],
   userId: "",
 }
+
+export const REQUEST_STATUS_TO_COLOR_MAP = new Map<RequestStatus, string>([
+  [RequestStatus.NONE, "var(--c-gray)"],
+  [RequestStatus.REQUEST, "var(--c-yellow)"],
+  [RequestStatus.SUCCESS, "var(--c-green)"],
+  [RequestStatus.FAILURE, "var(--c-red)"],
+])
