@@ -1,6 +1,6 @@
 import { render, unmountComponentAtNode } from "react-dom"
 import { act, Simulate } from "react-dom/test-utils"
-import { TimerButton } from "./TimerButton"
+import { TimerButton } from "./timer-button.component"
 
 describe("TimerButton", () => {
   let container = null

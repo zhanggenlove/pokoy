@@ -11,19 +11,18 @@ import { Header } from "components/header/header.component"
 export const App: React.FC = () => {
   const [user, loading] = useAuthState(auth)
 
-  const isStillLoading = loading && !user
   const userNotExist = !loading && !user
+  const isStillLoading = loading && !user
   const userExist = !loading && user
 
   return (
     <Wrapper>
       <Header />
+      <AppUpdater />
+      <FibLoader stillLoading={isStillLoading} />
 
       {userNotExist && <SignIn />}
       {userExist && <Pokoy user={user} />}
-
-      <FibLoader loading={isStillLoading} />
-      <AppUpdater />
     </Wrapper>
   )
 }

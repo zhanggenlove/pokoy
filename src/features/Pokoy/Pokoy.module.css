@@ -3,7 +3,10 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3em;
+  /* NOTE: tricky rule that vertically center component relatively container
+   * and syncronize with #FibLoader component
+   */
+  margin-bottom: 2.5em;
 }
 
 .top-text-wrapper {

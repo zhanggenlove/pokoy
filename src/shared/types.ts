@@ -30,3 +30,10 @@ export interface DayData {
   userId: string
   statsRef?: DocumentReference<DocumentData>
 }
+
+export enum RequestStatus {
+  NONE,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+}
