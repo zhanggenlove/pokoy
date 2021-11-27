@@ -6,7 +6,6 @@ import {
   SECS_IN_MIN,
 } from "shared/constants"
 import { firestore } from "features/app/firebase-init"
-import { Minutes } from "features/Minutes"
 import { useState, useEffect, useCallback } from "react"
 import { TimerButton } from "features/timer-button/timer-button.component"
 import { Countdown } from "features/Countdown/Countdown"
@@ -14,7 +13,7 @@ import {
   sendSessionFromLocalStore,
   sendSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer"
-import { Tip } from "features/Tip"
+import { Tip } from "features/tips"
 import styles from "./Pokoy.module.css"
 import { PokoySession, RequestStatus } from "shared/types"
 import { ProgressContainer } from "features/Progress/ProgressContainer"
@@ -28,6 +27,7 @@ export const Pokoy = ({ user }: { user: User }) => {
     RequestStatus.NONE
   )
   useNoSleep(true)
+  const minutes = Math.floor(timerDiff / SECS_IN_MIN)
 
   const finishTimer = useCallback(
     async (timerDiff: number): Promise<void> => {
@@ -123,10 +123,7 @@ export const Pokoy = ({ user }: { user: User }) => {
         <ProgressContainer value={timerDiff} />
       </TimerButton>
 
-      {/* // TODO: extract to component */}
-      <p className={styles["bottom-text-wrapper"]}>
-        {isStarted ? <Minutes seconds={timerDiff} /> : <Tip />}
-      </p>
+      <Tip minutes={minutes} isTimerStarted={isStarted} />
     </div>
   )
 }

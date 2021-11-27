@@ -27,6 +27,7 @@ export const TimerButton: React.FC<Props> = ({
     <ButtonWrapper
       onClick={clickWithSound}
       requestStatus={requestStatus}
+      isStarted={isTimerStarted}
       type="button"
       autoFocus
     >

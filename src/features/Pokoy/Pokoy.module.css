@@ -6,18 +6,12 @@
   /* NOTE: tricky rule that vertically center component relatively container
    * and syncronize with #FibLoader component
    */
-  margin-bottom: 2.5em;
+  margin-bottom: 1rem;
 }
 
 .top-text-wrapper {
   margin: 0;
   margin-bottom: 1.5em;
-}
-
-.bottom-text-wrapper {
-  font-size: medium;
-  color: var(--c-extra-gray);
-  margin-bottom: 0;
 }
 
 @media screen and (min-width: 500px) {

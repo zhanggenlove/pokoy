@@ -4,17 +4,22 @@ import styled from "styled-components"
 
 interface Props {
   requestStatus: RequestStatus
+  isStarted: boolean
 }
 
 export const ButtonWrapper = styled.button<Props>`
   color: ${({ requestStatus }) =>
     REQUEST_STATUS_TO_COLOR_MAP.get(requestStatus)};
+  color: ${({ isStarted }) => isStarted && "var(--c-blue)"};
 
   padding: 0px;
   display: block;
   background-color: transparent;
   position: relative;
-  transition: color 1s ease-out, transform ease-out 0.3s;
+  border-radius: 50%;
+  transition-property: color, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: linear, ease-out;
 
   /* NOTE: pseudo-element for opaque button border with dinamic color */
   &:after {
@@ -28,12 +33,7 @@ export const ButtonWrapper = styled.button<Props>`
     width: 100%;
     height: 100%;
     color: inherit;
-    opacity: 0.6;
+    opacity: 0.3;
     border-radius: 50%;
-
-    &:hover:after,
-    &:focus:after {
-      transform: scale(0.97);
-    }
   }
 `
