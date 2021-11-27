@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@3m1/service-worker-updater": "^2.0.3",
+    "@reduxjs/toolkit": "^1.6.2",
     "@saulpalv/useonline": "^1.0.1",
     "@types/styled-components": "^5.1.15",
     "@types/uuid": "^8.3.1",
