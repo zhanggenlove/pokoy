@@ -9,7 +9,9 @@ export const drawCircle = (
   if (!context) return
 
   context.beginPath()
-  context.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI)
   context.fillStyle = color
+  context.strokeStyle = color
+  context.lineWidth = 36
+  context.arc(startPoint.x, startPoint.y, radius, 0, 2 * Math.PI)
   context.fill()
 }

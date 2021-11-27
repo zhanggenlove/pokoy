@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import { getColorStyleSheetVarName, getColorFromCSSVar } from "./utils"
 import styles from "./Progress.module.css"
 import {
@@ -22,6 +22,7 @@ interface Props {
 export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
   const spiralCanvasRef = React.useRef<HTMLCanvasElement>(null)
   const dotsCanvasRef = React.useRef<HTMLCanvasElement>(null)
+  const averageValueCanvasRef = React.useRef<HTMLCanvasElement>(null)
 
   const bgSpiralPath = React.useMemo(() => {
     const numOfRendundantPoints = 220
@@ -32,7 +33,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
   }, [])
 
   const drawFibonacciProgression = React.useCallback(
-    (ctx) => {
+    (ctx: CanvasRenderingContext2D) => {
       const radius = progress < CANVAS_SIZE ? progress : CANVAS_SIZE
       const minutes = Math.floor(progress / 60)
       const fibStage = getFloorFibonacciDiscrete(minutes)
@@ -56,20 +57,50 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     [progress, bgSpiralPath]
   )
 
+  const drawAverageValue = useCallback(
+    (ctx: CanvasRenderingContext2D) => {
+      if (!ctx) {
+        return
+      }
+
+      ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
+
+      // NOTE: draw growing circle from center of spiral
+      ctx.beginPath()
+      ctx.strokeStyle = "white"
+      ctx.lineWidth = 13
+      ctx.arc(CENTER_POINT.x, CENTER_POINT.y, 250, 0, 2 * Math.PI)
+      ctx.stroke()
+
+      ctx.globalCompositeOperation = "source-in"
+      // NOTE: draw spiral path
+      drawStrokeByPath(ctx, bgSpiralPath, CENTER_POINT, "gray")
+    },
+    [bgSpiralPath]
+  )
+
   React.useEffect(() => {
     const ctx1 = dotsCanvasRef?.current?.getContext("2d")
     const ctx2 = spiralCanvasRef?.current?.getContext("2d")
+    const ctx3 = averageValueCanvasRef?.current?.getContext("2d")
 
-    if (ctx1 && ctx2) {
+    if (ctx1 && ctx2 && ctx3) {
       drawCenteredCross(ctx1)
+      drawAverageValue(ctx3)
       drawFibonacciProgression(ctx2)
     }
-  }, [bgSpiralPath, drawFibonacciProgression, progress])
+  }, [bgSpiralPath, drawFibonacciProgression, drawAverageValue, progress])
 
   return (
     <>
       <canvas
         ref={dotsCanvasRef}
+        width={CANVAS_SIZE}
+        height={CANVAS_SIZE}
+        className={styles["centered-cross"]}
+      ></canvas>
+      <canvas
+        ref={averageValueCanvasRef}
         width={CANVAS_SIZE}
         height={CANVAS_SIZE}
         className={styles["centered-cross"]}

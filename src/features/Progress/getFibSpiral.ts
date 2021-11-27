@@ -1,4 +1,4 @@
-import { FibonacciGenerator } from "features/Progress/FibonacciGenerator"
+import { fibonacciUtils } from "features/Progress/FibonacciGenerator"
 import { Coords } from "shared/types"
 import { getSpiralPath } from "./getSpiralPath"
 
@@ -8,26 +8,15 @@ export const getFibSpiral = (
   maxRadius: number
 ): Coords[] => {
   // 1 step = 1/4 turn or 90º
-  const stepsToSecondPoint = 4 // Steps to get to second point
+  const STEPS_TO_SECOND_POINT = 4 // Steps to get to second point
 
   const angleToSecondPoint = getAngle(firstPoint, secondPoint)
   // Find angle offset so that last point of the curve is at angle to secondPoint
-  const angleOffset = angleToSecondPoint - (stepsToSecondPoint * Math.PI) / 2
+  const angleOffset = angleToSecondPoint - (STEPS_TO_SECOND_POINT * Math.PI) / 2
   const distanceToSecondPoint = getDistance(firstPoint, secondPoint)
-  const fibonacci = new FibonacciGenerator()
-  const scale = getScale(distanceToSecondPoint, stepsToSecondPoint, fibonacci)
+  const scale = getScale(distanceToSecondPoint, STEPS_TO_SECOND_POINT)
 
-  return getSpiralPath(
-    fibonacci,
-    scale,
-    maxRadius,
-    angleOffset,
-    firstPoint,
-    0,
-    0,
-    0,
-    []
-  )
+  return getSpiralPath(scale, maxRadius, angleOffset, firstPoint, 0, 0, 0, [])
 }
 
 export const getAngle = (firstPoint: Coords, secondPoint: Coords) => {
@@ -48,13 +37,9 @@ export const getDistance = (firstPoint: Coords, secondPoint: Coords) => {
   return distance
 }
 
-export const getScale = (
-  distance: number,
-  stepsToNext: number,
-  fibonacci: FibonacciGenerator
-) => {
+export const getScale = (distance: number, stepsToNext: number) => {
   // Find scale so that the last point of the curve is at distance to secondPoint
-  const radiusToSecondPoint = fibonacci.getNumber(stepsToNext)
+  const radiusToSecondPoint = fibonacciUtils.getNumber(stepsToNext)
 
   return distance / radiusToSecondPoint
 }

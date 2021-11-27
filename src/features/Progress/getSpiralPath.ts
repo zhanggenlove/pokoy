@@ -1,6 +1,6 @@
 // TODO: refactor this
 
-import { FibonacciGenerator } from "features/Progress/FibonacciGenerator"
+import { fibonacciUtils } from "features/Progress/FibonacciGenerator"
 import { Coords } from "shared/types"
 
 // TODO: solve linter issues
@@ -8,7 +8,6 @@ import { Coords } from "shared/types"
 // NOTE: recursion function
 // eslint-disable-next-line max-statements
 export const getSpiralPath = (
-  fibonacci: FibonacciGenerator,
   scale: number,
   maxRadius: number,
   angleOffset: number,
@@ -24,7 +23,8 @@ export const getSpiralPath = (
     return path
   }
 
-  const precision = 40 // Lines to draw in each 1/4 turn
+  // NOTE: Lines to draw in each 1/4 turn
+  const precision = 40
   const nextAngle = angle + angleOffset
 
   const newX = scaledRadius * Math.cos(nextAngle) + firstPoint.x
@@ -36,11 +36,10 @@ export const getSpiralPath = (
   const newPath = [...path, newPoint]
   const newIter = iter + 1 // Next point
   const step = newIter / precision // 1/4 turns at point
-  const newRadius = fibonacci.getNumber(step) // Radius of Fibonacci spiral
+  const newRadius = fibonacciUtils.getNumber(step) // Radius of Fibonacci spiral
   const newAngle = (step * Math.PI) / 2 // Radians at point
 
   return getSpiralPath(
-    fibonacci,
     scale,
     maxRadius,
     angleOffset,
