@@ -107,7 +107,10 @@ export const Pokoy = ({ user }: { user: User }) => {
       sendSessionFromLocalStore(firestore, user, lastSession)
       window?.localStorage.removeItem(LOCAL_CACHE_FIELD_NAME)
     }
-  }, [user])
+
+    // NOTE: interval destructor
+    return () => window.clearInterval(currentTimerId || undefined)
+  }, [currentTimerId, user])
 
   return (
     <div className={styles["pokoy-wrapper"]}>
