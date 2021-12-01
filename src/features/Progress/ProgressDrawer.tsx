@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { getColorStyleSheetVarName, getColorFromCSSVar } from "./utils"
 import styles from "./Progress.module.css"
 import {
@@ -68,7 +68,7 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
       // NOTE: draw growing circle from center of spiral
       ctx.beginPath()
       ctx.strokeStyle = "white"
-      ctx.lineWidth = 13
+      ctx.lineWidth = 8
       ctx.arc(CENTER_POINT.x, CENTER_POINT.y, 250, 0, 2 * Math.PI)
       ctx.stroke()
 
@@ -79,17 +79,23 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
     [bgSpiralPath]
   )
 
-  React.useEffect(() => {
-    const ctx1 = dotsCanvasRef?.current?.getContext("2d")
+  useEffect(() => {
     const ctx2 = spiralCanvasRef?.current?.getContext("2d")
-    const ctx3 = averageValueCanvasRef?.current?.getContext("2d")
 
-    if (ctx1 && ctx2 && ctx3) {
-      drawCenteredCross(ctx1)
-      drawAverageValue(ctx3)
+    if (ctx2) {
       drawFibonacciProgression(ctx2)
     }
-  }, [bgSpiralPath, drawFibonacciProgression, drawAverageValue, progress])
+  }, [drawFibonacciProgression])
+
+  useEffect(() => {
+    const ctx1 = dotsCanvasRef?.current?.getContext("2d")
+    const ctx3 = averageValueCanvasRef?.current?.getContext("2d")
+
+    if (ctx1 && ctx3) {
+      drawCenteredCross(ctx1)
+      drawAverageValue(ctx3)
+    }
+  }, [drawAverageValue])
 
   return (
     <>
