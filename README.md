@@ -1,6 +1,6 @@
 [![wakatime](https://wakatime.com/badge/github/m0rtyn/pokoy.svg)](https://wakatime.com/badge/github/m0rtyn/pokoy)
 
-# Pokoy — the meditation game
+# Pokoy — Fibonacci timer for meditation
 
 ## Concept
 
