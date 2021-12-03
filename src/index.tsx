@@ -6,13 +6,14 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 import "./global.css"
 import { showAppVersion } from "shared/utils/show-app-version"
 import { onServiceWorkerUpdate } from "@3m1/service-worker-updater"
+import { AppRouter } from "app-router"
 
+const rootElement = document.getElementById("root")
 ReactDOM.render(
   <React.StrictMode>
-    {/* TODO: rename Home component to App */}
-    <App />
+    <AppRouter />
   </React.StrictMode>,
-  document.getElementById("root")
+  rootElement
 )
 
 showAppVersion()
