@@ -38,7 +38,7 @@ export const Wrapper = styled.div<Props>`
     animation-timing-function: ease-out;
 
     background-color: var(--c-background);
-    box-shadow: 0px 0px 0px 0.5rem currentcolor;
+    box-shadow: 0px 0px 0px 1rem currentcolor;
     border-radius: 50%;
     padding: 0px;
   }

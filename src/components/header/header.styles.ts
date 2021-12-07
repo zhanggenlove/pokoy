@@ -8,6 +8,6 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   color: var(--c-extra-gray);
-  font-size: small;
-  padding: 0 2rem;
+  font-size: 1.5rem;
+  padding: 0 4rem;
 `

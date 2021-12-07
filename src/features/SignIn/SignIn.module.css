@@ -1,13 +1,12 @@
 .sign-in-button.sign-in-button {
   background-color: var(--c-blue);
   margin: auto;
-  padding: 0.5rem 2rem;
+  padding: 1rem 4rem;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 13rem;
-  height: 13rem;
-  z-index: 1;
+  width: 26rem;
+  height: 26rem;
 }
 
 .sign-in-button:before {
@@ -15,8 +14,9 @@
 }
 
 .sign-in-button svg {
-  margin: 8px;
-  width: 5rem;
-  height: 5rem;
-  margin-bottom: 21px;
+  margin: 2rem;
+  width: 10rem;
+  height: 10rem;
+  /* NOTE: margin for centering like a timer */
+  margin-bottom: 2.5rem;
 }

@@ -6,9 +6,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
+  /* // TODO: extract breakpoints to constants */
   @media screen and (min-width: 500px) {
     .bottom-text {
-      font-size: large;
+      font-size: 4rem;
     }
   }
 `

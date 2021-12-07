@@ -25,7 +25,7 @@ export const ButtonWrapper = styled.button<Props>`
 
   /* NOTE: pseudo-element for opaque button border with dinamic color */
   &:after {
-    box-shadow: 0px 0px 0px 0.5rem currentcolor;
+    box-shadow: 0 0 0 1rem currentcolor;
     transform: scale(1);
 
     display: block;
