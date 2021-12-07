@@ -4,10 +4,11 @@ import styled from "styled-components"
 
 const StyledButton = styled.button`
   background-color: transparent;
-  padding: 1rem;
+  padding: 2rem;
   padding-left: 0;
   font-size: inherit;
   color: inherit;
+  cursor: pointer;
 `
 
 export const SignOut = () => {

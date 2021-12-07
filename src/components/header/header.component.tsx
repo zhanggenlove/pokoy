@@ -1,6 +1,6 @@
 import { useOnline } from "@saulpalv/useonline"
-import { OfflineStatus } from "components/header/offline-status"
-import { SignOut } from "components/header/sign-in"
+import { OfflineStatus } from "components/offline-status"
+import { SignOut } from "components/sign-in"
 import { Wrapper } from "./header.styles"
 
 interface Props {}

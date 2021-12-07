@@ -1,10 +1,10 @@
 import styled from "styled-components"
 
 export const Wrapper = styled.span`
-  font-size: medium;
+  font-size: 2rem;
   color: var(--c-extra-gray);
   margin-bottom: 0;
-  margin-top: 1.5rem;
+  margin-top: 3rem;
 `
 
 interface Props {

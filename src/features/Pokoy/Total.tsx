@@ -12,5 +12,6 @@ export const Total = ({ user }: { user: User }) => {
     })
   }, [user])
 
-  return <span style={{ color: "gray", fontSize: "xx-small" }}>{total}</span>
+  // TODO: remove inline styles
+  return <span style={{ color: "gray", fontSize: "1.5rem" }}>{total}</span>
 }
