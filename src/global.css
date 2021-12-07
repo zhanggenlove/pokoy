@@ -4,12 +4,15 @@
 
 html {
   height: 100vh;
+  font-size: 8px;
 }
 
 body {
   height: 100%;
   overflow-y: hidden;
   margin: 0 auto;
+  /* padding: initial; */
+  font-size: 2rem;
 }
 
 /* NOTE: for small devices or iframes */

@@ -4,8 +4,8 @@ export const Wrapper = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0;
-  padding: 1rem;
-  font-size: xx-small;
+  padding: 2rem;
+  font-size: 1rem;
   color: var(--c-extra-gray);
 `
 

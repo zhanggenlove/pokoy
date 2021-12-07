@@ -8,5 +8,5 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   color: var(--c-extra-gray);
-  font-size: small;
+  font-size: 1.5rem;
 `

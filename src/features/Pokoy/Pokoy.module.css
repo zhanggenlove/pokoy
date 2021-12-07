@@ -6,7 +6,7 @@
   /* NOTE: tricky rule that vertically center component relatively container
    * and syncronize with #FibLoader component
    */
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .top-text-wrapper {
@@ -16,6 +16,6 @@
 
 @media screen and (min-width: 500px) {
   .bottom-text {
-    font-size: large;
+    font-size: 4rem;
   }
 }
