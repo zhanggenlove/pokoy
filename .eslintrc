@@ -1,7 +1,6 @@
 {
-  "extends": [
-    "react-app",
-    "react-app/jest",
-    "eslint-config-code-complexity"
-  ]
+  "extends": ["react-app", "react-app/jest", "eslint-config-code-complexity"],
+  "rules": {
+    "no-warning-comments": ["error", { "terms": ["fixme"] }]
+  }
 }
