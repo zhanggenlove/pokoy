@@ -11,7 +11,7 @@ body {
   height: 100%;
   overflow-y: hidden;
   margin: 0 auto;
-  padding: initial;
+  /* padding: initial; */
   font-size: 2rem;
 }
 
