@@ -2,7 +2,7 @@ import { firestore } from "features/app/firebase-init"
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import React, { useEffect, useState } from "react"
 import { UserSerie } from "react-charts"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 import { StatsChart, PokoyData } from "../../components/stats-chart.component"
 
 const Wrapper = styled.div`

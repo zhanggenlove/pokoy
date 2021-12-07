@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { auth } from "features/app/firebase-init"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 const StyledButton = styled.button`
   background-color: transparent;
@@ -8,6 +8,7 @@ const StyledButton = styled.button`
   padding-left: 0;
   font-size: inherit;
   color: inherit;
+  cursor: pointer;
 `
 
 export const SignOut = () => {

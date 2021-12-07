@@ -1,12 +1,13 @@
 .sign-in-button.sign-in-button {
   background-color: var(--c-blue);
   margin: auto;
-  padding: 0.5em 2em;
+  padding: 0.5rem 2rem;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   width: 13rem;
   height: 13rem;
+  z-index: 1;
 }
 
 .sign-in-button:before {

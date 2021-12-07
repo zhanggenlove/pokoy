@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -9,4 +9,5 @@ export const Wrapper = styled.div`
   align-items: center;
   color: var(--c-extra-gray);
   font-size: small;
+  padding: 0 2rem;
 `

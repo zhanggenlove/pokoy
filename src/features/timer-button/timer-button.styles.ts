@@ -1,6 +1,6 @@
 import { REQUEST_STATUS_TO_COLOR_MAP } from "shared/constants"
 import { RequestStatus } from "shared/types"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 interface Props {
   requestStatus: RequestStatus
@@ -20,6 +20,8 @@ export const ButtonWrapper = styled.button<Props>`
   transition-property: color, transform;
   transition-duration: 0.3s;
   transition-timing-function: linear, ease-out;
+  will-change: color, transform;
+  z-index: 1;
 
   /* NOTE: pseudo-element for opaque button border with dinamic color */
   &:after {

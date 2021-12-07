@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { AxisOptions, Chart, UserSerie } from "react-charts"
 
 export type PokoyData = {
@@ -26,28 +26,28 @@ export const StatsChart: React.FC<Props> = ({ pokoyData }) => {
     () => [
       {
         min: 0,
-        max: 100,
+        max: 34,
         getValue: (datum) => datum.secondary as number,
       },
     ],
     []
   )
 
-  const isDark =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+  const isDark = useMemo(
+    () =>
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches,
+    []
+  )
 
   return (
-    <>
-      <Chart
-        options={{
-          data: pokoyData,
-          primaryAxis,
-          secondaryAxes,
-          padding: 32,
-          dark: isDark,
-        }}
-      />
-    </>
+    <Chart
+      options={{
+        data: pokoyData,
+        primaryAxis,
+        secondaryAxes,
+        dark: isDark,
+      }}
+    />
   )
 }

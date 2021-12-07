@@ -1,10 +1,11 @@
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 export const Wrapper = styled.span`
-  font-size: medium;
   color: var(--c-extra-gray);
-  margin-bottom: 0;
   margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: medium;
+  cursor: default;
 `
 
 interface Props {

@@ -8,7 +8,7 @@
 
 @media screen and (max-width: 300px) {
   .countdown {
-    font-size: large;
+    font-size: xx-large;
     margin: 0;
   }
 }
