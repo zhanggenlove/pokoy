@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase/firestore"
-import { DayData, RequestStatus, UserStats } from "./types"
+import { DayData, RequestStatus, UserStatsData } from "./types"
 
 export const fibonacciNums = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 export const FIB_NUMS_FOR_TIMER = [0, 1, 2, 3, 5, 8, 13, 21]
@@ -35,7 +35,7 @@ export const LOCAL_CACHE_FIELD_NAME = "pokoy-last-session"
 
 export const MAX_TIMER_SECONDS = 1260 // NOTE: equal to 21 minutes
 
-export const INIT_USER_STATS: UserStats = {
+export const INIT_USER_STATS: UserStatsData = {
   totalDuration: 0,
   count: 0,
   userId: "",

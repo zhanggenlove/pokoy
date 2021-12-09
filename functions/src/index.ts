@@ -12,10 +12,9 @@ exports.updateUserStats = functions.firestore
     const daySnapshotAfterChanges = changes.after
     const dayData = daySnapshotAfterChanges.data() as DayData
     
-    const userStatsDocId = dayData.statsRef.id
-    const userStatsRef = db.doc(`stats/${userStatsDocId}`)
+    const userStatsRef = dayData.statsRef
     const userStatsSnapshot = await userStatsRef.get()
-    const userStatsData = userStatsSnapshot.data()
+    const userStatsData = userStatsSnapshot?.data()
     
     const userStats = userStatsData || INIT_USER_STATS
     const totalDuration = userStats.totalDuration + dayData.totalDuration
