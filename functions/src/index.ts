@@ -4,7 +4,7 @@ import { DayData } from "./types"
 import { INIT_USER_STATS } from "./constants"
 
 admin.initializeApp()
-const db = admin.firestore()
+// const db = admin.firestore()
 
 exports.updateUserStats = functions.firestore
   .document("days/{dayId}")
