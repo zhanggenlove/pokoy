@@ -20,4 +20,4 @@ Just visit https://pokoy.netlify.app and play! Can be installed to homescreen as
 * [x] statistics
 * [x] auto updates
 * [ ] visualisation of statistics
-* [ ] onbording
+* [ ] onboarding
