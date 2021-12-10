@@ -1,17 +1,8 @@
 import { initializeApp } from "firebase/app"
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  getFirestore,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore"
+import { getFirestore } from "firebase/firestore"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import "firebase/firestore"
-import { INIT_USER_STATS } from "shared/constants"
+import { createUserStats } from "./createUserStats"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCi-EqHSZokQvSvemUnyQ_gFV6Aq3u44Ig",
@@ -26,40 +17,4 @@ const firebaseApp = initializeApp(firebaseConfig)
 export const auth = getAuth(firebaseApp)
 export const firestore = getFirestore(firebaseApp)
 
-// eslint-disable-next-line max-statements
-onAuthStateChanged(auth, async (user): Promise<void | never> => {
-  if (user === null) {
-    console.info("No authenticated user")
-    return
-  }
-
-  const userDocRef = doc(firestore, "users", user.uid)
-  const userDoc = await getDoc(userDocRef)
-  const newUserData = {
-    uid: user.uid,
-    name: user.displayName,
-    email: user.email,
-    statistics: INIT_USER_STATS,
-  }
-
-  const userData = userDoc.data()
-  if (!userData) {
-    await setDoc(userDocRef, newUserData)
-  }
-})
-
-export const getPokoysTotalDuration = async () => {
-  const q = query(
-    collection(firestore, "pokoys"),
-    where("user", "==", "/users/rnuYUc9vigMVMkYqs70cSDBTgSm2")
-  )
-
-  const querySnapshot = await getDocs(q)
-  const total = querySnapshot.docs.reduce(
-    (acc, doc) => acc + doc.data().duration,
-    0
-  )
-
-  console.log(total, querySnapshot.docs.length)
-  return total
-}
+onAuthStateChanged(auth, createUserStats)
