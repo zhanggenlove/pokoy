@@ -28,6 +28,7 @@ export const createUserStats = async (
     ...INIT_USER_STATS,
     userId: user.uid,
   }
+
   if (querySnapshot.empty) {
     const userStatsRef = doc(statsColRef)
     setDoc(userStatsRef, newUserStats)

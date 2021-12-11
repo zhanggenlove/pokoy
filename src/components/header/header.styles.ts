@@ -9,4 +9,9 @@ export const Wrapper = styled.div`
   align-items: center;
   color: var(--c-extra-gray);
   font-size: 1.5rem;
+  padding: 0 4rem;
+
+  @media screen and (min-width: 500px) {
+    padding: 0;
+  }
 `

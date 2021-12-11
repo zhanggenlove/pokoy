@@ -1,33 +1,31 @@
 import React, { useMemo } from "react"
 import { AxisOptions, Chart, UserSerie } from "react-charts"
 
-export type PokoyData = {
+export type PokoyChartData = {
+  // NOTE: timestamp
   primary: Date
+  // NOTE: meditation duration
   secondary: number
 }
 
 interface Props {
-  pokoyData: UserSerie<PokoyData>[]
+  pokoyData: UserSerie<PokoyChartData>[]
 }
 
 export const StatsChart: React.FC<Props> = ({ pokoyData }) => {
-  const primaryAxis = React.useMemo<
-    AxisOptions<typeof pokoyData[number]["data"][number]>
-  >(
+  const primaryAxis = React.useMemo<AxisOptions<PokoyChartData>>(
     () => ({
-      getValue: (datum) => datum.primary as Date,
+      getValue: (datum: PokoyChartData) => datum.primary,
     }),
     []
   )
 
-  const secondaryAxes = React.useMemo<
-    AxisOptions<typeof pokoyData[number]["data"][number]>[]
-  >(
+  const secondaryAxes = React.useMemo<AxisOptions<PokoyChartData>[]>(
     () => [
       {
         min: 0,
         max: 34,
-        getValue: (datum) => datum.secondary as number,
+        getValue: (datum: PokoyChartData) => datum.secondary,
       },
     ],
     []

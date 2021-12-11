@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions"
 import * as admin from "firebase-admin"
-import { DayData, UserStatsData, UserStatsData } from "./types"
+import { DayData, UserStatsData } from "./types"
 import { INIT_USER_STATS } from "./constants"
 
 admin.initializeApp()

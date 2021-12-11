@@ -1,10 +1,15 @@
 import styled from "styled-components/macro"
 
-export const Wrapper = styled.div`
+export const StatsWrapper = styled.div`
   height: 100%;
   width: 100%;
 `
-export const StyledSpan = styled.span`
-  display: inline-block;
+
+export const ChartWrapper = styled.div`
+  height: 80%;
+  width: 100%;
+`
+export const StyledSpan = styled.p`
+  /* display: inline-block; */
   color: var(--c-extra-gray);
 `

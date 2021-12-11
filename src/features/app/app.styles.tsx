@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 `
 
 export const SwipeableView = styled.div`
-  margin: 0 2rem;
+  margin: 0 4rem;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -25,6 +25,10 @@ export const SwipeableView = styled.div`
   position: relative;
   flex: 1 1 auto;
   height: 100%;
+
+  @media screen and (min-width: 500px) {
+    margin: 0;
+  }
 `
 
 export const ProgressSpiralWrapper = styled.div`
