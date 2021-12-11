@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions"
 import * as admin from "firebase-admin"
-import { DayData } from "./types"
+import { DayData, UserStatsData, UserStatsData } from "./types"
 import { INIT_USER_STATS } from "./constants"
 
 admin.initializeApp()
@@ -20,10 +20,11 @@ exports.updateUserStats = functions.firestore
     const totalDuration = userStats.totalDuration + dayData.totalDuration
     const userId = dayData.userId
     
-    const newUserStats = {
+    const newUserStats: UserStatsData = {
+      userId,
       totalDuration,
       count: userStats.count + 1,
-      userId,
+      firstMeditationDate: userStats.firstMeditationDate,
     }
 
     try {

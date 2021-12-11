@@ -39,6 +39,7 @@ export const INIT_USER_STATS: UserStatsData = {
   totalDuration: 0,
   count: 0,
   userId: "",
+  firstMeditationDate: null,
 }
 
 export const INIT_DAY_DATA: DayData = {

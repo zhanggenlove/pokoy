@@ -20,7 +20,7 @@ export interface UserStatsData {
   totalDuration: number
   count: number
   userId: string
-  firstMeditationDate?: Timestamp | null
+  firstMeditationDate: Timestamp | null
 }
 
 export interface DayData {
