@@ -32,12 +32,6 @@ export const getStatsForUser = async () => {
   const firstMeditationDate =
     (daysDocs?.[0]?.data() as DayData)?.timestamp || null
 
-  console.log(`
-    total: ${total}
-    count: ${count}
-    firstMeditationDate: ${firstMeditationDate?.toDate()?.toString()}
-  `)
-
   const statsQ = query(
     collection(firestore, "stats"),
     where("userId", "==", userId),
