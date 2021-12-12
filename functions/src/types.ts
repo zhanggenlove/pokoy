@@ -1,4 +1,4 @@
-// FIXME: duplicated types from pokoy-frontend sources
+// TODO: merge types with pokoy-frontend sources
 
 export interface PokoySession {
   duration: number;
