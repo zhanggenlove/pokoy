@@ -16,10 +16,11 @@ export interface PokoySession {
   userId: string
 }
 
-export interface UserStats {
+export interface UserStatsData {
   totalDuration: number
   count: number
   userId: string
+  firstMeditationDate?: Timestamp | null
 }
 
 export interface DayData {
