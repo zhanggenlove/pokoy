@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { auth } from "features/app/firebase-init"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
 const StyledButton = styled.button`
   background-color: transparent;

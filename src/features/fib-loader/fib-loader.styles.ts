@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components"
+import styled, { keyframes } from "styled-components/macro"
 
 const spinning = keyframes`
   from {
@@ -19,6 +19,8 @@ interface Props {
 export const Wrapper = styled.div<Props>`
   opacity: ${({ stillLoading }) => (stillLoading ? 1 : 0)};
   transition: opacity 1s;
+  will-change: opacity;
+  background-color: var(--c-background);
 
   display: flex;
   align-items: center;
@@ -26,8 +28,9 @@ export const Wrapper = styled.div<Props>`
 
   margin: auto;
   width: 100%;
+  height: 100%;
   position: absolute;
-  width: 100%;
+  z-index: 1;
 
   & > canvas {
     animation-name: ${spinning};

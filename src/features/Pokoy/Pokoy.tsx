@@ -14,7 +14,7 @@ import {
   sendSessionFromSeconds,
 } from "features/Pokoy/writeSessionToServer"
 import { Tip } from "features/tips"
-import styles from "./Pokoy.module.css"
+import { Wrapper, TopTextWrapper } from "./pokoy.styles"
 import { PokoySession, RequestStatus } from "shared/types"
 import { ProgressContainer } from "features/Progress/ProgressContainer"
 
@@ -110,10 +110,10 @@ export const Pokoy = ({ user }: { user: User }) => {
   }, [user])
 
   return (
-    <div className={styles["pokoy-wrapper"]}>
-      <p className={styles["top-text-wrapper"]}>
+    <Wrapper>
+      <TopTextWrapper>
         <Countdown seconds={timerDiff} />
-      </p>
+      </TopTextWrapper>
 
       <TimerButton
         handleTimerClick={handleClick}
@@ -124,6 +124,6 @@ export const Pokoy = ({ user }: { user: User }) => {
       </TimerButton>
 
       <Tip minutes={minutes} isTimerStarted={isStarted} />
-    </div>
+    </Wrapper>
   )
 }

@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.4.0) (2021-12-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* chart!
+
+### Features
+
+* chart! ([98eb5c3](https://github.com/m0rtyn/pokoy/commit/98eb5c3bf52e5f287f119fccc01d97bef1061dcf))
+* working implementation for user stats view ([3e7e177](https://github.com/m0rtyn/pokoy/commit/3e7e1774f4909e33f8233894607511f5f4a32092))
+
+
+### Bug Fixes
+
+* Consistency for sizes ([#29](https://github.com/m0rtyn/pokoy/issues/29)) ([05076d8](https://github.com/m0rtyn/pokoy/commit/05076d8a5146cce8c443d74f4162a1508ecceabb))
+* removing timestamp of first meditation on stats update ([42469fd](https://github.com/m0rtyn/pokoy/commit/42469fd4beca8e65a22edabfcb55a564a21da8cb))
+
 ## [0.3.11](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.3.11) (2021-12-12)
 
 ### Bug Fixes

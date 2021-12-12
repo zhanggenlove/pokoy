@@ -6,7 +6,8 @@
   color: var(--c-extra-gray);
 }
 
-@media screen and (max-width: 300px) {
+/* TODO: add breakpoint to css vars */
+@media screen and (max-width: 500px) {
   .countdown {
     font-size: 4rem;
     margin: 0;
