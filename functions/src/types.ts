@@ -1,4 +1,4 @@
-// FIXME: duplicated types from pokoy-frontend sources
+// TODO: merge types with pokoy-frontend sources
 
 export interface PokoySession {
   duration: number;
@@ -10,6 +10,7 @@ export interface PokoySession {
 }
 
 export interface UserStatsData {
+  firstMeditationDate: FirebaseFirestore.Timestamp | null
   totalDuration: number;
   count: number;
   userId: string;
