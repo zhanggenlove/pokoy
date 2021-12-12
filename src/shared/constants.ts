@@ -36,6 +36,7 @@ export const LOCAL_CACHE_FIELD_NAME = "pokoy-last-session"
 export const MAX_TIMER_SECONDS = 1260 // NOTE: equal to 21 minutes
 
 export const INIT_USER_STATS: UserStatsData = {
+  firstMeditationDate: null,
   totalDuration: 0,
   count: 0,
   userId: "",
