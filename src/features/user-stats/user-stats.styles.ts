@@ -10,6 +10,5 @@ export const ChartWrapper = styled.div`
   width: 100%;
 `
 export const StyledSpan = styled.p`
-  /* display: inline-block; */
   color: var(--c-extra-gray);
 `
