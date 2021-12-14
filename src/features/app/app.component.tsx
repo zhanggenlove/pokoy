@@ -49,7 +49,6 @@ export const App: React.FC = () => {
       >
         <SwipeableView>
           <FibLoader stillLoading={isStillLoading} />
-
           <Pokoy user={user as User} />
         </SwipeableView>
 
