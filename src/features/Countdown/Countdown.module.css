@@ -1,7 +1,7 @@
 .countdown {
   margin: 0;
   font-family: monospace;
-  font-size: 5rem;
+  font-size: 4rem;
   cursor: help;
   color: var(--c-extra-gray);
 }
@@ -9,7 +9,6 @@
 /* TODO: add breakpoint to css vars */
 @media screen and (max-width: 500px) {
   .countdown {
-    font-size: 4rem;
     margin: 0;
   }
 }

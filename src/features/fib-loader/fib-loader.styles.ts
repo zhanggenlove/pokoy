@@ -4,6 +4,7 @@ const spinning = keyframes`
   from {
     opacity: 0;
     transform: rotate(0deg);
+    box-shadow: inset 0px 0px 0px 20rem var(--c-gray);
   }
 
   50% {
@@ -13,6 +14,7 @@ const spinning = keyframes`
   100% {
     opacity: 1;
     transform: rotate(-360deg);
+    box-shadow: inset 0 0 0 0 var(--c-extra-gray);
   }
 `
 
@@ -23,11 +25,11 @@ interface Props {
 export const Wrapper = styled.div<Props>`
   /* NOTE: opacity transition for fading off after appearance in animation */
   opacity: ${({ stillLoading }) => (stillLoading ? 1 : 0)};
+  display: ${({ stillLoading }) => (stillLoading ? "flex" : "none")};
   transition: opacity 1s;
   will-change: opacity;
   background-color: var(--c-background);
 
-  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -43,8 +45,7 @@ export const Wrapper = styled.div<Props>`
     animation-duration: 0.5s;
     animation-timing-function: ease-out;
 
-    background-color: var(--c-background);
-    box-shadow: 0px 0px 0px 1rem currentcolor;
+    background: var(--c-background);
     border-radius: 50%;
     padding: 0px;
   }
