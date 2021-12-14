@@ -7,11 +7,14 @@ import "./global.css"
 import { showAppVersion } from "shared/utils/show-app-version"
 import { onServiceWorkerUpdate } from "@3m1/service-worker-updater"
 import { AppRouter } from "app-router"
+import { BrowserRouter } from "react-router-dom"
 
 const rootElement = document.getElementById("root")
 ReactDOM.render(
   <React.StrictMode>
-    <AppRouter />
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   </React.StrictMode>,
   rootElement
 )

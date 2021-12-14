@@ -1,7 +1,7 @@
 import styled from "styled-components/macro"
 
 export const Wrapper = styled.span`
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--c-extra-gray);
   margin-bottom: 0;
   cursor: default;

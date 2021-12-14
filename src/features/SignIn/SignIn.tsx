@@ -1,13 +1,19 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { auth } from "features/app/firebase-init"
 import styles from "./SignIn.module.css"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export const SignIn = () => {
+  let navigate = useNavigate()
+  let location = useLocation()
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider()
+    let from = location.state?.from?.pathname || "/"
 
     try {
-      return await signInWithPopup(auth, provider)
+      await signInWithPopup(auth, provider)
+      navigate(from, { replace: true })
     } catch (e) {
       console.error(e)
     }

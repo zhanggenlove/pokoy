@@ -6,6 +6,10 @@ const spinning = keyframes`
     transform: rotate(0deg);
   }
 
+  50% {
+    opacity: 1;
+  }
+
   100% {
     opacity: 1;
     transform: rotate(-360deg);
@@ -17,6 +21,7 @@ interface Props {
 }
 
 export const Wrapper = styled.div<Props>`
+  /* NOTE: opacity transition for fading off after appearance in animation */
   opacity: ${({ stillLoading }) => (stillLoading ? 1 : 0)};
   transition: opacity 1s;
   will-change: opacity;
@@ -26,15 +31,16 @@ export const Wrapper = styled.div<Props>`
   align-items: center;
   justify-content: center;
 
-  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  margin: 0 auto;
   width: 100%;
   height: 100%;
-  position: absolute;
-  z-index: 1;
+  z-index: 2;
 
   & > canvas {
     animation-name: ${spinning};
-    animation-duration: 0.3s;
+    animation-duration: 0.5s;
     animation-timing-function: ease-out;
 
     background-color: var(--c-background);

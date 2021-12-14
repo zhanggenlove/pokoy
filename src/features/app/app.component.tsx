@@ -9,14 +9,24 @@ import { Wrapper, SwipeableView, SwipeButton } from "./app.styles"
 import { Header } from "components/header/header.component"
 import SwipeableViews from "react-swipeable-views"
 import { UserStats } from "features/user-stats/user-stats"
+import { User } from "firebase/auth"
 
 export const App: React.FC = () => {
   const [user, loading] = useAuthState(auth)
   const [slideIndex, setSlideIndex] = useState(0)
 
-  const userNotExist = !loading && !user
   const isStillLoading = loading && !user
-  const userExist = !loading && user
+
+  const swipeableViewsStyles = {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    overflow: "hidden",
+  }
+  const swipeableViewsContainerStyles = {
+    width: "100%",
+  }
 
   return (
     <Wrapper>
@@ -32,29 +42,19 @@ export const App: React.FC = () => {
       </SwipeButton>
 
       <SwipeableViews
-        resistance
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-        containerStyle={{
-          width: "100%",
-        }}
+        style={swipeableViewsStyles}
+        containerStyle={swipeableViewsContainerStyles}
         index={slideIndex}
+        resistance
       >
         <SwipeableView>
           <FibLoader stillLoading={isStillLoading} />
 
-          {userNotExist && <SignIn />}
-          {userExist && <Pokoy user={user} />}
+          <Pokoy user={user as User} />
         </SwipeableView>
 
         <SwipeableView>
-          {userExist && <UserStats user={user} />}
-          {userNotExist && <span>Oops!</span>}
+          {!isStillLoading && <UserStats user={user as User} />}
         </SwipeableView>
       </SwipeableViews>
     </Wrapper>

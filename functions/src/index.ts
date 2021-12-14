@@ -28,7 +28,7 @@ exports.updateUserStats = functions.firestore
 
     try {
       await userStatsRef.set(newUserStats)
-      console.log("SUCCESS")
+      console.info("SUCCESS")
     } catch (e) {
       console.error("ERROR: ", e)
     }
