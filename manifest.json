@@ -1,7 +1,7 @@
 {
   "lang": "en",
   "short_name": "Pokoy",
-  "name": "Pokoy — the meditation game",
+  "name": "Fibonacci timer for meditation",
   "icons": [
     {
       "src": "favicon.ico",
@@ -9,19 +9,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "pokoy192.png",
+      "src": "pokoy-bold-192.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
-    {
-      "src": "pokoy512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
-  "version": "0.4.1"
+  "version": "0.4.3"
 }
