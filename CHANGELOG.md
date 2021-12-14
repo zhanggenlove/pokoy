@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.4.1) (2021-12-14)
+
+
+### Bug Fixes
+
+* Consistency for sizes ([#29](https://github.com/m0rtyn/pokoy/issues/29)) ([05076d8](https://github.com/m0rtyn/pokoy/commit/05076d8a5146cce8c443d74f4162a1508ecceabb))
+* user login ([8194e05](https://github.com/m0rtyn/pokoy/commit/8194e0599ae37421c2699997d0b043cfc90d9167))
+
 ## [0.4.0](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.4.0) (2021-12-12)
 
 
