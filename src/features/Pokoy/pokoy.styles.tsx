@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 
   /* // TODO: extract breakpoints to constants */
   @media screen and (min-width: 500px) {

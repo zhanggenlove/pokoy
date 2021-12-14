@@ -12,7 +12,6 @@ import { getFibSpiral } from "features/Progress/getFibSpiral"
 import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete"
 import { drawStrokeByPath } from "features/Progress/drawStrokeByPath"
 import { drawCircle } from "features/Progress/drawCircle"
-import { drawCenteredCross } from "./drawCenteredCross"
 
 interface Props {
   progress: number
@@ -21,7 +20,6 @@ interface Props {
 // TODO: refactor component
 export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
   const spiralCanvasRef = React.useRef<HTMLCanvasElement>(null)
-  const dotsCanvasRef = React.useRef<HTMLCanvasElement>(null)
 
   const bgSpiralPath = React.useMemo(() => {
     const numOfRendundantPoints = 220
@@ -57,23 +55,15 @@ export const ProgressDrawer: React.FC<Props> = ({ progress }) => {
   )
 
   React.useEffect(() => {
-    const ctx1 = dotsCanvasRef?.current?.getContext("2d")
-    const ctx2 = spiralCanvasRef?.current?.getContext("2d")
+    const ctx = spiralCanvasRef?.current?.getContext("2d")
 
-    if (ctx1 && ctx2) {
-      drawCenteredCross(ctx1)
-      drawFibonacciProgression(ctx2)
+    if (ctx) {
+      drawFibonacciProgression(ctx)
     }
   }, [bgSpiralPath, drawFibonacciProgression, progress])
 
   return (
     <>
-      <canvas
-        ref={dotsCanvasRef}
-        width={CANVAS_SIZE}
-        height={CANVAS_SIZE}
-        className={styles["centered-cross"]}
-      ></canvas>
       <canvas
         ref={spiralCanvasRef}
         width={CANVAS_SIZE}
