@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/m0rtyn/pokoy/compare/v0.4.1...v0.4.2) (2021-12-14)
+
+
+### Bug Fixes
+
+* starting animation has glitches ([c8fb2c4](https://github.com/m0rtyn/pokoy/commit/c8fb2c4d527fda061556943e161c043fc2fb77a8))
+* timer button not tappable ([6fd61c0](https://github.com/m0rtyn/pokoy/commit/6fd61c0dd9bd82f0082fcfc57e9bc738d2e2ccc4))
+
 ### [0.4.1](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.4.1) (2021-12-14)
 
 
