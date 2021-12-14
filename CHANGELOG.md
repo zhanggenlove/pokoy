@@ -2,14 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.4.3](https://github.com/m0rtyn/pokoy/compare/v0.4.2...v0.4.3) (2021-12-14)
+## [0.4.3](https://github.com/m0rtyn/pokoy/compare/v0.4.2...v0.4.3) (2021-12-14)
 
 
 ### Bug Fixes
 
 * change app name and icon in manifest.json ([6fd96eb](https://github.com/m0rtyn/pokoy/commit/6fd96ebd7cafac8eea57c59438895f0add99026f))
 
-### [0.4.2](https://github.com/m0rtyn/pokoy/compare/v0.4.1...v0.4.2) (2021-12-14)
+## [0.4.2](https://github.com/m0rtyn/pokoy/compare/v0.4.1...v0.4.2) (2021-12-14)
 
 
 ### Bug Fixes
@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file. See [standa
 * starting animation has glitches ([c8fb2c4](https://github.com/m0rtyn/pokoy/commit/c8fb2c4d527fda061556943e161c043fc2fb77a8))
 * timer button not tappable ([6fd61c0](https://github.com/m0rtyn/pokoy/commit/6fd61c0dd9bd82f0082fcfc57e9bc738d2e2ccc4))
 
-### [0.4.1](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.4.1) (2021-12-14)
+## [0.4.1](https://github.com/m0rtyn/pokoy/compare/v0.3.6...v0.4.1) (2021-12-14)
 
 
 ### Bug Fixes
