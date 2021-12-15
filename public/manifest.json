@@ -1,6 +1,6 @@
 {
   "short_name": "Pokoy",
-  "name": "Pokoy app for the habit of relaxation",
+  "name": "Fibonacci timer for meditation",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,15 +8,10 @@
       "type": "image/x-icon"
     },
     {
-      "src": "pokoy192.png",
+      "src": "pokoy-bold-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
-    {
-      "src": "pokoy512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
   ],
   "start_url": ".",
   "display": "standalone",
