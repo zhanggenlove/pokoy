@@ -8,10 +8,25 @@
       "type": "image/x-icon"
     },
     {
-      "src": "pokoy-bold-192.png",
+      "src": "pokoy-logo@1x.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "pokoy-logo@0.75x.png",
       "type": "image/png",
       "sizes": "192x192"
-    }
+    },
+    {
+      "src": "pokoy-logo@0.5x.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "pokoy-logo@2x.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
   ],
   "start_url": ".",
   "display": "standalone",
