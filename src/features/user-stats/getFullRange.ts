@@ -1,6 +1,8 @@
 import { Timestamp } from "firebase/firestore"
 import { DayData } from "shared/types"
 
+// TODO: add try/catch
+// TODO: add tests
 // TODO: extract to constants
 const MILLIS_IN_DAY = 1000 * 3600 * 24
 
@@ -27,10 +29,9 @@ function fillRangeWithMissedDays(
     prevMeditationDate.toMillis() + MILLIS_IN_DAY
   )
   const isCurrentDateEqualToExpected = day.timestamp.isEqual(expectedDate)
+  const accWithMissedDays = countAndPushMissedDays(acc, day, expectedDate)
 
-  return !isCurrentDateEqualToExpected
-    ? countAndPushMissedDays(acc, day, expectedDate)
-    : [...acc, day]
+  return !isCurrentDateEqualToExpected ? accWithMissedDays : [...acc, day]
 }
 
 function getNextDay(date: Timestamp) {
@@ -42,8 +43,9 @@ function countAndPushMissedDays(
   day: DayData,
   expectedDate: Timestamp
 ) {
-  const dateDiffInDays =
+  const dateDiffInDays = Math.ceil(
     (day.timestamp.toMillis() - expectedDate.toMillis()) / MILLIS_IN_DAY
+  )
 
   const missedDays = Array(dateDiffInDays)
     .fill(null)
