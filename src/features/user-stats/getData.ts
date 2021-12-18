@@ -4,12 +4,13 @@ import { User } from "firebase/auth"
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { UserSerie } from "react-charts"
 import { DayData } from "shared/types"
+import {
+  SECONDARY_AXIS_LABEL,
+  SECS_IN_DAY,
+  TERTIARY_AXIS_LABEL,
+} from "./constants"
 import { getFullRange } from "./getFullRange"
 import { UserStatsData } from "./user-stats"
-
-const SECONDARY_AXIS_LABEL = "Daily duration of meditation"
-const TERTIARY_AXIS_LABEL = "Total duration of meditation"
-const SECS_IN_DAY = 1000 * 3600 * 24
 
 export const fetchAndsetChartData = async (
   setDataToComponentState: (data: UserSerie<PokoyChartData>[]) => void,
@@ -78,18 +79,9 @@ function transformDayDataToChartData(
       secondary: d.totalDuration,
     })
   )
-  const totalMeditationAsAxis: PokoyChartData[] =
-    daysWithMeditationsAsAxis.reduce((acc, d, i) => {
-      const prevTotal = acc[i - 1]?.secondary || 0
-      const total = d.secondary / 60 + prevTotal
-      return [
-        ...acc,
-        {
-          primary: d.primary,
-          secondary: total,
-        },
-      ]
-    }, [] as PokoyChartData[])
+  const totalDurationsAxisData: PokoyChartData[] = getTotalDurationsAsAxisData(
+    daysWithMeditationsAsAxis
+  )
 
   const secondaryAxisData = {
     label: SECONDARY_AXIS_LABEL,
@@ -98,11 +90,27 @@ function transformDayDataToChartData(
   }
   const tertiaryAxisData = {
     label: TERTIARY_AXIS_LABEL,
-    data: totalMeditationAsAxis,
+    data: totalDurationsAxisData,
   }
 
   const chartData = [secondaryAxisData, tertiaryAxisData]
   return chartData
+}
+
+function getTotalDurationsAsAxisData(
+  daysWithMeditationsAsAxis: PokoyChartData[]
+): PokoyChartData[] {
+  return daysWithMeditationsAsAxis.reduce((acc, d, i) => {
+    const prevTotal = acc[i - 1]?.secondary || 0
+    const total = d.secondary / 60 + prevTotal
+    return [
+      ...acc,
+      {
+        primary: d.primary,
+        secondary: total,
+      },
+    ]
+  }, [] as PokoyChartData[])
 }
 
 async function fetchDays(user: User): Promise<DayData[]> {

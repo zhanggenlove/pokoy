@@ -2,10 +2,12 @@ import { firestore } from "features/app/firebase-init"
 import {
   collection,
   doc,
+  DocumentData,
   getDocs,
   limit,
   orderBy,
   query,
+  QueryDocumentSnapshot,
   setDoc,
   where,
 } from "firebase/firestore"
@@ -22,13 +24,7 @@ export const getStatsForUser = async () => {
 
   const querySnapshot = await getDocs(daysQ)
   const daysDocs = querySnapshot.docs
-  const total = daysDocs.reduce((acc, doc) => {
-    const dayTotal = (doc.data() as DayData).meditations.reduce(
-      (acc, med) => acc + med.duration,
-      0
-    )
-    return acc + dayTotal
-  }, 0)
+  const total = getTotalDurationFromDays(daysDocs)
 
   const count = daysDocs.length
   const firstMeditationDate =
@@ -53,4 +49,15 @@ export const getStatsForUser = async () => {
   }
 
   setDoc(userStatsRef, newUserStatsData)
+}
+function getTotalDurationFromDays(
+  daysDocs: QueryDocumentSnapshot<DocumentData>[]
+) {
+  return daysDocs.reduce((acc, doc) => {
+    const dayTotal = (doc.data() as DayData).meditations.reduce(
+      (acc, med) => acc + med.duration,
+      0
+    )
+    return acc + dayTotal
+  }, 0)
 }
