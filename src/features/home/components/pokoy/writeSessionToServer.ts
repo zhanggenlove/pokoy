@@ -1,6 +1,6 @@
 import { User } from "@firebase/auth"
 import { formatISO } from "date-fns"
-import { firestore } from "features/app/firebase-init"
+import { firestore } from "features/home/firebase-init"
 import {
   collection,
   CollectionReference,

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete"
+import { getFloorFibonacciDiscrete } from "shared/components/progress/getFloorFibonacciDiscrete"
 import { fibonacciNums } from "shared/constants"
 import { StageWrapper, Wrapper } from "./tips.styles"
 

@@ -8,10 +8,10 @@ import {
   HALF_SIZE,
   SECOND_POINT,
 } from "./progress.constants"
-import { getFibSpiral } from "features/Progress/getFibSpiral"
-import { getFloorFibonacciDiscrete } from "features/Progress/getFloorFibonacciDiscrete"
-import { drawStrokeByPath } from "features/Progress/drawStrokeByPath"
-import { drawCircle } from "features/Progress/drawCircle"
+import { getFibSpiral } from "shared/components/progress/getFibSpiral"
+import { getFloorFibonacciDiscrete } from "shared/components/progress/getFloorFibonacciDiscrete"
+import { drawStrokeByPath } from "shared/components/progress/drawStrokeByPath"
+import { drawCircle } from "shared/components/progress/drawCircle"
 
 interface Props {
   progress: number

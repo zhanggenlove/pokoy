@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { auth } from "features/app/firebase-init"
+import { auth } from "features/home/firebase-init"
 import styled from "styled-components/macro"
 
 const StyledButton = styled.button`

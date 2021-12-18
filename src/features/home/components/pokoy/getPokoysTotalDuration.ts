@@ -1,4 +1,4 @@
-import { firestore } from "features/app/firebase-init"
+import { firestore } from "features/home/firebase-init"
 import {
   collection,
   doc,

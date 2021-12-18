@@ -1,14 +1,14 @@
 import React, { useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { auth } from "features/app/firebase-init"
-import { Pokoy } from "features/Pokoy/Pokoy"
-import { FibLoader } from "features/fib-loader"
-import { AppUpdater } from "features/app-updater"
+import { auth } from "features/home/firebase-init"
+import { Pokoy } from "features/home/components/pokoy/Pokoy"
+import { FibLoader } from "features/home/components/fib-loader"
 import { Wrapper, SwipeableView, SwipeButton } from "./app.styles"
-import { Header } from "components/header/header.component"
 import SwipeableViews from "react-swipeable-views"
 import { UserStats } from "features/user-stats/user-stats"
 import { User } from "firebase/auth"
+import { Header } from "./components/header/header.component"
+import { AppUpdater } from "./components/app-updater"
 
 export const App: React.FC = () => {
   const [user, loading] = useAuthState(auth)

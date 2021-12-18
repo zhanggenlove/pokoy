@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { auth } from "features/app/firebase-init"
+import { auth } from "features/home/firebase-init"
 import styles from "./SignIn.module.css"
 import { useLocation, useNavigate } from "react-router-dom"
 

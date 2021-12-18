@@ -5,18 +5,18 @@ import {
   MAX_TIMER_SECONDS,
   SECS_IN_MIN,
 } from "shared/constants"
-import { firestore } from "features/app/firebase-init"
+import { firestore } from "features/home/firebase-init"
 import { useState, useEffect, useCallback } from "react"
-import { TimerButton } from "features/timer-button/timer-button.component"
-import { Countdown } from "features/Countdown/Countdown"
+import { TimerButton } from "features/home/components/pokoy/timer-button/timer-button.component"
+import { Countdown } from "features/home/components/pokoy/countdown/Countdown"
 import {
   sendSessionFromLocalStore,
   sendSessionFromSeconds,
-} from "features/Pokoy/writeSessionToServer"
-import { Tip } from "features/tips"
-import { Wrapper, TopTextWrapper } from "./pokoy.styles"
+} from "features/home/components/pokoy/writeSessionToServer"
+import { Tip } from "features/home/components/pokoy/tips"
 import { PokoySession, RequestStatus } from "shared/types"
-import { ProgressContainer } from "features/Progress/ProgressContainer"
+import { ProgressContainer } from "shared/components/progress/ProgressContainer"
+import { TopTextWrapper, Wrapper } from "./pokoy.styles"
 
 // TODO: refactor component
 export const Pokoy = ({ user }: { user: User }) => {

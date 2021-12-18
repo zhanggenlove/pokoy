@@ -1,4 +1,7 @@
-import { CENTER_POINT, HALF_SIZE } from "features/Progress/progress.constants"
+import {
+  CENTER_POINT,
+  HALF_SIZE,
+} from "shared/components/progress/progress.constants"
 import { getColorFromCSSVar } from "./utils"
 
 // TODO: solve linter issue

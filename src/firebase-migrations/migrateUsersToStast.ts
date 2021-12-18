@@ -5,7 +5,7 @@ import {
   QueryDocumentSnapshot,
   setDoc,
 } from "@firebase/firestore"
-import { firestore } from "features/app/firebase-init"
+import { firestore } from "features/home/firebase-init"
 import { doc, getDocs, query } from "firebase/firestore"
 import { PokoySession, UserStatsData } from "shared/types"
 

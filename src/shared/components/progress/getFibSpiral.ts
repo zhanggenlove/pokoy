@@ -1,4 +1,4 @@
-import { FibonacciGenerator } from "features/Progress/FibonacciGenerator"
+import { FibonacciGenerator } from "shared/components/progress/FibonacciGenerator"
 import { Coords } from "shared/types"
 import { getSpiralPath } from "./getSpiralPath"
 

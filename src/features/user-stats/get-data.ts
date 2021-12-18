@@ -1,4 +1,4 @@
-import { firestore } from "features/app/firebase-init"
+import { firestore } from "features/home/firebase-init"
 import { User } from "firebase/auth"
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { UserSerie } from "react-charts"

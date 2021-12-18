@@ -1,5 +1,5 @@
 import { User } from "@firebase/auth"
-import { firestore } from "features/app/firebase-init"
+import { firestore } from "features/home/firebase-init"
 import { doc, getDoc } from "firebase/firestore"
 
 export const getUserStats = async (user: User) => {

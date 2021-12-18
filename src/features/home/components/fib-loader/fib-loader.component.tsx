@@ -1,5 +1,5 @@
 import React from "react"
-import { ProgressContainer } from "features/Progress/ProgressContainer"
+import { ProgressContainer } from "shared/components/progress/ProgressContainer"
 import { Wrapper } from "./fib-loader.styles"
 
 type Props = {

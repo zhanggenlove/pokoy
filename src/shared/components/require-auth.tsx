@@ -1,4 +1,4 @@
-import { auth } from "features/app/firebase-init"
+import { auth } from "features/home/firebase-init"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useLocation, Navigate } from "react-router-dom"
 

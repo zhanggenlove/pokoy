@@ -1,4 +1,4 @@
-import { getColorFromCSSVar } from "features/Progress/utils"
+import { getColorFromCSSVar } from "shared/components/progress/utils"
 import React, { useMemo } from "react"
 import { AxisOptions, Chart, UserSerie } from "react-charts"
 import { FIB_STYLE_SHEET_COLORS_NAMES } from "shared/constants"
