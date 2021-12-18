@@ -1,8 +1,8 @@
-import { RequireAuth } from "components/require-auth"
-import { App } from "features/app"
+import { App } from "features/home"
 import { DevPage } from "features/dev-page"
 import { SignInPage } from "features/sign-in-page/sign-in-page"
 import { Route, Routes } from "react-router-dom"
+import { RequireAuth } from "shared/components/require-auth"
 
 export const AppRouter = () => (
   <Routes>

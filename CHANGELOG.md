@@ -2,13 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.4.7](https://github.com/m0rtyn/pokoy/compare/v0.4.4...v0.4.7) (2021-12-15)
+## [0.4.8](https://github.com/m0rtyn/pokoy/compare/v0.4.4...v0.4.8) (2021-12-18)
 
-### [0.4.6](https://github.com/m0rtyn/pokoy/compare/v0.4.5...v0.4.6) (2021-12-15)
 
-### [0.4.5](https://github.com/m0rtyn/pokoy/compare/v0.4.4...v0.4.5) (2021-12-15)
+### Bug Fixes
 
-### [0.4.4](https://github.com/m0rtyn/pokoy/compare/v0.4.1...v0.4.4) (2021-12-15)
+* solve review issues ([7cc71d1](https://github.com/m0rtyn/pokoy/commit/7cc71d1868fff49841fabba216c0237b6756e1a3))
+* styling of stats numbers ([bbf5222](https://github.com/m0rtyn/pokoy/commit/bbf5222a7a0cd45efcf4b6a98cd610b37b796b8d))
+
+## [0.4.7](https://github.com/m0rtyn/pokoy/compare/v0.4.4...v0.4.7) (2021-12-15)
+
+## [0.4.6](https://github.com/m0rtyn/pokoy/compare/v0.4.5...v0.4.6) (2021-12-15)
+
+## [0.4.5](https://github.com/m0rtyn/pokoy/compare/v0.4.4...v0.4.5) (2021-12-15)
+
+## [0.4.4](https://github.com/m0rtyn/pokoy/compare/v0.4.1...v0.4.4) (2021-12-15)
 
 ## [0.4.3](https://github.com/m0rtyn/pokoy/compare/v0.4.2...v0.4.3) (2021-12-14)
 

@@ -1,4 +1,5 @@
 import { DocumentData, DocumentReference, Timestamp } from "firebase/firestore"
+export * from "./chart.types"
 
 export interface Coords {
   x: number
@@ -16,13 +17,6 @@ export interface PokoySession {
   userId: string
 }
 
-export interface UserStatsData {
-  firstMeditationDate: Timestamp | null
-  totalDuration: number
-  count: number
-  userId: string
-}
-
 export interface DayData {
   timestamp: Timestamp
   totalDuration: number
@@ -30,6 +24,14 @@ export interface DayData {
   meditations: PokoySession[]
   userId: string
   statsRef?: DocumentReference<DocumentData>
+}
+
+export interface UserStatsData {
+  // TODO: remove nullable values from this field
+  firstMeditationDate: Timestamp | null
+  totalDuration: number
+  count: number
+  userId: string
 }
 
 export enum RequestStatus {

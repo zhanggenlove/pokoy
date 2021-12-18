@@ -1,4 +1,4 @@
-import { SignIn } from "features/SignIn/SignIn"
+import { SignIn } from "features/sign-in-page/sign-in/SignIn"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
