@@ -11,15 +11,12 @@ import {
 import { getFullRange } from "./get-full-range"
 
 // TODO: refactor this module
-export const fetchAndsetChartData = async (
-  setDataToComponentState: (data: UserSerie<PokoyChartData>[]) => void,
-  user: User
-): Promise<void> => {
+export const fetchChartData = async (user: User) => {
   const daysWithMeditations = await fetchDays(user)
   const dayDataFullRange = getFullRange(daysWithMeditations)
   const chartData = transformDayDataToChartData(dayDataFullRange)
 
-  return setDataToComponentState(chartData)
+  return chartData
 }
 
 export const getStats = async (
