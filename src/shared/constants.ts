@@ -6,6 +6,19 @@ export const FIB_NUMS_FOR_TIMER = [0, 1, 2, 3, 5, 8, 13, 21]
 export const fibonacciMinsToSeconds = [60, 120, 180, 300, 480, 780, 1260]
 export const fibonacciPercents = [1, 2, 3, 6, 9, 15, 24, 38, 62, 100]
 
+export enum CSSColorVariables {
+  RED = "--c-red",
+  ORANGE = "--c-orange",
+  YELLOW = "--c-yellow",
+  GREEN = "--c-green",
+  BLUE = "--c-blue",
+  PURPLE = "--c-purple",
+  PINK = "--c-pink",
+  GRAY = "--c-gray",
+  EXTRA_GRAY = "--c-extra-gray",
+  SPIRAL = "--c-spiral",
+}
+
 export const FIB_STYLE_SHEET_COLORS_NAMES = [
   "--c-red",
   "--c-orange",
