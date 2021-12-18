@@ -1,7 +1,6 @@
 import { Timestamp } from "firebase/firestore"
 import { DayData } from "shared/types"
 
-// TODO: add try/catch
 // TODO: add tests
 // TODO: extract to constants
 const MILLIS_IN_DAY = 1000 * 3600 * 24
@@ -11,7 +10,6 @@ export const getFullRange = (daysWithMeditations: DayData[]) => {
   const daysWithMeditationsAndEmptyDays = daysWithMeditations
     .reverse()
     .reduce(fillRangeWithMissedDays, [] as DayData[])
-    .reverse()
 
   return daysWithMeditationsAndEmptyDays
 }

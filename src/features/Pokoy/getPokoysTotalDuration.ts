@@ -21,12 +21,14 @@ export const getStatsForUser = async () => {
   )
 
   const querySnapshot = await getDocs(daysQ)
-
   const daysDocs = querySnapshot.docs
-  const total = daysDocs.reduce(
-    (acc, doc) => acc + (doc.data() as DayData).totalDuration,
-    0
-  )
+  const total = daysDocs.reduce((acc, doc) => {
+    const dayTotal = (doc.data() as DayData).meditations.reduce(
+      (acc, med) => acc + med.duration,
+      0
+    )
+    return acc + dayTotal
+  }, 0)
 
   const count = daysDocs.length
   const firstMeditationDate =

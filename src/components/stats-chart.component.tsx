@@ -25,7 +25,12 @@ export const StatsChart: React.FC<Props> = ({ pokoyData }) => {
       {
         min: 0,
         max: 34,
+        getValue: (datum) => datum.secondary,
+        elementType: "area",
+      },
+      {
         getValue: (datum: PokoyChartData) => datum.secondary,
+        id: "2",
       },
     ],
     []
@@ -38,9 +43,12 @@ export const StatsChart: React.FC<Props> = ({ pokoyData }) => {
     []
   )
 
+  const defaultColors = ["#337ea9", "#448361"]
+
   return (
     <Chart
       options={{
+        defaultColors,
         data: pokoyData,
         primaryAxis,
         secondaryAxes,
