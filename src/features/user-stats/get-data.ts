@@ -1,17 +1,16 @@
-import { PokoyChartData } from "components/stats-chart.component"
 import { firestore } from "features/app/firebase-init"
 import { User } from "firebase/auth"
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { UserSerie } from "react-charts"
-import { DayData } from "shared/types"
+import { DayData, PokoyChartData, UserStatsData } from "shared/types"
 import {
   SECONDARY_AXIS_LABEL,
   SECS_IN_DAY,
   TERTIARY_AXIS_LABEL,
 } from "./constants"
-import { getFullRange } from "./getFullRange"
-import { UserStatsData } from "./user-stats"
+import { getFullRange } from "./get-full-range"
 
+// TODO: refactor this module
 export const fetchAndsetChartData = async (
   setDataToComponentState: (data: UserSerie<PokoyChartData>[]) => void,
   user: User

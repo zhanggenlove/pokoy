@@ -2,6 +2,8 @@ import { getColorFromCSSVar } from "features/Progress/utils"
 import React, { useMemo } from "react"
 import { AxisOptions, Chart, UserSerie } from "react-charts"
 import { FIB_STYLE_SHEET_COLORS_NAMES } from "shared/constants"
+import { PokoyChartData } from "shared/types"
+import { Wrapper } from "./stats-chart.styles"
 
 // TODO: extract to types and constants
 const totalChartConfig = {
@@ -15,13 +17,6 @@ const dayMeditationChartConfig = {
   getValue: (datum: PokoyChartData) => datum.secondary,
   id: "2",
 } as AxisOptions<PokoyChartData>
-
-export type PokoyChartData = {
-  // NOTE: timestamp
-  primary: Date
-  // NOTE: meditation duration
-  secondary: number
-}
 
 interface Props {
   pokoyData: UserSerie<PokoyChartData>[]
@@ -56,14 +51,16 @@ export const StatsChart: React.FC<Props> = ({ pokoyData }) => {
   }, [])
 
   return (
-    <Chart
-      options={{
-        defaultColors,
-        data: pokoyData,
-        primaryAxis,
-        secondaryAxes,
-        dark: isDark,
-      }}
-    />
+    <Wrapper>
+      <Chart
+        options={{
+          defaultColors,
+          data: pokoyData,
+          primaryAxis,
+          secondaryAxes,
+          dark: isDark,
+        }}
+      />
+    </Wrapper>
   )
 }
