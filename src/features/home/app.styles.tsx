@@ -43,20 +43,3 @@ export const AnimationWrapper = styled.div`
   align-items: center;
   margin-bottom: 3em;
 `
-
-export const OfflineStatusWrapper = styled.span``
-
-export const SwipeButton = styled.button`
-  position: absolute;
-  top: 0;
-  background-color: transparent;
-  color: var(--c-foreground);
-  box-shadow: 0 0 0 0.25rem var(--c-extra-gray);
-  transition: none;
-  margin: 1rem;
-  margin-top: 2rem;
-
-  @media screen and (any-pointer: none) {
-    display: none;
-  }
-`
