@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/m0rtyn/pokoy/compare/v0.5.1...v0.5.2) (2021-12-19)
+
+
+### Bug Fixes
+
+* app width for mobile devices ([ef96372](https://github.com/m0rtyn/pokoy/commit/ef96372e3d39a8826f5c51c195bfa7a1293435b4))
+* extend clickable area for button ([d047169](https://github.com/m0rtyn/pokoy/commit/d0471697a6bcc362ad08c79ec076bf11c7c70acb))
+* remove text selection for user stats numberst ([0daa393](https://github.com/m0rtyn/pokoy/commit/0daa393d6f9a5b9dc00aedcfd33f3bb4ca55f573))
+
 ## [0.5.1](https://github.com/m0rtyn/pokoy/compare/v0.5.0...v0.5.1) (2021-12-19)
 
 ## [0.5.0](https://github.com/m0rtyn/pokoy/compare/v0.4.4...v0.5.0) (2021-12-19)
