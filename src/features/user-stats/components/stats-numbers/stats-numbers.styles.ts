@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   color: var(--c-extra-gray);
   margin-bottom: 2rem;
+  cursor: default;
+  user-select: none;
 `
 
 export const StyledSpan = styled.span``
