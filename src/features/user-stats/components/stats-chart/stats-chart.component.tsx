@@ -1,6 +1,6 @@
 import { getColorFromCSSVar } from "shared/components/progress/utils"
 import React, { useMemo } from "react"
-import { AxisOptions, Chart, UserSerie } from "react-charts"
+import { Chart, AxisOptions, UserSerie } from "react-charts"
 import { CSSColorVariables } from "shared/constants"
 import { PokoyChartData } from "shared/types"
 import { Wrapper } from "./stats-chart.styles"

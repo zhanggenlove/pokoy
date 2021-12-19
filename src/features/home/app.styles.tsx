@@ -14,21 +14,16 @@ export const Wrapper = styled.div`
       justify-content: flex-end;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    & {
+      margin: 0 4rem;
+    }
+  }
 `
 
 export const SwipeableView = styled.div`
-  margin: 0 4rem;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  position: relative;
-  flex: 1 1 auto;
   height: 100%;
-
-  @media screen and (min-width: 500px) {
-    margin: 0;
-  }
 `
 
 export const ProgressSpiralWrapper = styled.div`
