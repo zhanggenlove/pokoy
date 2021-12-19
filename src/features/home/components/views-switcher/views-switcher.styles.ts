@@ -9,6 +9,7 @@ export const SwipeButton = styled.button`
   background-color: transparent;
   color: var(--c-foreground);
   transition: none;
+  padding: 1rem 2rem;
   margin: 1rem;
   margin-bottom: 6rem;
   border-radius: 3rem;
