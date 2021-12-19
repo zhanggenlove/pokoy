@@ -2,10 +2,10 @@ import styled from "styled-components/macro"
 
 export const Wrapper = styled.div`
   display: flex;
-  height: 100%;
   text-align: center;
   justify-content: center;
   position: relative;
+  width: 100%;
   height: 100%;
 
   /* NOTE: for iframe in Notion */
