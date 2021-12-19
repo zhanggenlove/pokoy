@@ -2,10 +2,10 @@ import styled from "styled-components/macro"
 
 export const Wrapper = styled.div`
   display: flex;
-  height: 100%;
   text-align: center;
   justify-content: center;
   position: relative;
+  width: 100%;
   height: 100%;
 
   /* NOTE: for iframe in Notion */
@@ -14,21 +14,16 @@ export const Wrapper = styled.div`
       justify-content: flex-end;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    & {
+      margin: 0 4rem;
+    }
+  }
 `
 
 export const SwipeableView = styled.div`
-  margin: 0 4rem;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  position: relative;
-  flex: 1 1 auto;
   height: 100%;
-
-  @media screen and (min-width: 500px) {
-    margin: 0;
-  }
 `
 
 export const ProgressSpiralWrapper = styled.div`
