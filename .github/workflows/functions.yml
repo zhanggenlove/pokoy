@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          node-version: 12
+          node-version: 14
       - run: yarn build-functions
       - name: Deploy to Firebase
         uses: BIGG-Kaymo/deploy-firebase-functions@v1.0.1
